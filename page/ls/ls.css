@@ -1,0 +1,77 @@
+.tab,form{
+	display: flex;
+}
+body{
+	background: url(../../img/bg/guitar.jpg);
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+/*@keyframes shake
+{
+	from {
+		background: rgba(0,0,0,0.3);
+	}
+	to {
+		background: rgba(0,0,0,0);
+	}
+}*/
+#mask{
+	height: 100%;
+	background: rgba(0,0,0,0.3);
+	/*animation: shake 2s linear infinite alternate;*/
+}
+#container{
+	width: 360px;
+	height: 500px;
+	background-color: white;
+	margin: 100px auto;
+	border-radius: 1em;
+	border: 1px solid #d8dfea;
+	text-align: center;
+}
+.title{
+	height: 150px;
+	font-size: 50px;
+	line-height: 150px;
+}
+.tab{
+	justify-content: space-between;
+	align-items: center;
+	height: 45px;
+	width: 200px;
+	margin: 0 auto;
+}
+.tab_item {
+	width: 80px;
+	text-align: center;
+}
+.tab_item.active,.tab_item:hover{
+	color: #3b8cff;
+}
+.slider {
+	height: 3px;
+	background-color:#3b8cff;
+	width: 80px;
+	margin-left: 80px;
+}
+.main{
+	width: 200%;
+	height: 170px;
+	overflow: hidden;
+	margin: 30px 0;
+}
+.login,.sign{
+	width: 50%;
+	float: left;
+	height: 100%;
+}
+form{
+	flex-direction: column;
+	box-sizing: border-box;
+	justify-content: space-around;
+	align-items: center;
+	height: 100%;
+}
+button,input{
+	width: 280px;
+}
