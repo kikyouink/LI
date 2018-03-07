@@ -25,6 +25,7 @@ div {
 	cursor: default;
 }
 button,input{
+	display: block;
 	font: 15px 微软雅黑;
 	outline: none;
 	border-radius: 1em;
