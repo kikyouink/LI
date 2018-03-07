@@ -1,7 +1,7 @@
 (function(){
 	$(document).ready(function(){
 		
-		$('li').click(function() {
+		$('.slide').click(function() {
 			$('.active').removeClass('active');
 			$(this).addClass('active');
 			
@@ -50,5 +50,58 @@
 				'move_target': $box
 			});
 		});
+		let music={
+			audio:null,
+			init:function(src){
+				var audio=$('<audio></audio>');
+				var source=audio.put('source');
+				source.attr({
+					src:src,
+					type:'audio/mp3'
+				});
+				music.audio=audio;
+				return audio;
+			},
+			play:function(src){
+				music.init(src).trigger('play');
+			},
+			pause:function(src){
+				music.audio.trigger('pause');
+			}
+			
+		}
+		function play(src){
+			audio.trigger('play');
+		}
+		let songInfo={
+			singer:'linjunjie',
+			name:'zuichibi',
+		}
+		let src='assest/music/'+songInfo.singer+'/'+songInfo.name+'.mp3';
+		$('.play').click(function(){
+			$(this).toggleClass('active');
+			if($(this).hasClass('active')){
+				music.play(src);
+			}
+			else music.pause();
+		});
+		//上一张
+		var cArr=["p5","p4","p3","p2","p1"];
+		var index=0;
+		//下一张
+		function nextimg(){
+			cArr.push(cArr[0]);
+			cArr.shift();
+			$('.pic').each(function(i,e){
+				$(e).removeClass().addClass('pic '+cArr[i]);
+			})
+			index++;
+			if (index>4) {
+				index=0;
+			}
+		}
+		$('.page').click(function(){
+			nextimg();
+		})
 	});
 }())

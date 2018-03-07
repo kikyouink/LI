@@ -1,5 +1,5 @@
 /*---------------flex------------------*/
-li,.playGroup,.playStatus {
+.slide,.playGroup,.playStatus {
 	display: flex;
 	align-items: center;
 }
@@ -127,7 +127,7 @@ li,.playGroup,.playStatus {
 	margin-left: 10px;
 }
 
-li {
+.slide{
 	position: relative;
 	height: 40px;
 	color: gray;
@@ -138,7 +138,7 @@ li {
 	transform: translate(0px,0px);
 }
 
-li.active,li:hover {
+.slide.active,.slide:hover {
 	background: #e4e9ec;
 	transform: translateX(7px);
 }
@@ -183,6 +183,76 @@ li.active,li:hover {
 .page.active {
 	display: block;
 }
+/*-----------发现音乐-----------*/
+.box{
+	width: 100%;
+	height: 230px;
+	border-bottom: 1px solid gray;
+}
+.list{
+	height: 200px;
+	overflow: hidden;
+	position: relative;
+}
+.pic{
+	position: absolute;
+	top: 0;
+	left: calc(50% - 250px);
+	list-style: none;
+	opacity: 0;
+	transition: all 0.3s ease-out;
+}
+.picimg{
+	width: 500px;
+	height: 200px;
+	border:none;
+	float: left;
+}
+.p1{
+	transform:translate(-300px,0) scale(0.81);
+}
+.p2{
+	transform:translate(-150px,0) scale(0.81);
+	opacity: 0.8;
+	z-index: 2;
+}
+.p3{
+	transform:translate(0,0) scale(1);
+	opacity: 1;
+	z-index: 3;
+}
+.p4{
+	transform:translate(150px,0) scale(0.81);
+	opacity: 0.8;
+	z-index: 2;
+}
+.p5{
+	transform:translate(300px,0) scale(0.81);
+}
+
+.buttons{
+	width: 100%;
+	height: 30px;
+	margin: 0 auto;
+	text-align: center;
+	padding-top: 5px;
+}
+.buttons a{
+	display: inline-block;
+	width: 35px;
+	height: 5px;
+	padding-top: 4px;
+	cursor: pointer;
+}
+.buttons span{
+	display: block;
+	width: 35px;
+	height: 1px;
+	background: red;
+}
+.blue{
+	background: blue;
+}
 /*---------------底部------------------*/
 #footer {
 	height: 50px;
@@ -211,6 +281,7 @@ li.active,li:hover {
 .playStatus {
 	padding-left: 20px;
 	line-height: 50px;
+	height: 100%;
 }
 
 .time.l {
