@@ -6,7 +6,7 @@ body{
 	background-size: cover;
 	background-repeat: no-repeat;
 }
-/*@keyframes shake
+@keyframes shake
 {
 	from {
 		background: rgba(0,0,0,0.3);
@@ -14,11 +14,11 @@ body{
 	to {
 		background: rgba(0,0,0,0);
 	}
-}*/
+}
 #mask{
 	height: 100%;
 	background: rgba(0,0,0,0.3);
-	/*animation: shake 2s linear infinite alternate;*/
+	animation: shake 3s linear infinite alternate;
 }
 #container{
 	width: 360px;

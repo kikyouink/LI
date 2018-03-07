@@ -100,4 +100,12 @@ $.fn.extend({
 			return div;
 		}
 	},
+	getParent: function(num) {
+		var parent;
+		while(num--) {
+			if(parent) parent = parent.parent();
+			else parent = $(this).parent();
+		}
+		return parent;
+	},
 })

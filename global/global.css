@@ -86,7 +86,7 @@ button[disabled]{
 	line-height: 50px;
 	box-shadow: 0 0 5px;
 	text-align: center;
-	background-color: inherit;
+	background-color: #eff4f8;
 	top:-110px;
 }
 .alert{

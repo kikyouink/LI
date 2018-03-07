@@ -1,124 +1,235 @@
 /*---------------flex------------------*/
-li{
+li,.playGroup,.playStatus {
 	display: flex;
-	align-items:center;
+	align-items: center;
 }
 /*---------------主容器------------------*/
-#container{
+#container {
+	position: absolute;
+	top: 100px;
+	left: calc(50% - 537px);
 	width: 1075px;
 	height: 687px;
-	margin: 100px auto 0 auto;
-	position: relative;
 	border-radius: 20px;
 	box-shadow: 10px 10px 50px;
+	color: gray;
 }
 /*---------------导航栏------------------*/
-#header{
+#header {
 	position: absolute;
-	height: 62px;
 	width: 100%;
+	height: 62px;
 	border-bottom: 1px solid #d8dfea;
 	background: #f97398;
 	color: white;
 }
-.nav{
-	width:100%;
-	height: 40px;
-	margin-top: -20px;
-	top:50%;
+
+.nav {
 	position: absolute;
+	top: 50%;
+	margin-top: -20px;
+	width: 100%;
+	height: 40px;
 }
 /*-----------logo与头部菜单----------*/
-.logo,.header_menu{
+.logo,.header_menu {
 	height: 100%;
-	line-height: 40px;
 	vertical-align: middle;
+	line-height: 40px;
 }
-.logo{
+
+.logo {
+	float: left;
 	margin-left: 30px;
 	width: 200px;
-	float: left;
 	background: url(../../assest/img/logo/logo.png);
 }
-.header_menu{
+
+.header_menu {
 	margin-left: 50px;
 	font-size: 20px;
 }
 /*-----------搜索框、人物、图标----------*/
-.searchBar,.person{
+.searchBar,.person {
 	float: left;
 }
-.icon{
-	height: 40px;
+
+.fun {
 	float: right;
+	margin-right: 10px;
 }
-.searchBar,.person,.icon{
+
+.searchBar,.person,.fun {
 	height: 100%;
 }
 /*-----------搜索框----------*/
-.search{
-	height: 30px;
+.search {
 	margin-top: 5px;
+	height: 30px;
 }
 /*-----------人物----------*/
-.person{
+.person {
 	margin-left: 350px;
 }
-.personInfo{
+
+.personInfo {
 	display: none;
 }
-.avatar{
+
+.avatar {
 	border-radius: 100%;
 	background: url(../../assest/img/avatar/avatar.png);
 }
-/*-----------icon----------*/
-.skin,.setting,.download{
+/*-----------fun----------*/
+.skin,.setting,.msg {
 	float: left;
-	background: url(../../assest/img/icon/setting.png);
-	
 }
-.avatar,.skin,.setting,.download{
-	display:block;
+
+.skin {
+	background: url(../../assest/img/icon/skin.png);
+}
+
+.msg {
+	background: url(../../assest/img/icon/msg.png);
+}
+
+.setting {
+	background: url(../../assest/img/icon/setting.png);
+}
+
+.avatar,.skin,.setting,.msg,.play,.next {
+	display: block;
+	margin: 4px 20px 0 20px;
 	width: 32px;
 	height: 32px;
 	background-position: center center;
 	background-repeat: no-repeat;
-	margin: 4px 20px 0 20px;
 }
 
 /*---------------主要界面------------------*/
-#main{
-	height: calc(100% - 64px);
+#main {
 	margin-top: 64px;
+	height: calc(100% - 114px);
 }
-#slideMenu,#info{
+
+#slideMenu,#info {
 	height: 100%;
 }
-/*---------------侧边栏------------------*/
-#slideMenu{
+/*------------侧边栏-----------*/
+#slideMenu {
+	position: relative;
+	float: left;
 	width: 200px;
 	border-right: 1px solid #d8dfea;
-	float: left;
-	
 }
-span{
+
+.title {
 	margin-left: 10px;
 }
-li{
-	height: 40px;
-	line-height: 40px;
-	color:gray;
-	text-indent: 10px;
+
+li {
 	position: relative;
+	height: 40px;
+	color: gray;
+	text-indent: 10px;
+	font-size: 15px;
+	line-height: 40px;
+	transition: all 0.3s ease-out;
+	transform: translate(0px,0px);
 }
-li.active,li:hover{
+
+li.active,li:hover {
 	background: #e4e9ec;
+	transform: translateX(7px);
 }
-img{
+
+.icon {
 	margin: 0 18px;
 }
-/*---------------信息栏------------------*/
-#info{
+
+.playing {
+	position: absolute;
+	bottom: 0;
+	padding: 5px;
+	width: 100%;
+	border-top: 1px solid #d8dfea;
+}
+
+.musicPic,.musicInfo {
+	height: 50px;
+}
+
+.musicPic {
+	float: left;
+	width: 50px;
+	background: url(../../assest/img/singer/linjunjie.png);
+	background-size: cover;
+}
+
+.songName,.singer {
+	display: block;
+	margin: 2px 0px 2px 15px;
+}
+/*-----------信息栏-----------*/
+#info {
 	background: white;
 }
-	
+
+.page {
+	display: none;
+	height: 100%;
+}
+
+.page.active {
+	display: block;
+}
+/*---------------底部------------------*/
+#footer {
+	height: 50px;
+	border-top: 1px solid #d8dfea;
+}
+/*-----------按钮组-----------*/
+.playGroup {
+	float: left;
+	width: 200px;
+	height: 100%;
+	justify-content: space-around;
+}
+
+.play,.next {
+	display: block;
+}
+
+.play {
+	background: url(../../assest/img/icon/play.png);
+}
+
+.next {
+	background: url(../../assest/img/icon/next.png);
+}
+/*-----------进度条-----------*/
+.playStatus {
+	padding-left: 20px;
+	line-height: 50px;
+}
+
+.time.l {
+	margin-right: 50px;
+}
+
+.time.r {
+	margin-left: 50px;
+}
+
+.progress {
+	float: left;
+	width: 500px;
+	height: 2px;
+	background-color: darkgray;
+}
+
+.progress.active {
+	width: 200px;
+	height: 2px;
+	background-color: red;
+}
