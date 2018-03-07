@@ -21,8 +21,6 @@
 							'top': e.pageY - posix.y,
 							'left': e.pageX - posix.x,
 						});
-						console.log(e.pageY - posix.y);
-						console.log(e.pageX - posix.x);
 					};
 
 				callback.call(this, e, posix);
