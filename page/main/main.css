@@ -108,7 +108,7 @@
 
 /*---------------主要界面------------------*/
 #main {
-	margin-top: 64px;
+	margin-top: 62px;
 	height: calc(100% - 114px);
 }
 
@@ -240,18 +240,12 @@
 .buttons a{
 	display: inline-block;
 	width: 35px;
-	height: 5px;
-	padding-top: 4px;
+	height: 2px;
 	cursor: pointer;
-}
-.buttons span{
-	display: block;
-	width: 35px;
-	height: 1px;
-	background: red;
+	background-color: gray;
 }
 .blue{
-	background: blue;
+	background: #3b8cff !important;
 }
 /*---------------底部------------------*/
 #footer {

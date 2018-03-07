@@ -85,6 +85,7 @@
 			}
 			else music.pause();
 		});
+		
 		//上一张
 		var cArr=["p5","p4","p3","p2","p1"];
 		var index=0;
@@ -96,12 +97,12 @@
 				$(e).removeClass().addClass('pic '+cArr[i]);
 			})
 			index++;
-			if (index>4) {
-				index=0;
-			}
+			var active=$('.buttons').children().eq(index);
+			active.addClass('blue').siblings().removeClass('blue');
+			if (index>3) index=-1;
 		}
-		$('.page').click(function(){
+		setInterval(function(){
 			nextimg();
-		})
+		},2000)
 	});
 }())
