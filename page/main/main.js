@@ -2,7 +2,7 @@
 	$(document).ready(function(){
 		
 		$('.slide').click(function() {
-			$('.active').removeClass('active');
+			$('.slide.active,.page.active').removeClass('active');
 			$(this).addClass('active');	
 			var index=$(this).index();
 			if($(this).getParent(2).hasClass('myMusic')) index+=4;
@@ -163,7 +163,7 @@
 				},
 			};
 			flash.init();
-			flash.next(2000);
+			flash.next(3000);
 		}());
 	});
 }())
