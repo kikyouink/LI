@@ -31,7 +31,7 @@ button,input{
 	outline: none;
 	border-radius: 1em;
 	border:none;
-	height: 40px;
+	/*height: 40px;*/
 }
 input{
 	background-color:#e4e9ec ;
@@ -115,7 +115,7 @@ button[disabled]{
 input[type=range] {
     -webkit-appearance: none;
     border-radius: 10px; /*这个属性设置使填充进度条时的图形为圆角*/
-	height: 32px;
+	height: 20px;
 	background: inherit;
 	width: 100px;
 }
@@ -133,7 +133,7 @@ input[type=range]::-webkit-slider-thumb {
     -webkit-appearance: none;
     height: 15px;
     width: 15px;
-	margin-top: -6px;
+	margin-top: -6.5px;
     background: #ffffff; 
     border-radius: 50%; /*外观设置为圆形*/
    border: solid 1px darkgray;

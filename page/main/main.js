@@ -37,7 +37,7 @@
 				});
 			}
 		});
-		$('#header').on('mousedown',function(e) {
+		$('#header,#playInterface').on('mousedown',function(e) {
 			var $box = $('#container');
 			var position = $box.position();
 			$box.posix = {
@@ -65,7 +65,9 @@
 					return audio[0];
 				},
 				loadData:function(songInfo){
-					let src='assest/music/'+songInfo.singer+'/'+songInfo.name+'.mp3';
+					var name=songInfo.singer+' - '+songInfo.name;
+					console.log('当前正在播放:'+name);
+					let src='assest/music/'+songInfo.singer+'/'+name+'.mp3';
 					return src;
 				},
 				play:function(src){
@@ -74,8 +76,10 @@
 					}
 					else{
 						music.init(src).play();
+						music.loop();
 					}
-					music.volSlowUp();
+					var vol=$('.vc')[0].value;
+					music.volSlowUp(vol);
 				},
 				pause:function(src){
 					var pa=function(){
@@ -83,19 +87,28 @@
 					}
 					music.volSlowDown(pa);
 				},
-				volSlowUp:function(){
+				volChange:function(value){
+					if(!window.audio) return ;
+					window.audio.volume=value;
+				},
+				volSlowUp:function(limit){
 					window.audio.volume=0;
 					var timer=setInterval(function(){
-						window.audio.volume+=0.05;
-						if(window.audio.volume>=0.95){
+						if(window.audio.volume<Math.min(limit,0.95)){
+							window.audio.volume+=0.05;
+							window.uping=false;
+						}
+						else{
 							clearInterval(timer);
 						}
 					},60);
 				},
 				volSlowDown:function(callback){
 					var timer=setInterval(function(){
-						window.audio.volume-=0.05;
-						if(window.audio.volume<=0.05){
+						if(window.audio.volume>0.05){
+							window.audio.volume-=0.05;
+						}
+						else{
 							clearInterval(timer);
 							callback();
 						}
@@ -110,35 +123,54 @@
 						var sec=parseInt(time%60);
 						return [min,sec].join(':').replace(/\b(\d)\b/g, "0$1");
 					}
-					setInterval(function(){
-						var all=window.audio.duration;
+					//HTML5读取音频有延迟，故不能一开始就获取总时间
+					setInterval(function(all){
+						var all=window.audio.duration;					
 						var status=window.audio.currentTime;
 						var precent=status/all;
 						var width=500*precent;
 						$('.progress.active').css('width',width);
 						$(".time.l").text(getTime(status));
 						$(".time.r").text(getTime(all));
-					},1000);
+					},500);
+				},
+				showInterface:function(){
+					$('#playInterface').fadeIn();
+				},
+				hideInterface:function(){
+					$('#playInterface').fadeOut();
 				}
-				
-				
 			}
+			//播放
 			$('.play').click(function(){
 				let songInfo={
-					singer:'linjunjie',
-					name:'zuichibi',
+					singer:'许嵩',
+					name:'单人旅途',
 				}
 				var src=music.loadData(songInfo);
 				$(this).toggleClass('active');
 				if($(this).hasClass('active')){
 					$(this).css('background','url(assest/img/icon/pause.png)');
+					$('.rotate').css('animation-play-state','running');
 					music.play(src);
 				}
 				else{
 					$(this).css('background','url(assest/img/icon/play.png)');
+					$('.rotate').css('animation-play-state','paused');
 					music.pause();
 				}
 			});
+			$('.musicPic').click(function(){
+				music.showInterface();
+			});
+			$('.back').click(function(){
+				music.hideInterface();
+			});
+			//调整音量
+			$('.vc').on('input propertychange',function(){
+               var value=$(this)[0].value;
+			   music.volChange(value);
+            })
 		}());
 		//轮播组件
 		(function(){
