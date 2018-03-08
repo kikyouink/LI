@@ -10,6 +10,7 @@
 ::-webkit-scrollbar {
 	display: none;
 }
+
 html,
 body {
 	margin: 0;
@@ -23,7 +24,7 @@ div {
 	-ms-user-select: none;
 	user-select: none;
 	cursor: default;
-}
+}   
 button,input{
 	display: block;
 	font: 15px 微软雅黑;
@@ -111,4 +112,30 @@ button[disabled]{
 	height: 100%;
 	border-radius: 0 !important;
 }
-
+input[type=range] {
+    -webkit-appearance: none;
+    border-radius: 10px; /*这个属性设置使填充进度条时的图形为圆角*/
+	height: 32px;
+	background: inherit;
+	width: 100px;
+}
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+} 
+input[type=range]::-webkit-slider-runnable-track {
+    height: 3px;
+	background: darkgray;
+}
+input[type=range]:focus {
+    outline: none;
+}
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 15px;
+    width: 15px;
+	margin-top: -6px;
+    background: #ffffff; 
+    border-radius: 50%; /*外观设置为圆形*/
+   border: solid 1px darkgray;
+    box-shadow: 0 .125em .125em #3b4547; /*添加底部阴影*/
+}
