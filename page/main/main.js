@@ -3,8 +3,7 @@
 		
 		$('.slide').click(function() {
 			$('.active').removeClass('active');
-			$(this).addClass('active');
-			
+			$(this).addClass('active');	
 			var index=$(this).index();
 			if($(this).getParent(2).hasClass('myMusic')) index+=4;
 			$('.page').eq(index).addClass('active');
@@ -50,59 +49,121 @@
 				'move_target': $box
 			});
 		});
-		let music={
-			audio:null,
-			init:function(src){
-				var audio=$('<audio></audio>');
-				var source=audio.put('source');
-				source.attr({
-					src:src,
-					type:'audio/mp3'
-				});
-				music.audio=audio;
-				return audio;
-			},
-			play:function(src){
-				music.init(src).trigger('play');
-			},
-			pause:function(src){
-				music.audio.trigger('pause');
+		//视频组件
+		//音乐组件
+		(function(){
+			let music={
+				init:function(src){
+					var audio=$('<audio></audio>');
+					var source=audio.put('source');
+					source.attr({
+						src:src,
+						type:'audio/mp3'
+					});
+					window.audio=audio[0];
+					music.updateProgress();
+					return audio[0];
+				},
+				loadData:function(songInfo){
+					let src='assest/music/'+songInfo.singer+'/'+songInfo.name+'.mp3';
+					return src;
+				},
+				play:function(src){
+					if(window.audio){
+						window.audio.play();
+					}
+					else{
+						music.init(src).play();
+					}
+					music.volSlowUp();
+				},
+				pause:function(src){
+					var pa=function(){
+						window.audio.pause();
+					}
+					music.volSlowDown(pa);
+				},
+				volSlowUp:function(){
+					window.audio.volume=0;
+					var timer=setInterval(function(){
+						window.audio.volume+=0.05;
+						if(window.audio.volume>=0.95){
+							clearInterval(timer);
+						}
+					},60);
+				},
+				volSlowDown:function(callback){
+					var timer=setInterval(function(){
+						window.audio.volume-=0.05;
+						if(window.audio.volume<=0.05){
+							clearInterval(timer);
+							callback();
+						}
+					},60);
+				},
+				loop:function(){
+					window.audio.loop=true;
+				},
+				updateProgress:function(){
+					var getTime=function(time){
+						var min=parseInt(time/60);
+						var sec=parseInt(time%60);
+						return [min,sec].join(':').replace(/\b(\d)\b/g, "0$1");
+					}
+					setInterval(function(){
+						var all=window.audio.duration;
+						var status=window.audio.currentTime;
+						var precent=status/all;
+						var width=500*precent;
+						$('.progress.active').css('width',width);
+						$(".time.l").text(getTime(status));
+						$(".time.r").text(getTime(all));
+					},1000);
+				}
+				
+				
 			}
-			
-		}
-		function play(src){
-			audio.trigger('play');
-		}
-		let songInfo={
-			singer:'linjunjie',
-			name:'zuichibi',
-		}
-		let src='assest/music/'+songInfo.singer+'/'+songInfo.name+'.mp3';
-		$('.play').click(function(){
-			$(this).toggleClass('active');
-			if($(this).hasClass('active')){
-				music.play(src);
-			}
-			else music.pause();
-		});
-		
-		//上一张
-		var cArr=["p5","p4","p3","p2","p1"];
-		var index=0;
-		//下一张
-		function nextimg(){
-			cArr.push(cArr[0]);
-			cArr.shift();
-			$('.pic').each(function(i,e){
-				$(e).removeClass().addClass('pic '+cArr[i]);
-			})
-			index++;
-			var active=$('.buttons').children().eq(index);
-			active.addClass('blue').siblings().removeClass('blue');
-			if (index>3) index=-1;
-		}
-		setInterval(function(){
-			nextimg();
-		},2000)
+			$('.play').click(function(){
+				let songInfo={
+					singer:'linjunjie',
+					name:'zuichibi',
+				}
+				var src=music.loadData(songInfo);
+				$(this).toggleClass('active');
+				if($(this).hasClass('active')){
+					$(this).css('background','url(assest/img/icon/pause.png)');
+					music.play(src);
+				}
+				else{
+					$(this).css('background','url(assest/img/icon/play.png)');
+					music.pause();
+				}
+			});
+		}());
+		//轮播组件
+		(function(){
+			var flash={
+				init:function(){
+					
+				},
+				next:function(time){
+					var index=0;
+					var li=["p5","p4","p3","p2","p1"];
+					setInterval(function(){
+						index++;
+						li.push(li[0]);
+						li.shift();
+						$('.pic').each(function(i,e){
+							$(e).removeClass().addClass('pic '+li[i]);
+						})
+						var active=$('.buttons').children().eq(index);
+						active.addClass('blue').siblings().removeClass('blue');
+						if (index>3) index=-1;
+					},time);
+				},
+			};
+			flash.init();
+			flash.next(2000);
+		}());
 	});
 }())

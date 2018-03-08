@@ -1,5 +1,5 @@
 /*---------------flex------------------*/
-.slide,.playGroup,.playStatus {
+.slide,.playGroup,.playStatus,.playVolume,.header_menu,.person,.fun{
 	display: flex;
 	align-items: center;
 }
@@ -20,7 +20,7 @@
 	width: 100%;
 	height: 62px;
 	border-bottom: 1px solid #d8dfea;
-	background: #F95683;
+	background: #F94073;
 	color: white;
 }
 
@@ -50,13 +50,11 @@
 	font-size: 20px;
 }
 /*-----------搜索框、人物、图标----------*/
-.searchBar,.person {
-	float: left;
-}
-
 .fun {
 	float: right;
-	margin-right: 10px;
+	width: 200px;
+	justify-content: space-around;
+	margin-left: 40px;
 }
 
 .searchBar,.person,.fun {
@@ -97,9 +95,8 @@
 	background: url(../../assest/img/icon/setting.png);
 }
 
-.avatar,.skin,.setting,.msg,.play,.next {
+.avatar,.skin,.setting,.msg,.previous,.play,.next,.voice{
 	display: block;
-	margin: 4px 20px 0 20px;
 	width: 32px;
 	height: 32px;
 	background-position: center center;
@@ -188,6 +185,7 @@
 	width: 100%;
 	height: 230px;
 	border-bottom: 1px solid gray;
+	padding-top: 15px;
 }
 .list{
 	height: 200px;
@@ -199,7 +197,6 @@
 	top: 0;
 	left: calc(50% - 250px);
 	list-style: none;
-	opacity: 0;
 	transition: all 0.3s ease-out;
 }
 .picimg{
@@ -210,24 +207,25 @@
 }
 .p1{
 	transform:translate(-300px,0) scale(0.81);
+	opacity: 0;
 }
 .p2{
 	transform:translate(-150px,0) scale(0.81);
-	opacity: 0.8;
 	z-index: 2;
+	filter: brightness(0.8);
 }
 .p3{
 	transform:translate(0,0) scale(1);
-	opacity: 1;
 	z-index: 3;
 }
 .p4{
 	transform:translate(150px,0) scale(0.81);
-	opacity: 0.8;
 	z-index: 2;
+	filter: brightness(0.5);
 }
 .p5{
 	transform:translate(300px,0) scale(0.81);
+	opacity: 0;
 }
 
 .buttons{
@@ -247,23 +245,35 @@
 .blue{
 	background: #3b8cff !important;
 }
+/*-----------错误界面-----------*/
+.error{
+	height: 100%;
+	width: 100%;
+	font-size: 50px;
+	text-align: center;
+	line-height: 200px;
+}
 /*---------------底部------------------*/
 #footer {
 	height: 50px;
 	border-top: 1px solid #d8dfea;
 }
+.playGroup,.playStatus,.playVolume{
+	height: 100%;
+	justify-content: space-around;
+}
 /*-----------按钮组-----------*/
 .playGroup {
 	float: left;
 	width: 200px;
-	height: 100%;
-	justify-content: space-around;
 }
 
-.play,.next {
+.previous,.play,.next {
 	display: block;
 }
-
+.previous{
+	background: url(../../assest/img/icon/previous.png);
+}
 .play {
 	background: url(../../assest/img/icon/play.png);
 }
@@ -273,28 +283,36 @@
 }
 /*-----------进度条-----------*/
 .playStatus {
-	padding-left: 20px;
-	line-height: 50px;
-	height: 100%;
-}
-
-.time.l {
-	margin-right: 50px;
-}
-
-.time.r {
-	margin-left: 50px;
+	width: 700px;
+	float: left;
 }
 
 .progress {
-	float: left;
 	width: 500px;
-	height: 2px;
+	height: 3px;
 	background-color: darkgray;
 }
 
 .progress.active {
-	width: 200px;
-	height: 2px;
+	width: 0px;
+	background-color: red;
+}
+.playVolume{
+	justify-content: center;
+}
+.voice{
+	background: url(../../assest/img/icon/voice.png);
+	background-position: center center;
+	background-repeat: no-repeat;
+}
+
+.vp {
+	width: 100px;
+	height: 3px;
+	background-color: darkgray;
+}
+
+.vp.active {
+	width: 0px;
 	background-color: red;
 }

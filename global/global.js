@@ -57,7 +57,7 @@ var net={
 	},
 }
 $.fn.extend({
-	put: function(type, className, innerHTML) {	
+	put: function(type, className, innerHTML,num) {	
 		className = className||'';
 		innerHTML = innerHTML||'';
 		//批量put
@@ -67,6 +67,16 @@ $.fn.extend({
 				var node = $("<" + type + "></" + type + ">");
 				node.addClass(className[i]);
 				node.text(innerHTML[i]);
+				list.push(node);
+			}
+			$(this).append(list);
+		}
+		else if(num){
+			var list=[];
+			for(var i=0;i<num;i++){
+				var node = $("<" + type + "></" + type + ">");
+				node.addClass(className);
+				node.text(innerHTML);
 				list.push(node);
 			}
 			$(this).append(list);
@@ -89,6 +99,16 @@ $.fn.extend({
 				div.addClass(className[i]);
 				div.text(innerHTML[i]);
 				list.push(div);
+			}
+			$(this).append(list);
+		}
+		else if(num){
+			var list=[];
+			for(var i=0;i<num;i++){
+				var node = $("<" + type + "></" + type + ">");
+				node.addClass(className);
+				node.text(innerHTML);
+				list.push(node);
 			}
 			$(this).append(list);
 		}
