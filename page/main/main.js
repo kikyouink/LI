@@ -2,6 +2,7 @@
 	$(document).ready(function(){
 		//准备工作
 		theme.init();
+		console.log('main.js');
 		//杂项
 		$('.slide').click(function() {
 			$('.slide.active,.page.active').removeClass('active');
@@ -88,7 +89,9 @@
 				},
 				loadSongSrc:function(songInfo){
 					var name=songInfo.singer+' - '+songInfo.name;
-					var src='assest/music/'+songInfo.singer+'/'+name+'.mp3';
+					// var src='assest/music/'+songInfo.singer+'/'+name+'.mp3';
+					var	src='http://music.163.com/song/media/outer/url?id=108557.mp3';
+
 					return src;
 				},
 				loadSingerSrc:function(songInfo){
@@ -175,7 +178,6 @@
 						var sec=parseInt(time%60);
 						return [min,sec].join(':').replace(/\b(\d)\b/g, "0$1");
 					}
-					//HTML5读取音频有延迟，故不能一开始就获取总时间
 					var all=window.audio.duration;		
 					$(".time.r").text(getTime(all));
 					setInterval(function(){
@@ -204,8 +206,8 @@
 				}
 				else{
 					let songInfo={
-						singer:'Amy Deasismont',
-						name:'Heartbeats',
+						singer:'林宥嘉',
+						name:'残酷月光',
 					}		
 					music.star(songInfo);
 				}

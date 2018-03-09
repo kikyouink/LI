@@ -108,3 +108,6 @@
 	background-position: center center;
 	background-repeat: no-repeat;
 }
+input[type=range]::-webkit-slider-runnable-track {
+	background: rgba(255,255,255,0.6);
+}
