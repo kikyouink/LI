@@ -11,7 +11,7 @@
 			$('.page').eq(index).addClass('active');
 		});
 		$('.skin').click(function(){
-			theme.changeNext();
+			theme.Next();
 		});
 		$('.ex').click(function(){
 			$('#container').attr('style','').toggleClass('full');
@@ -94,22 +94,19 @@
 					$('.songName').text(songInfo.name);
 					$('.singer').text(songInfo.singer);
 					$('.rta').css('background-image',"url("+"'"+picSrc+"'"+")");
-					$('.rotate').toggleClass('active');
 				},
 				star:function(songInfo){
 					var songSrc=music.loadSongSrc(songInfo);
 					music.play(songSrc);
 				},
 				play:function(src){
-					if(window.audio){
-						window.audio.play();
-					}
-					else{
-						music.init(src).play();
-						music.loop();
-					}
-					var vol=$('.vc')[0].value;
-					music.volSlowUp(vol);
+					music.init(src).play();
+					music.loop();
+					music.volSlowUp();
+				},
+				continue:function(){
+					window.audio.play();
+					music.volSlowUp();
 				},
 				pause:function(src){
 					music.volSlowDown(function(){
@@ -120,8 +117,9 @@
 					if(!window.audio) return ;
 					window.audio.volume=value;
 				},
-				volSlowUp:function(limit){
+				volSlowUp:function(){
 					window.audio.volume=0;
+					var limit=$('.vc')[0].value;
 					var timer=setInterval(function(){
 						if(window.audio.volume<Math.min(limit,0.95)){
 							window.audio.volume+=0.05;
@@ -163,6 +161,13 @@
 						$(".time.r").text(getTime(all));
 					},500);
 				},
+				toggle:function(){
+					var play=$('.play');
+					var pause=$('.pause');
+					play.addClass('pause').removeClass('play');
+					pause.addClass('play').removeClass('pause');
+					$('.rotate').toggleClass('active');
+				},
 				showInterface:function(){
 					$('#playInterface').fadeIn();
 				},
@@ -173,19 +178,22 @@
 			//播放
 			//为什么这么写？因为.pause是后来添加的类名，在此之前声明的方法无效
 			$('.playGroup').on('click','.play',function(){
-				let songInfo={
-					singer:'Amy Deasismont',
-					name:'Heartbeats',
+				if(window.audio){
+					music.continue();
 				}
-				$(this).addClass('pause').removeClass('play');
-				music.updateInfo(songInfo);
-				music.star(songInfo);
-				console.log('play');
+				else{
+					let songInfo={
+						singer:'Amy Deasismont',
+						name:'Heartbeats',
+					}
+					music.updateInfo(songInfo);			
+					music.star(songInfo);
+				}
+				music.toggle();
 			})
 			$('.playGroup').on('click','.pause',function(){
-				console.log('pause');
+				music.toggle();
 				music.pause();
-				$(this).addClass('play').removeClass('pause')
 			})
 			$('.musicPic').click(function(){
 				$('#main').hide();
