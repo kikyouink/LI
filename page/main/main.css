@@ -1,7 +1,11 @@
 /*---------------flex------------------*/
-.header_menu,.searchBar,.person,.iconMenu,.slide,#footer,.playGroup,.playStatus,.playVolume{
+#header,.header_menu,.searchBar,.person,.iconMenu,.slide,#footer,.playGroup,.playStatus,.playVolume {
 	display: flex;
 	align-items: center;
+}
+
+.iconMenu,.playGroup,.playStatus,.playVolume {
+	justify-content: space-around;
 }
 /*---------------主容器------------------*/
 #container {
@@ -14,40 +18,34 @@
 	box-shadow: 10px 10px 50px gray;
 	transition: all 0.5s;
 }
-/*#container.active{
-	background-color: #595B54;
-}*/
-#container.full{
-	border-radius:0;
+
+#container.full {
+	position: relative;
+	top: 0;
+	left: 0;
 	width: 100%;
 	height: 100%;
+	border-radius: 0;
 	box-shadow: none;
-	position: relative;
-	top:0;
-	left:0;
 }
-#bigMask{
+
+#bigMask {
 	width: 100%;
 	height: 100%;
 }
 /*---------------导航栏------------------*/
 #header {
-	position: absolute;
 	width: 100%;
 	height: 62px;
 }
+
 .nav {
-	position: absolute;
-	top: 50%;
-	margin-top: -20px;
 	width: 100%;
 	height: 40px;
 }
 /*-----------logo与头部菜单----------*/
 .logo,.header_menu {
 	height: 100%;
-	vertical-align: middle;
-	line-height: 40px;
 }
 
 .logo {
@@ -66,7 +64,6 @@
 	float: right;
 	margin-left: 40px;
 	width: 200px;
-	justify-content: space-around;
 }
 
 .searchBar,.person,.iconMenu {
@@ -90,18 +87,20 @@
 	background: url(../../assest/img/avatar/avatar.png);
 }
 /*-----------fun----------*/
-.bi{
+.bi {
 	opacity: 0.8;
 	transition: opacity 0.2s;
 }
-.bi:hover{
+
+.bi:hover {
 	opacity: 1;
 }
+
 .skin {
 	background: url(../../assest/img/icon/skin.png);
 }
 
-.ex {
+.full {
 	background: url(../../assest/img/icon/ex.png);
 }
 
@@ -109,7 +108,7 @@
 	background: url(../../assest/img/icon/setting.png);
 }
 
-.avatar,.bi,.si{
+.avatar,.bi,.si {
 	display: block;
 	width: 32px;
 	height: 32px;
@@ -117,11 +116,11 @@
 
 /*---------------主要界面------------------*/
 #main {
-	margin-top: 62px;
 	height: calc(100% - 114px);
 	transition: all 0.3s;
 }
-#slideMenu,#info{
+
+#slideMenu,#info {
 	height: 100%;
 }
 /*------------侧边栏-----------*/
@@ -135,7 +134,7 @@
 	margin-left: 10px;
 }
 
-.slide{
+.slide {
 	position: relative;
 	height: 40px;
 	text-indent: 10px;
@@ -149,7 +148,7 @@
 	transform: translateX(7px);
 }
 
-.si{
+.si {
 	margin: 0 18px;
 }
 
@@ -169,15 +168,15 @@
 	width: 50px;
 	background: inherit;
 	background-size: contain;
-	transition: all 0.3s ;
+	transition: all 0.3s;
 }
-.musicPic:hover{
+
+.musicPic:hover {
 	filter: brightness(0.7);
-	/*opacity: 0.5;*/
 }
 /*-----------页面信息-----------*/
 #info {
-	/*background: white;*/
+	/* background: white; */
 }
 
 .page {
@@ -189,69 +188,79 @@
 	display: block;
 }
 
-.page.N{
+.page.N {
 	text-align: center;
 	font-size: 50px;
 	line-height: 200px;
 }
-.page.N:before{
+
+.page.N:before {
 	content: '页面仍在开发中';
 }
 /*-----------发现音乐-----------*/
-.box{
+.box {
 	padding-top: 15px;
 	width: 100%;
 	height: 230px;
 }
-.list{
+
+.list {
 	position: relative;
 	overflow: hidden;
 	height: 200px;
 }
-.pic{
+
+.pic {
 	position: absolute;
 	top: 0;
 	left: calc(50% - 250px);
 	list-style: none;
 	transition: all 0.3s ease-out;
 }
-.picimg{
+
+.picimg {
 	float: left;
 	width: 500px;
 	height: 200px;
-	border:none;
-}
-.p1{
-	opacity: 0;
-	transform:translate(-300px,0) scale(0.81);
-}
-.p2{
-	z-index: 2;
-	transform:translate(-150px,0) scale(0.81);
-	filter: brightness(0.8);
-}
-.p3{
-	z-index: 3;
-	transform:translate(0,0) scale(1);
-}
-.p4{
-	z-index: 2;
-	transform:translate(150px,0) scale(0.81);
-	filter: brightness(0.5);
-}
-.p5{
-	opacity: 0;
-	transform:translate(300px,0) scale(0.81);
+	border: none;
 }
 
-.buttons{
+.p1 {
+	opacity: 0;
+	transform: translate(-300px,0) scale(0.81);
+}
+
+.p2 {
+	z-index: 2;
+	transform: translate(-150px,0) scale(0.81);
+	filter: brightness(0.8);
+}
+
+.p3 {
+	z-index: 3;
+	transform: translate(0,0) scale(1);
+}
+
+.p4 {
+	z-index: 2;
+	transform: translate(150px,0) scale(0.81);
+	filter: brightness(0.5);
+}
+
+.p5 {
+	opacity: 0;
+	transform: translate(300px,0) scale(0.81);
+}
+
+.buttons {
 	margin: 0 auto;
 	padding-top: 5px;
 	width: 100%;
 	height: 30px;
 	text-align: center;
 }
-.buttons a{
+
+.buttons a {
 	display: inline-block;
 	width: 35px;
 	height: 2px;
@@ -260,17 +269,16 @@
 
 /*---------------底部------------------*/
 #footer {
+	position: absolute;
+	bottom: 0;
 	width: 100%;
 	height: 50px;
 	border-top: 1px solid #d8dfea;
-	position: absolute;
-	bottom: 0;
 	justify-content: space-between;
 }
-.playGroup,.playStatus,.playVolume{
-	/*float: left;*/
+
+.playGroup,.playStatus,.playVolume {
 	height: 100%;
-	justify-content: space-around;
 }
 /*-----------按钮组-----------*/
 .playGroup {
@@ -296,67 +304,83 @@
 	width: 0px;
 }
 /*-----------音量组件-----------*/
-.playVolume{
+.playVolume {
 	width: 200px;
 	justify-content: center;
 }
 /*---------------播放界面------------------*/
-#playInterface{
+#playInterface {
 	position: absolute;
+	top: 62px;
+	z-index: 10;
 	display: none;
 	width: 100%;
 	height: calc(100% - 112px);
-	z-index: 10;
-	top:62px;
 }
-#mask{
+
+#mask {
 	height: 100%;
 }
-.minfo{
-	/*height: 100px;*/
-	text-align: center;
-	/*line-height: 20px;*/
+
+.minfo {
 	padding: 20px 0;
+	/* height: 100px; */
+	text-align: center;
+	/* line-height: 20px; */
 }
-.minfo>* ,.musicInfo>*{
+
+.minfo>* ,.musicInfo>* {
 	display: block;
 	margin: 2px 0px 2px 15px;
 }
-.back{
+
+.back {
 	position: absolute;
-	z-index: 100;
-	top:20px;
+	top: 20px;
 	right: 35px;
+	z-index: 100;
 }
-.rt{
-	height: 330px;
+
+.rt {
 	position: relative;
+	height: 330px;
 }
-@keyframes rotating{
-	from{transform:rotate(0)}
-	to{transform:rotate(360deg)}
+
+@keyframes rotating {
+	from {
+		transform: rotate(0);
+	}
+
+	to {
+		transform: rotate(360deg);
+	}
 }
-.rotate{
+
+.disc {
+	left: calc(50% - 157px);
 	width: 300px;
 	height: 300px;
-	left: calc(50% - 157px);
-	background: url(../../assest/img/bg/changpian.png);
 	border: 7px solid rgba(255,255,255,0.1);
-	animation:rotating 30s linear infinite;
-	animation-play-state:paused;
+	background: url(../../assest/img/bg/changpian.png);
+	animation: rotating 30s linear infinite;
+	animation-play-state: paused;
 }
-.rotate.active{
-	animation-play-state:running;
+
+.disc.active {
+	animation-play-state: running;
 }
-.rta{
+
+.musicPic.large {
+	top: 50px;
+	left: 50px;
 	width: 200px;
 	height: 200px;
-	top:50px;
-	left:50px;
+	float: none;
 }
-.rotate,.rta{
+
+.disc,.musicPic.large {
 	position: absolute;
-	background-size: contain;
 	border-radius: 50%;
+	background-size: contain;
 	background-repeat: no-repeat;
 }

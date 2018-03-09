@@ -13,9 +13,16 @@
 		$('.skin').click(function(){
 			theme.Next();
 		});
-		$('.ex').click(function(){
-			$('#container').attr('style','').toggleClass('full');
-		});
+		(function(){
+			let ui={
+				full:function(){
+					$('#container').removeAttr('style').toggleClass('full');
+				},
+				
+			}
+			$('.full').click(ui.full);
+			$('#header').dblclick(ui.full);
+		}());
 		
 		//拖动组件
 		(function(){
@@ -87,14 +94,6 @@
 					var src='assest/img/singer/'+songInfo.singer+'.png';
 					return src;
 				},
-				updateInfo:function(songInfo){
-					var picSrc=music.loadSingerSrc(songInfo);
-					//url括号里面还要加引号，好坑
-					$('.musicPic').css('background-image',"url("+"'"+picSrc+"'"+")");
-					$('.songName').text(songInfo.name);
-					$('.singer').text(songInfo.singer);
-					$('.rta').css('background-image',"url("+"'"+picSrc+"'"+")");
-				},
 				star:function(songInfo){
 					var songSrc=music.loadSongSrc(songInfo);
 					music.play(songSrc);
@@ -144,6 +143,20 @@
 				loop:function(){
 					window.audio.loop=true;
 				},
+				toggle:function(){
+					var play=$('.play');
+					var pause=$('.pause');
+					play.addClass('pause').removeClass('play');
+					pause.addClass('play').removeClass('pause');
+					$('.disc').toggleClass('active');
+				},
+				updateInfo:function(songInfo){
+					var picSrc=music.loadSingerSrc(songInfo);
+					//url括号里面还要加引号，好坑
+					$('.musicPic').css('background-image',"url("+"'"+picSrc+"'"+")");
+					$('.songName').text(songInfo.name);
+					$('.singer').text(songInfo.singer);
+				},
 				updateProgress:function(){
 					var getTime=function(time){
 						var min=parseInt(time/60);
@@ -160,13 +173,6 @@
 						$(".time.l").text(getTime(status));
 						$(".time.r").text(getTime(all));
 					},500);
-				},
-				toggle:function(){
-					var play=$('.play');
-					var pause=$('.pause');
-					play.addClass('pause').removeClass('play');
-					pause.addClass('play').removeClass('pause');
-					$('.rotate').toggleClass('active');
 				},
 				showInterface:function(){
 					$('#playInterface').fadeIn();
