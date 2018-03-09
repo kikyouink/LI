@@ -78,7 +78,7 @@
 	background: darkgray;
 }
 
-.progress.active {
+.progress_active {
 	background-color: red;
 }
 .voice{
