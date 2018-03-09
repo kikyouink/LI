@@ -1,0 +1,100 @@
+#container{
+	color: gray;
+}
+#bigMask{
+	background-color: #eff4f8;
+}
+#header{
+	background: #F94073;
+}
+#slideMenu{
+	border-right: 1px solid #d8dfea;
+}
+.slide{
+	color: gray;
+}
+.slide.active,.slide:hover {
+	background: #e4e9ec;
+}
+.found{
+	background: url(../../assest/img/icon/found.png);
+}
+.fm{
+	background: url(../../assest/img/icon/fm.png);
+}
+.mv{
+	background: url(../../assest/img/icon/mv.png);
+}
+.friend{
+	background: url(../../assest/img/icon/friend.png);
+}
+.music{
+	background: url(../../assest/img/icon/music.png);
+}
+.download{
+	background: url(../../assest/img/icon/download.png);
+}
+.cloud{
+	background: url(../../assest/img/icon/cloud.png);
+}
+.star{
+	background: url(../../assest/img/icon/star.png);
+}
+.icon{
+	background-position: center center;
+	background-repeat: no-repeat;
+}
+#info {
+	background: white;
+}
+.page.N{
+	color:#424e67;
+}
+.box{
+	border-bottom: 1px solid gray;
+}
+.buttons a{
+	background-color: gray;
+}
+.blue{
+	background: #3b8cff !important;
+}
+.playing{
+	border-top: 1px solid #d8dfea;
+}
+.previous{
+	background: url(../../assest/img/icon/previous.png);
+}
+.play {
+	background: url(../../assest/img/icon/play.png);
+}
+.pause {
+	background: url(../../assest/img/icon/pause.png);
+}
+.next {
+	background: url(../../assest/img/icon/next.png);
+}
+.progress {
+	background: darkgray;
+}
+
+.progress.active {
+	background-color: red;
+}
+.voice{
+	background: url(../../assest/img/icon/voice.png);
+}
+#playInterface{
+	background-color: #eff4f8;
+}
+#mask{
+	background-color: #eff4f8;
+	color:#424e67;
+}
+.back{
+	background: url(../../assest/img/icon/back.png);
+}
+.avatar,.bi,.si{
+	background-position: center center;
+	background-repeat: no-repeat;
+}

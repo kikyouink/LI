@@ -1,6 +1,8 @@
 (function(){
 	$(document).ready(function(){
-		
+		//准备工作
+		theme.init();
+		//杂项
 		$('.slide').click(function() {
 			$('.slide.active,.page.active').removeClass('active');
 			$(this).addClass('active');	
@@ -8,49 +10,59 @@
 			if($(this).getParent(2).hasClass('myMusic')) index+=4;
 			$('.page').eq(index).addClass('active');
 		});
-		//拖动
-		$(document).mousemove(function(e) {
-			if(!!this.move) {
-				var posix = !document.move_target ? {
-						'x': 0,
-						'y': 0
-					} : document.move_target.posix,
-					callback = document.call_down || function() {
-						$(this.move_target).css({
-							'top': e.pageY - posix.y,
-							'left': e.pageX - posix.x,
-						});
-					};
+		$('.skin').click(function(){
+			theme.changeNext();
+		});
+		$('.ex').click(function(){
+			$('#container').attr('style','').toggleClass('full');
+		});
+		
+		//拖动组件
+		(function(){
+			$(document).mousemove(function(e) {
+				if(!!this.move) {
+					var posix = !document.move_target ? {
+							'x': 0,
+							'y': 0
+						} : document.move_target.posix,
+						callback = document.call_down || function() {
+							$('#container').css('transition','none');
+							$(this.move_target).css({
+								'top': e.pageY - posix.y,
+								'left': e.pageX - posix.x,
+							});
+						};
 
-				callback.call(this, e, posix);
-				return false;
-			}
-		}).mouseup(function(e) {
-			if(!!this.move) {
-				var callback = document.call_up || function() {};
-				callback.call(this, e);
-				$.extend(this, {
-					'move': false,
-					'move_target': null,
-					'call_down': false,
-					'call_up': false
-				});
-			}
-		});
-		$('#header,#playInterface').on('mousedown',function(e) {
-			var $box = $('#container');
-			var position = $box.position();
-			$box.posix = {
-				'x': e.pageX - position.left,
-				'y': e.pageY - position.top
-			};
-			$.extend(document, {
-				'move': true,
-				'move_target': $box
+					callback.call(this, e, posix);
+					return false;
+				}
+			}).mouseup(function(e) {
+				if(!!this.move) {
+					var callback = document.call_up || function() {};
+					callback.call(this, e);
+					$.extend(this, {
+						'move': false,
+						'move_target': null,
+						'call_down': false,
+						'call_up': false
+					});
+					$('#container').css('transition','all 0.5s');
+				}
 			});
-		});
-		//视频组件
-		//音乐组件
+			$('#header').on('mousedown',function(e) {
+				var $box = $('#container');
+				var position = $box.position();
+				$box.posix = {
+					'x': e.pageX - position.left,
+					'y': e.pageY - position.top
+				};
+				$.extend(document, {
+					'move': true,
+					'move_target': $box
+				});
+			});
+		}());
+		//音乐&播放组件
 		(function(){
 			let music={
 				init:function(src){
@@ -66,7 +78,6 @@
 				},
 				loadData:function(songInfo){
 					var name=songInfo.singer+' - '+songInfo.name;
-					console.log('当前正在播放:'+name);
 					let src='assest/music/'+songInfo.singer+'/'+name+'.mp3';
 					return src;
 				},
@@ -140,7 +151,7 @@
 				hideInterface:function(){
 					$('#playInterface').fadeOut();
 				}
-			}
+			};
 			//播放
 			$('.play').click(function(){
 				let songInfo={
@@ -148,22 +159,20 @@
 					name:'单人旅途',
 				}
 				var src=music.loadData(songInfo);
-				$(this).toggleClass('active');
-				if($(this).hasClass('active')){
-					$(this).css('background','url(assest/img/icon/pause.png)');
-					$('.rotate').css('animation-play-state','running');
-					music.play(src);
-				}
-				else{
-					$(this).css('background','url(assest/img/icon/play.png)');
-					$('.rotate').css('animation-play-state','paused');
-					music.pause();
-				}
+				$(this).toggleClass('play').toggleClass('pause');
+				$('.rotate').toggleClass('active');
+				if($(this).hasClass('pause')) music.play(src);
+				else music.pause();
+			});
+			$('.pause').click(function(){
+				music.pause();
 			});
 			$('.musicPic').click(function(){
+				$('#main').hide();
 				music.showInterface();
 			});
 			$('.back').click(function(){
+				$('#main').show();
 				music.hideInterface();
 			});
 			//调整音量
@@ -174,7 +183,7 @@
 		}());
 		//轮播组件
 		(function(){
-			var flash={
+			let flash={
 				init:function(){
 					
 				},

@@ -1,5 +1,5 @@
 /*---------------flex------------------*/
-.slide,.playGroup,.playStatus,.playVolume,.header_menu,.searchBar,.person,.fun{
+.header_menu,.searchBar,.person,.iconMenu,.slide,#footer,.playGroup,.playStatus,.playVolume{
 	display: flex;
 	align-items: center;
 }
@@ -11,19 +11,31 @@
 	width: 1060px;
 	height: 700px;
 	border-radius: 20px;
-	box-shadow: 10px 10px 50px;
-	color: gray;
+	box-shadow: 10px 10px 50px gray;
+	transition: all 0.5s;
+}
+/*#container.active{
+	background-color: #595B54;
+}*/
+#container.full{
+	border-radius:0;
+	width: 100%;
+	height: 100%;
+	box-shadow: none;
+	position: relative;
+	top:0;
+	left:0;
+}
+#bigMask{
+	width: 100%;
+	height: 100%;
 }
 /*---------------导航栏------------------*/
 #header {
 	position: absolute;
 	width: 100%;
 	height: 62px;
-	/*border-bottom: 1px solid #d8dfea;*/
-	background: #F94073;
-	color: white;
 }
-
 .nav {
 	position: absolute;
 	top: 50%;
@@ -50,14 +62,14 @@
 	font-size: 20px;
 }
 /*-----------搜索框、人物、图标----------*/
-.fun {
+.iconMenu {
 	float: right;
 	margin-left: 40px;
 	width: 200px;
 	justify-content: space-around;
 }
 
-.searchBar,.person,.fun {
+.searchBar,.person,.iconMenu {
 	height: 100%;
 }
 /*-----------搜索框----------*/
@@ -89,8 +101,8 @@
 	background: url(../../assest/img/icon/skin.png);
 }
 
-.msg {
-	background: url(../../assest/img/icon/msg.png);
+.ex {
+	background: url(../../assest/img/icon/ex.png);
 }
 
 .setting {
@@ -101,17 +113,15 @@
 	display: block;
 	width: 32px;
 	height: 32px;
-	background-position: center center;
-	background-repeat: no-repeat;
 }
 
 /*---------------主要界面------------------*/
 #main {
 	margin-top: 62px;
 	height: calc(100% - 114px);
+	transition: all 0.3s;
 }
-
-#slideMenu,#info {
+#slideMenu,#info{
 	height: 100%;
 }
 /*------------侧边栏-----------*/
@@ -119,7 +129,6 @@
 	position: relative;
 	float: left;
 	width: 200px;
-	border-right: 1px solid #d8dfea;
 }
 
 .title {
@@ -129,7 +138,6 @@
 .slide{
 	position: relative;
 	height: 40px;
-	color: gray;
 	text-indent: 10px;
 	font-size: 15px;
 	line-height: 40px;
@@ -138,11 +146,10 @@
 }
 
 .slide.active,.slide:hover {
-	background: #e4e9ec;
 	transform: translateX(7px);
 }
 
-.icon {
+.si{
 	margin: 0 18px;
 }
 
@@ -151,7 +158,6 @@
 	bottom: 0;
 	padding: 5px;
 	width: 100%;
-	border-top: 1px solid #d8dfea;
 }
 
 .musicPic,.musicInfo {
@@ -169,13 +175,9 @@
 	filter: brightness(0.7);
 	/*opacity: 0.5;*/
 }
-.songName,.singer {
-	display: block;
-	margin: 2px 0px 2px 15px;
-}
 /*-----------页面信息-----------*/
 #info {
-	background: white;
+	/*background: white;*/
 }
 
 .page {
@@ -191,7 +193,6 @@
 	text-align: center;
 	font-size: 50px;
 	line-height: 200px;
-	color:#424e67;
 }
 .page.N:before{
 	content: '页面仍在开发中';
@@ -201,7 +202,6 @@
 	padding-top: 15px;
 	width: 100%;
 	height: 230px;
-	border-bottom: 1px solid gray;
 }
 .list{
 	position: relative;
@@ -255,20 +255,20 @@
 	display: inline-block;
 	width: 35px;
 	height: 2px;
-	background-color: gray;
 	cursor: pointer;
-}
-.blue{
-	background: #3b8cff !important;
 }
 
 /*---------------底部------------------*/
 #footer {
+	width: 100%;
 	height: 50px;
 	border-top: 1px solid #d8dfea;
+	position: absolute;
+	bottom: 0;
+	justify-content: space-between;
 }
 .playGroup,.playStatus,.playVolume{
-	float: left;
+	/*float: left;*/
 	height: 100%;
 	justify-content: space-around;
 }
@@ -280,16 +280,7 @@
 .previous,.play,.next {
 	display: block;
 }
-.previous{
-	background: url(../../assest/img/icon/previous.png);
-}
-.play {
-	background: url(../../assest/img/icon/play.png);
-}
 
-.next {
-	background: url(../../assest/img/icon/next.png);
-}
 /*-----------进度条-----------*/
 .playStatus {
 	width: 700px;
@@ -299,46 +290,47 @@
 	display: block;
 	width: 500px;
 	height: 3px;
-	background: darkgray;
 }
 
 .progress.active {
 	width: 0px;
-	background-color: red;
 }
+/*-----------音量组件-----------*/
 .playVolume{
+	width: 200px;
 	justify-content: center;
-}
-.voice{
-	background: url(../../assest/img/icon/voice.png);
-	background-position: center center;
-	background-repeat: no-repeat;
 }
 /*---------------播放界面------------------*/
 #playInterface{
 	position: absolute;
 	display: none;
 	width: 100%;
-	height: 100%;
-	/*background: url(../../assest/img/bg/blur.jpg);*/
-	background: #595B54;
-	z-index: 100;
-	border-radius: 20px;
-	top:0;
+	height: calc(100% - 112px);
+	z-index: 10;
+	top:62px;
 }
 #mask{
-	background: linear-gradient(135deg,  rgba(186,67,168,0.38) 0%,rgba(233,79,205,0.17) 61%,rgba(234,79,206,0.19) 62%,rgba(83,123,173,0.8) 100%);
 	height: 100%;
-	color:white;
+}
+.minfo{
+	/*height: 100px;*/
+	text-align: center;
+	/*line-height: 20px;*/
+	padding: 20px 0;
+}
+.minfo>* ,.musicInfo>*{
+	display: block;
+	margin: 2px 0px 2px 15px;
 }
 .back{
 	position: absolute;
-	top:50px;
-	right: 50px;
-	background: url(../../assest/img/icon/back.png);
+	z-index: 100;
+	top:20px;
+	right: 35px;
 }
 .rt{
-	height: 400px;
+	height: 330px;
+	position: relative;
 }
 @keyframes rotating{
 	from{transform:rotate(0)}
@@ -347,12 +339,14 @@
 .rotate{
 	width: 300px;
 	height: 300px;
-	top:50px;
-	left: calc(50% - 153.5px);
+	left: calc(50% - 157px);
 	background: url(../../assest/img/bg/changpian.png);
 	border: 7px solid rgba(255,255,255,0.1);
 	animation:rotating 30s linear infinite;
-	 animation-play-state:paused;
+	animation-play-state:paused;
+}
+.rotate.active{
+	animation-play-state:running;
 }
 .rta{
 	width: 200px;
