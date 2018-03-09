@@ -13,6 +13,7 @@
 		$('.skin').click(function(){
 			theme.Next();
 		});
+		//ui
 		(function(){
 			let ui={
 				full:function(){
@@ -44,6 +45,7 @@
 					callback.call(this, e, posix);
 					return false;
 				}
+
 			}).mouseup(function(e) {
 				if(!!this.move) {
 					var callback = document.call_up || function() {};
@@ -82,7 +84,6 @@
 						type:'audio/mp3'
 					});
 					window.audio=audio[0];
-					music.updateProgress();
 					return audio[0];
 				},
 				loadSongSrc:function(songInfo){
@@ -97,7 +98,17 @@
 				star:function(songInfo){
 					var songSrc=music.loadSongSrc(songInfo);
 					music.play(songSrc);
+					window.audio.onloadedmetadata=function(){
+						console.log('元数据加载');
+						music.updateInfo(songInfo);
+					}
+					window.audio.oncanplay=function(){
+						console.log('可以播放');
+						music.toggle();
+						music.updateProgress();
+					}
 				},
+
 				play:function(src){
 					music.init(src).play();
 					music.loop();
@@ -149,6 +160,7 @@
 					play.addClass('pause').removeClass('play');
 					pause.addClass('play').removeClass('pause');
 					$('.disc').toggleClass('active');
+					$('.dot').toggleClass('active');
 				},
 				updateInfo:function(songInfo){
 					var picSrc=music.loadSingerSrc(songInfo);
@@ -164,14 +176,16 @@
 						return [min,sec].join(':').replace(/\b(\d)\b/g, "0$1");
 					}
 					//HTML5读取音频有延迟，故不能一开始就获取总时间
-					setInterval(function(all){
-						var all=window.audio.duration;					
+					var all=window.audio.duration;		
+					$(".time.r").text(getTime(all));
+					setInterval(function(){
+						var all=window.audio.duration;	
 						var status=window.audio.currentTime;
 						var precent=status/all;
 						var width=500*precent;
-						$('.progress.active').css('width',width);
+						$('.progress_active').css('width',width);
+						
 						$(".time.l").text(getTime(status));
-						$(".time.r").text(getTime(all));
 					},500);
 				},
 				showInterface:function(){
@@ -186,16 +200,15 @@
 			$('.playGroup').on('click','.play',function(){
 				if(window.audio){
 					music.continue();
+					music.toggle();
 				}
 				else{
 					let songInfo={
 						singer:'Amy Deasismont',
 						name:'Heartbeats',
-					}
-					music.updateInfo(songInfo);			
+					}		
 					music.star(songInfo);
 				}
-				music.toggle();
 			})
 			$('.playGroup').on('click','.pause',function(){
 				music.toggle();

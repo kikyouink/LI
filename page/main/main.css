@@ -175,9 +175,6 @@
 	filter: brightness(0.7);
 }
 /*-----------页面信息-----------*/
-#info {
-	/* background: white; */
-}
 
 .page {
 	display: none;
@@ -300,8 +297,32 @@
 	height: 3px;
 }
 
-.progress.active {
+.progress_active {
+	display: block;
 	width: 0px;
+	height:100%;
+	float:left;
+	background: red;
+}
+
+.dot{
+	width:15px;
+	height:15px;
+	float:left;
+	border-radius:50%;
+	background-size: contain;
+	background-image: url(../../assest/img/icon/loading.png);
+	background-color:white;
+	box-shadow:0 0 3px 1px;
+	animation: rotating 1s linear infinite;
+	animation-play-state: running;
+	position:absolute;
+	top:calc(50% - 7.5px);
+	z-index:100;
+}
+.dot.active{
+	background:white;
+	animation-play-state: paused;
 }
 /*-----------音量组件-----------*/
 .playVolume {
