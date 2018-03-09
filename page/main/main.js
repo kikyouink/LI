@@ -26,6 +26,7 @@
 							'y': 0
 						} : document.move_target.posix,
 						callback = document.call_down || function() {
+							//及时屏蔽transition，否则会一直不停触发，别忘了，拖动也是会改变top和left的
 							$('#container').css('transition','none');
 							$(this.move_target).css({
 								'top': e.pageY - posix.y,
@@ -46,6 +47,7 @@
 						'call_down': false,
 						'call_up': false
 					});
+					//恢复之
 					$('#container').css('transition','all 0.5s');
 				}
 			});
@@ -76,10 +78,27 @@
 					music.updateProgress();
 					return audio[0];
 				},
-				loadData:function(songInfo){
+				loadSongSrc:function(songInfo){
 					var name=songInfo.singer+' - '+songInfo.name;
-					let src='assest/music/'+songInfo.singer+'/'+name+'.mp3';
+					var src='assest/music/'+songInfo.singer+'/'+name+'.mp3';
 					return src;
+				},
+				loadSingerSrc:function(songInfo){
+					var src='assest/img/singer/'+songInfo.singer+'.png';
+					return src;
+				},
+				updateInfo:function(songInfo){
+					var picSrc=music.loadSingerSrc(songInfo);
+					//url括号里面还要加引号，好坑
+					$('.musicPic').css('background-image',"url("+"'"+picSrc+"'"+")");
+					$('.songName').text(songInfo.name);
+					$('.singer').text(songInfo.singer);
+					$('.rta').css('background-image',"url("+"'"+picSrc+"'"+")");
+					$('.rotate').toggleClass('active');
+				},
+				star:function(songInfo){
+					var songSrc=music.loadSongSrc(songInfo);
+					music.play(songSrc);
 				},
 				play:function(src){
 					if(window.audio){
@@ -93,10 +112,9 @@
 					music.volSlowUp(vol);
 				},
 				pause:function(src){
-					var pa=function(){
+					music.volSlowDown(function(){
 						window.audio.pause();
-					}
-					music.volSlowDown(pa);
+					});
 				},
 				volChange:function(value){
 					if(!window.audio) return ;
@@ -150,23 +168,25 @@
 				},
 				hideInterface:function(){
 					$('#playInterface').fadeOut();
-				}
+				},
 			};
 			//播放
-			$('.play').click(function(){
+			//为什么这么写？因为.pause是后来添加的类名，在此之前声明的方法无效
+			$('.playGroup').on('click','.play',function(){
 				let songInfo={
-					singer:'许嵩',
-					name:'单人旅途',
+					singer:'Amy Deasismont',
+					name:'Heartbeats',
 				}
-				var src=music.loadData(songInfo);
-				$(this).toggleClass('play').toggleClass('pause');
-				$('.rotate').toggleClass('active');
-				if($(this).hasClass('pause')) music.play(src);
-				else music.pause();
-			});
-			$('.pause').click(function(){
+				$(this).addClass('pause').removeClass('play');
+				music.updateInfo(songInfo);
+				music.star(songInfo);
+				console.log('play');
+			})
+			$('.playGroup').on('click','.pause',function(){
+				console.log('pause');
 				music.pause();
-			});
+				$(this).addClass('play').removeClass('pause')
+			})
 			$('.musicPic').click(function(){
 				$('#main').hide();
 				music.showInterface();

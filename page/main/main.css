@@ -167,8 +167,8 @@
 .musicPic {
 	float: left;
 	width: 50px;
-	background: url(../../assest/img/singer/xusong.png);
-	background-size: cover;
+	background: inherit;
+	background-size: contain;
 	transition: all 0.3s ;
 }
 .musicPic:hover{
@@ -353,7 +353,6 @@
 	height: 200px;
 	top:50px;
 	left:50px;
-	background: url(../../assest/img/singer/xusong.png);
 }
 .rotate,.rta{
 	position: absolute;

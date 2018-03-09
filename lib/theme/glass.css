@@ -47,6 +47,12 @@
 	background-position: center center;
 	background-repeat: no-repeat;
 }
+.songName{
+	color: white;
+}
+.singer{
+	color:rgba(255,255,255,0.6);
+}
 .buttons a{
 	background-color: rgba(255,255,255,0.6);
 }
