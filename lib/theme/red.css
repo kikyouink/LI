@@ -1,0 +1,18 @@
+#header{
+	background: #F94073;
+}
+.progress_active {
+	background-color: red;
+}
+#slideMenu{
+	border-right: 1px solid #d8dfea;
+}
+.box{
+	border-bottom: 1px solid gray;
+}
+.playing{
+	border-top: 1px solid #d8dfea;
+}
+#footer{
+	border-top: 1px solid #d8dfea;
+}

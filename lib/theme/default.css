@@ -4,12 +4,6 @@
 #bigMask{
 	background-color: #eff4f8;
 }
-#header{
-	background: #F94073;
-}
-#slideMenu{
-	border-right: 1px solid #d8dfea;
-}
 .slide{
 	color: gray;
 }
@@ -50,20 +44,14 @@
 .page.N{
 	color:#424e67;
 }
-.box{
-	border-bottom: 1px solid gray;
-}
 .buttons a{
 	background-color: gray;
 }
 .blue{
 	background: #3b8cff !important;
 }
-.playing{
-	border-top: 1px solid #d8dfea;
-}
-.previous{
-	background: url(../../assest/img/icon/previous.png);
+.prev{
+	background: url(../../assest/img/icon/prev.png);
 }
 .play {
 	background: url(../../assest/img/icon/play.png);
@@ -78,9 +66,6 @@
 	background: darkgray;
 }
 
-.progress_active {
-	background-color: red;
-}
 .voice{
 	background: url(../../assest/img/icon/voice.png);
 }
@@ -88,7 +73,6 @@
 	background-color: #eff4f8;
 }
 #mask{
-	background-color: #eff4f8;
 	color:#424e67;
 }
 .back{

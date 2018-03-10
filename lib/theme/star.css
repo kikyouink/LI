@@ -1,11 +1,12 @@
 /*主容器*/
 #container{
-	background: #818990;
+	background: url(../../assest/img/bg/1.png);
+	background-size: cover;
+	background-repeat: no-repeat;
 	color: white;
 }
-/*大遮罩*/
 #bigMask{
-	background: linear-gradient(135deg,  rgba(186,67,168,0.38) 0%,rgba(233,79,205,0.17) 61%,rgba(234,79,206,0.19) 62%,rgba(83,123,173,0.8) 100%);
+	background:none;
 }
 /*头部*/
 #header{
@@ -96,11 +97,10 @@
 }
 /*播放界面*/
 #playInterface{
-	background: #818990;
+	background: none;
 }
 
 #mask{
-	background: linear-gradient(135deg,  rgba(186,67,168,0.38) 0%,rgba(233,79,205,0.17) 61%,rgba(234,79,206,0.19) 62%,rgba(83,123,173,0.8) 100%);
 	color:rgba(255,255,255,0.6);
 }
 .back{

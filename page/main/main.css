@@ -118,6 +118,7 @@
 #main {
 	height: calc(100% - 114px);
 	transition: all 0.3s;
+	z-index: 1;
 }
 
 #slideMenu,#info {
@@ -171,7 +172,7 @@
 	transition: all 0.3s;
 }
 
-.musicPic:hover {
+.playing .musicPic:hover {
 	filter: brightness(0.7);
 }
 /*-----------页面信息-----------*/
@@ -270,7 +271,6 @@
 	bottom: 0;
 	width: 100%;
 	height: 50px;
-	border-top: 1px solid #d8dfea;
 	justify-content: space-between;
 }
 
@@ -282,7 +282,7 @@
 	width: 200px;
 }
 
-.previous,.play,.next {
+.prev,.play,.next {
 	display: block;
 }
 
@@ -310,18 +310,17 @@
 	float:left;
 	border-radius:50%;
 	background-size: contain;
-	background-image: url(../../assest/img/icon/loading.png);
 	background-color:white;
 	box-shadow:0 0 3px 1px;
 	animation: rotating 1s linear infinite;
-	animation-play-state: running;
+	animation-play-state: paused;
 	position:absolute;
 	top:calc(50% - 7.5px);
 	z-index:100;
 }
 .dot.active{
-	background:white;
-	animation-play-state: paused;
+	background-image: url(../../assest/img/icon/loading.png);
+	animation-play-state: running;
 }
 /*-----------音量组件-----------*/
 .playVolume {

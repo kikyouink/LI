@@ -2,7 +2,7 @@
 	$(document).ready(function(){
 		//准备工作
 		theme.init();
-		console.log('main.js');
+		console.log('Github网速报警系统');
 		//杂项
 		$('.slide').click(function() {
 			$('.slide.active,.page.active').removeClass('active');
@@ -77,54 +77,156 @@
 		//音乐&播放组件
 		(function(){
 			let music={
-				init:function(src){
-					var audio=$('<audio></audio>');
-					var source=audio.put('source');
-					source.attr({
-						src:src,
-						type:'audio/mp3'
-					});
-					window.audio=audio[0];
-					return audio[0];
-				},
-				loadSongSrc:function(songInfo){
-					var name=songInfo.singer+' - '+songInfo.name;
-					// var src='assest/music/'+songInfo.singer+'/'+name+'.mp3';
-					var	src='http://music.163.com/song/media/outer/url?id=108557.mp3';
+				status:null,
+				list:[
+					{
+						singer:'Amy Deasismont',
+						name:'Heartbeats',
+						src:'http://music.163.com/song/media/outer/url?id=2175282.mp3',
+					},
+					{
+						singer:'林宥嘉',
+						name:'晚安',
+						src:'http://music.163.com/song/media/outer/url?id=108301.mp3',
+					},
+					{
+						singer:'张碧晨',
+						name:'凉凉',
+						src:'http://www.tingge123.com/mp3/2017-05-22/1495450394.mp3',
+					},
+					{
+						singer:'许嵩',
+						name:'单人旅途',
+						src:'http://music.163.com/song/media/outer/url?id=167860.mp3',
+					},
+					{
+						singer:'米白',
+						name:'樱花樱花想见你',
+						src:'http://music.163.com/song/media/outer/url?id=438903219.mp3',
+					},
 
-					return src;
+				],
+				init:function(audio) {
+					var obj={
+						onloadstart:()=>{
+							console.info('开始加载:'+this.status.singer+' - '+this.status.name);
+							$('.dot').addClass('active');
+							music.updateInfo(this.status);
+							music.reset();
+						},
+						onloadedmetadata:()=>{
+							// console.log('元数据加载');
+							music.updateProgress();
+						},
+						oncanplay:()=>{
+							// console.log('可以播放');
+							music.toggle();
+							$('.dot').removeClass('active');
+						},					
+						onerror:()=>{
+							console.error('加载出错...');
+							setTimeout(this.next,2000);
+						},
+						onstalled:()=>{
+							$('.dot').addClass('active');
+							console.info('缓冲中...');
+						},
+						onended:()=>{
+							this.next();
+						},
+					}
+					for(var i in obj){
+						audio[i]=obj[i];
+					}
 				},
-				loadSingerSrc:function(songInfo){
-					var src='assest/img/singer/'+songInfo.singer+'.png';
-					return src;
+				new:function(src){
+					if(window.audio){
+						window.audio.src=src;	
+						window.audio.load();
+					}
+					else{
+						var audio=new Audio(src);
+						music.init(audio);
+						window.audio=audio;
+					}			
+					return window.audio;
 				},
+				//从头播放
 				star:function(songInfo){
-					var songSrc=music.loadSongSrc(songInfo);
-					music.play(songSrc);
-					window.audio.onloadedmetadata=function(){
-						console.log('元数据加载');
-						music.updateInfo(songInfo);
-					}
-					window.audio.oncanplay=function(){
-						console.log('可以播放');
-						music.toggle();
-						music.updateProgress();
-					}
-				},
-
-				play:function(src){
-					music.init(src).play();
-					music.loop();
+					this.status=songInfo;
+					var src=songInfo.src;
+					music.new(src).play();
 					music.volSlowUp();
 				},
 				continue:function(){
 					window.audio.play();
 					music.volSlowUp();
+					music.toggle();
 				},
-				pause:function(src){
+				pause:function(){
+					music.toggle();
 					music.volSlowDown(function(){
 						window.audio.pause();
 					});
+				},
+				next:function(){
+					//避免一些奇怪的问题，例如刚开始就点next而没有播放
+					var index;
+					if(this.list.indexOf(this.status)==-1) index=0;
+					else index=this.list.indexOf(this.status);
+					var nextIndex=this.list[(index+1)%5];
+					this.star(nextIndex);
+				},
+				prev:function(){
+					var index=this.list.indexOf(this.status);
+					var prevIndex=this.list[(index-1)<0?4:(index-1)];
+					this.star(prevIndex);
+				},
+				loop:function(){
+					window.audio.loop=true;
+				},
+				toggle:function(){
+					var play=$('.play');
+					var pause=$('.pause');
+					play.addClass('pause').removeClass('play');
+					pause.addClass('play').removeClass('pause');
+					$('.disc').toggleClass('active');
+				},
+				updateInfo:function(songInfo){
+					var picSrc=music.loadSingerSrc(songInfo);
+					//url括号里面还要加引号，好坑
+					$('.musicPic').css('background-image',"url('"+picSrc+"')");
+					$('.songName').text(songInfo.name);
+					$('.singer').text(songInfo.singer);
+				},
+				updateProgress:function(){
+					var getTime=function(time){
+						var min=parseInt(time/60);
+						var sec=parseInt(time%60);
+						return [min,sec].join(':').replace(/\b(\d)\b/g, "0$1");
+					}
+					var all=window.audio.duration;		
+					$(".time.r").text(getTime(all));
+					setInterval(function(){
+						var all=window.audio.duration;	
+						var status=window.audio.currentTime;
+						var precent=status/all;
+						var width=500*precent;
+						$('.progress_active').css('width',width);
+						
+						$(".time.l").text(getTime(status));
+					},500);
+				},
+				reset:function(){					
+					$('.progress_active').removeAttr('style');
+					var pause=$('.pause');
+					pause.addClass('play').removeClass('pause');
+					$('.disc').removeClass('active');
+
+				},
+				loadSingerSrc:function(songInfo){
+					var src='assest/img/singer/'+songInfo.singer+'.png';
+					return src;
 				},
 				volChange:function(value){
 					if(!window.audio) return ;
@@ -154,74 +256,40 @@
 						}
 					},60);
 				},
-				loop:function(){
-					window.audio.loop=true;
-				},
-				toggle:function(){
-					var play=$('.play');
-					var pause=$('.pause');
-					play.addClass('pause').removeClass('play');
-					pause.addClass('play').removeClass('pause');
-					$('.disc').toggleClass('active');
-					$('.dot').toggleClass('active');
-				},
-				updateInfo:function(songInfo){
-					var picSrc=music.loadSingerSrc(songInfo);
-					//url括号里面还要加引号，好坑
-					$('.musicPic').css('background-image',"url("+"'"+picSrc+"'"+")");
-					$('.songName').text(songInfo.name);
-					$('.singer').text(songInfo.singer);
-				},
-				updateProgress:function(){
-					var getTime=function(time){
-						var min=parseInt(time/60);
-						var sec=parseInt(time%60);
-						return [min,sec].join(':').replace(/\b(\d)\b/g, "0$1");
-					}
-					var all=window.audio.duration;		
-					$(".time.r").text(getTime(all));
-					setInterval(function(){
-						var all=window.audio.duration;	
-						var status=window.audio.currentTime;
-						var precent=status/all;
-						var width=500*precent;
-						$('.progress_active').css('width',width);
-						
-						$(".time.l").text(getTime(status));
-					},500);
-				},
 				showInterface:function(){
+					$('#main').hide();
 					$('#playInterface').fadeIn();
 				},
 				hideInterface:function(){
 					$('#playInterface').fadeOut();
+					$('#main').show();
 				},
 			};
 			//播放
+			music.updateInfo(music.list[0]);
 			//为什么这么写？因为.pause是后来添加的类名，在此之前声明的方法无效
 			$('.playGroup').on('click','.play',function(){
 				if(window.audio){
 					music.continue();
-					music.toggle();
 				}
 				else{
-					let songInfo={
-						singer:'林宥嘉',
-						name:'残酷月光',
-					}		
+					var songInfo=music.list[0];
 					music.star(songInfo);
 				}
 			})
 			$('.playGroup').on('click','.pause',function(){
-				music.toggle();
 				music.pause();
 			})
+			$('.next').click(function(){
+				music.next();
+			});
+			$('.prev').click(function(){
+				music.prev();
+			});
 			$('.musicPic').click(function(){
-				$('#main').hide();
 				music.showInterface();
 			});
 			$('.back').click(function(){
-				$('#main').show();
 				music.hideInterface();
 			});
 			//调整音量
