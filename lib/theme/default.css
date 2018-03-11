@@ -1,12 +1,15 @@
-#container{
+#container {
 	color: gray;
 }
-#bigMask{
+
+#bigMask {
 	background-color: #eff4f8;
 }
-.slide{
+
+.slide {
 	color: gray;
 }
+
 .slide.active,.slide:hover {
 	background: #e4e9ec;
 }
@@ -14,22 +17,27 @@
 #info {
 	background: white;
 }
-.page.N{
-	color:#424e67;
+
+.page.N {
+	color: #424e67;
 }
-.buttons a{
+
+.buttons a {
 	background-color: gray;
 }
-.blue{
+
+.blue {
 	background: #3b8cff !important;
 }
+
 .progress {
 	background: darkgray;
 }
 
-#playInterface{
+#playInterface {
 	background-color: #eff4f8;
 }
-#mask{
-	color:#424e67;
+
+#mask {
+	color: #424e67;
 }
