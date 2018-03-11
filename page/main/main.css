@@ -23,9 +23,7 @@ button,input{
 	display: block;
 	font: 15px 微软雅黑;
 	outline: none;
-	border-radius: 1em;
 	border:none;
-	/*height: 40px;*/
 }
 input{
 	background-color:#e4e9ec ;
@@ -71,7 +69,7 @@ button[disabled]{
 	animation:slide 2s cubic-bezier(0.35,-0.5,0.5,1.35);
 }
 /*---------------flex------------------*/
-#header,.header_menu,.searchBar,.iconMenu,.slide,#footer,.playGroup,.playStatus,.playVolume {
+#header,.header_menu,.searchBar,.iconMenu,.slide,#footer,.playGroup,.playStatus,.playVolume,.tab,form{
 	display: flex;
 	align-items: center;
 }
@@ -167,7 +165,9 @@ button[disabled]{
 /*-----------搜索框----------*/
 .search {
 	height: 30px !important;
+	width: 100% !important;
 	color: gray !important;
+	border-radius: 1em;
 }
 /*-----------图标----------*/
 .iconMenu {
@@ -221,7 +221,7 @@ button[disabled]{
 	font-size: 15px;
 	line-height: 40px;
 	transition: all 0.3s ease-out;
-	transform: translate(0px,0px);
+	transform: translateX(0px);
 }
 
 .slide.active,.slide:hover {
@@ -515,4 +515,104 @@ input[type=range]::-webkit-slider-thumb {
 	border-radius: 50%;
 	background-size: contain;
 	background-repeat: no-repeat;
+}
+.tab,form{
+	display: flex;
+}
+/*---------------登录界面------------------*/
+#LSmask{
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,0.3);
+	display: none;
+	z-index: 50;
+	position: absolute;
+	top:0;
+	border-radius: 20px;
+
+}
+.front, .behind {
+	width: 330px;
+	height: 470px;
+	background-color: white;
+	left: calc(50% - 165px);
+	top:100px;
+	text-align: center;
+	color: #424e67;
+	box-shadow: 0 0 1px 5px #424e67;
+	/* transform-style: preserve-3d; */
+	position: absolute;
+    backface-visibility: hidden;
+    transition: 0.5s;
+}
+
+.front {
+	z-index: 2;
+	transform: rotateY(180deg);
+}
+
+.front.active{
+	transform: rotateY(0deg);
+}
+
+.behind {
+	transform: rotateY(180deg);
+}
+
+.behind.active{
+	transform: rotateY(0deg);
+	font-size: 30px;
+	line-height: 140px;
+}
+
+.icon-success{
+	font-size: 120px;
+}
+
+.LSlogo{
+	height: 150px;
+	font-size: 50px;
+	line-height: 150px;
+}
+.tab{
+	justify-content: space-between;
+	align-items: center;
+	height: 45px;
+	width: 200px;
+	margin: 0 auto;
+}
+.tab_item {
+	width: 80px;
+	text-align: center;
+}
+.tab_item.active,.tab_item:hover{
+	color: #3b8cff;
+}
+.slider {
+	height: 3px;
+	background-color:#3b8cff;
+	width: 80px;
+	margin-left: 65px;
+}
+.formGroup{
+	width: 200%;
+	height: 170px;
+	overflow: hidden;
+	margin: 25px 0;
+}
+.formGroup div{
+	width: 50%;
+	float: left;
+	height: 100%;
+}
+form{
+	flex-direction: column;
+	box-sizing: border-box;
+	justify-content: space-around;
+	align-items: center;
+	height: 100%;
+}
+button,input{
+	width: 280px;
+	height: 40px;
 }

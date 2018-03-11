@@ -4,7 +4,7 @@
 	header('Access-Control-Allow-Headers:x-requested-with,content-type');  
 	
 	session_start();
-	
+
     $servername = "localhost:3306";
     $username = "root";
     $password = "123456";
@@ -17,8 +17,8 @@
         die("连接失败: " . mysqli_connect_error());
     }
    
-    @$name=$_POST['singer'];
-    @$words=$_POST['name'];
+	@$name=$_POST['username'];
+	@$words=$_POST['password'];
 	@$type=$_POST['type'];
 	//登录
 	if($type=='login'){

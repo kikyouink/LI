@@ -1,20 +1,6 @@
 (function(){
 	'use strict'	
-	$(document).ready(function() {
-		$('.tab_item').click(function() {
-			$(this).addClass('active');
-			$(this).siblings().removeClass('active');
-			var id = $(this).index(); //当前操作的元素索引值 
-			var number1 = 80 + id * 120;
-			var number2 = -id * 360;
-			$('.slider').animate({
-				marginLeft: number1
-			});
-			$('.main').animate({
-				marginLeft: number2
-			});
-		});
-		
+	$(document).ready(function() {	
 		$('.sumbit').click(function(){
 			//设置禁用防止多次提交
 			var that=$(this);

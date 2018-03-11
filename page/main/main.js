@@ -2,169 +2,7 @@
 	$(document).ready(function(){
 		//准备工作
 		console.log('Github网速报警系统');
-		//存储
-		(function(){
-			let storage={
-				save:function(key,value){
-					localStorage.setItem(key, value);
-				},
-				get:function(key){
-					return localStorage.getItem(key);
-				},
-				delete:function(key){
-					localStorage.removeItem(key);
-				},
-			}
-			window.storage=storage;
-		}());
-
-		//主题组件
-		(function(){
-			let theme={
-				list:['red','purple','glass','star'],
-				init:function(){
-					var theme=storage.get('theme')||this.list[0];
-					this.apply(theme);
-				},
-				//兼容火狐，火狐不支持disabled
-				apply:function(theme){
-					var src='lib/theme/'+theme+'.css';
-					$('#theme').attr('href',src);
-					storage.save('theme',theme);
-				},
-				change:function(theme){
-					this.apply(theme);
-				},
-				Next:function(){
-					var theme=storage.get('theme')||theme.list[0];
-					var themeNext=this.list.findNext(theme);
-					this.apply(themeNext);
-				},
-			}
-			window.theme=theme;
-			theme.init();
-			$('.icon-skin').click(function(){
-				theme.Next();
-			});
-		}());
-
-		//UI
-		(function(){
-			let ui={
-				full:function(){
-					$('#container').removeAttr('style').toggleClass('full');
-				},
-				showAlert:function(text,callback){
-					var alert=$('body').putDiv('alert normal',text);
-					setTimeout(function(){
-						if(callback) callback();
-						alert.remove();
-					},2000)
-				},
-				showConfrim:function(text,callback){
-					var confrim=$('body').putDiv('confrim',text);
-					var buttonGroup=confrim.putDiv('buttonGroup');
-					buttonGroup.put('button',['yes','no'],['确认','取消']);
-					$('.yes,.no').click(function(){
-						confrim.addClass('active');
-						if($(this).hasClass('yes')) callback();
-						confrim.hide();
-					});
-				},
-				move:function(e){
-					var $box = $('#container');
-					var position = $box.position();
-					$box.posix = {
-						'x': e.pageX - position.left,
-						'y': e.pageY - position.top
-					};
-					$.extend(document, {
-						'move': true,
-						'move_target': $box
-					});
-				},
-			}
-			window.ui=ui;
-			$('.icon-full').click(ui.full);
-			$('#header').dblclick(ui.full);
-			$('.slide').click(function() {
-				$('.slide.active,.page.active').removeClass('active');
-				$(this).addClass('active');	
-				var index=$(this).index();
-				if($(this).getParent(2).hasClass('myMusic')) index+=4;
-				$('.page').eq(index).addClass('active');
-			});
-			$('#header').on('mousedown',function(e){
-				ui.move(e);
-			});
-		}());
-
-		//网络
-		(function(){
-			let net={
-				sign:(obj,callback)=>{
-					obj.type='sign';
-					this.post(obj,'注册成功',callback);
-				},
-				login:(obj,callback)=>{
-					obj.type='login';
-					this.post(obj,'登录成功',callback);
-				},
-				post:(obj,prompt,callback)=>{
-					var url="http://localhost/page/main/main.php/";
-					$.post(url,obj,function(result){
-						console.log(result);
-						if(result==prompt) callback=function(){
-							console.log('ch!');
-						};
-						ui.showAlert(result,callback);
-					},'text');
-				},
-				checkLogin:()=>{
-					var url="http://localhost/page/main/main.php/";
-					$.post(url,obj,function(result){
-						console.log(result);
-						if(result==prompt) callback=function(){
-							console.log('ch!');
-						};
-						ui.showAlert(result,callback);
-					},'text');
-				},
-			}
-			window.net=net;
-			$('.user').click(function(){
-				var bool=net.checkLogin();
-				if(!bool){
-					//设置禁用防止多次提交
-					var that=$(this);
-					var text=that.text();
-					that.attr('disabled','true').text('提交中...');
-					var username=that.siblings('.username').val();
-					var password=that.siblings('.password').val();
-					var userInfo={
-						username:username,
-						password:password
-					}
-					function callback(){
-						that.removeAttr('disabled').text(text);
-					}
-					//先检查正则相关问题，根据返回值进行相应处理
-					var result=sys.checkReg(userInfo);
-					switch(result){
-						case 0:ui.showAlert('用户名及密码不能为空',callback);break;
-						case 1:ui.showAlert('用户名及密码均需6-15位以内',callback);break;
-						case true:ui.showAlert('用户名需为字母数字组合',callback);break;
-						case false:
-							if(text=='注册') net.sign(userInfo,callback);
-							else net.login(userInfo,callback);
-						break;
-					}
-				}
-			});
-
-		}());
-
-		//音乐&播放组件
+		//音乐组件
 		(function(){
 			let music={
 				status:null,
@@ -400,6 +238,200 @@
             })
 		}());
 
+		//系统UI
+		(function(){
+			let ui={
+				full:function(){
+					$('#container').removeAttr('style').toggleClass('full');
+				},
+				showAlert:function(text,callback){
+					var alert=$('body').putDiv('alert normal',text);
+					setTimeout(function(){
+						if(callback) callback();
+						alert.remove();
+					},2000)
+				},
+				container:{
+					move:function(e){
+						var $box = $('#container');
+						var position = $box.position();
+						$box.posix = {
+							'x': e.pageX - position.left,
+							'y': e.pageY - position.top
+						};
+						$.extend(document, {
+							'move': true,
+							'move_target': $box
+						});
+					},
+				},
+				LS:{
+					show:function(){
+						$('#LSmask').fadeIn();
+					},
+					hide:function(){
+						$('#LSmask').fadeOut();
+					},
+					preserve:function(){
+						$('.front').removeClass('active');
+						$('.behind').addClass('active');
+					}
+				}
+			}
+			window.ui=ui;
+			
+			$('.icon-full').click(ui.full);
+			$('#header').dblclick(ui.full);
+			$('#header').on('mousedown',function(e){
+				ui.container.move(e);
+			});
+			$('#LSmask *').click(function(){
+				return false;
+			})
+			$('#LSmask').click(ui.LS.hide());
+			$('.slide').click(function() {
+				$('.slide.active,.page.active').removeClass('active');
+				$(this).addClass('active');	
+				var index=$(this).index();
+				if($(this).getParent(2).hasClass('myMusic')) index+=4;
+				$('.page').eq(index).addClass('active');
+			});
+			$('.tab_item').click(function() {
+				$(this).addClass('active');
+				$(this).siblings().removeClass('active');
+				var id = $(this).index(); //当前操作的元素索引值 
+				var number1 = 65 + id * 120;
+				var number2 = -id * 330;
+				$('.slider').animate({
+					marginLeft: number1
+				});
+				$('.formGroup').animate({
+					marginLeft: number2
+				});
+			});
+		}());
+
+		//网络
+		(function(){
+			let net={
+				checkReg:function(obj,mode){
+					for (let i in obj) {
+						if(obj[i].length==0) return 0;
+						if(obj[i].length<6||obj[i].length>15) return 1;
+					}
+					var reg;
+					mode=mode||'';
+					switch(mode){
+						case 'remix':reg=/[^A-Za-z0-9_\-\u4e00-\u9fa5]+/g;break;//包括汉字
+						default:reg=/\W+/g;break;
+					}
+					return reg.test(obj.username);
+				},
+				sign:function(obj,callback){
+					obj.type='sign';
+					this.post(obj,'注册成功',callback);
+				},
+				login:function(obj,callback){
+					obj.type='login';
+					console.log(this);
+					this.post(obj,'登录成功',callback);
+				},
+				post:function(obj,prompt,callback){
+					var url="http://localhost/page/main/main.php/";
+					$.post(url,obj,function(result){
+						console.log(result);
+						if(result==prompt){
+							ui.preserve();
+						}
+						else ui.showAlert(result,callback);
+					},'text');
+				},
+				checkLogin:function(){
+					return false;
+				},
+			}
+			window.net=net;
+			$('.user').click(function(){
+				var bool=net.checkLogin();
+				if(!bool){
+					ui.LS.show();
+				}
+			});
+			$('.sumbit').click(function(){
+				//设置禁用->防止多次提交
+				var that=$(this);
+				var text=that.text();
+				that.attr('disabled','true').text('提交中...');
+				var username=that.siblings('.username').val();
+				var password=that.siblings('.password').val();
+				var userInfo={
+					username:username,
+					password:password
+				}
+				function callback(){
+					that.removeAttr('disabled').text(text);
+				}
+				//先检查正则相关问题，根据返回值进行相应处理
+				var result=net.checkReg(userInfo);
+				switch(result){
+					case 0:ui.showAlert('用户名及密码不能为空',callback);break;
+					case 1:ui.showAlert('用户名及密码均需6-15位以内',callback);break;
+					case true:ui.showAlert('用户名需为字母数字组合',callback);break;
+					case false:
+						if(text=='注册') net.sign(userInfo,callback);
+						else net.login(userInfo,callback);
+					break;
+				}
+			});
+
+		}());
+
+		//存储
+		(function(){
+			let storage={
+				save:function(key,value){
+					localStorage.setItem(key, value);
+				},
+				get:function(key){
+					return localStorage.getItem(key);
+				},
+				delete:function(key){
+					localStorage.removeItem(key);
+				},
+			}
+			window.storage=storage;
+		}());
+
+		//主题组件
+		(function(){
+			let theme={
+				list:['red','purple','glass','star'],
+				init:function(){
+					var theme=storage.get('theme')||this.list[0];
+					this.apply(theme);
+				},
+				//兼容火狐，火狐不支持disabled
+				apply:function(theme){
+					var src='lib/theme/'+theme+'.css';
+					$('#theme').attr('href',src);
+					storage.save('theme',theme);
+				},
+				change:function(theme){
+					this.apply(theme);
+				},
+				Next:function(){
+					var theme=storage.get('theme')||theme.list[0];
+					var themeNext=this.list.findNext(theme);
+					this.apply(themeNext);
+				},
+			}
+			window.theme=theme;
+			theme.init();
+			$('.icon-skin').click(function(){
+				theme.Next();
+			});
+		}());
+
 		//轮播组件
 		(function(){
 			let flash={
@@ -425,5 +457,6 @@
 			flash.init();
 			flash.next(3000);
 		}());
+
 	});
 }())
