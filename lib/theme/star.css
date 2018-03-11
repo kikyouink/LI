@@ -1,74 +1,86 @@
-/*主容器*/
-#container{
+#container {
 	background: url('../../assest/img/bg/1.png');
 	background-size: cover;
 	color: white;
 }
-/*大遮罩*/
-#bigMask{
-	background: none
+
+#bigMask {
+	background: none;
 }
-/*头部*/
-#header{
-	background:none;
+
+#header {
+	background: none;
 }
-#header .iconfont{
-	color:white;
-}
-/*侧边菜单*/
-#slideMenu .iconfont{
-	color:rgba(255,255,255,0.6);
-}
-.slide{
-	color:rgba(255,255,255,0.6);
-}
-.slide.active,.slide:hover{
-	background: rgba(0,0,0,0.1);
-}
-.songName{
+
+#header .iconfont {
 	color: white;
 }
-.singer{
-	color:rgba(255,255,255,0.6);
+
+#slideMenu .iconfont {
+	color: rgba(255,255,255,0.6);
 }
-.buttons a{
+
+.slide {
+	color: rgba(255,255,255,0.6);
+}
+
+.slide.active,.slide:hover {
+	background: rgba(0,0,0,0.1);
+}
+
+.songName {
+	color: white;
+}
+
+.singer {
+	color: rgba(255,255,255,0.6);
+}
+
+.buttons a {
 	background-color: rgba(255,255,255,0.6);
 }
-.blue{
-	background:  white !important;
+
+.blue {
+	background: white !important;
 }
-/*页面*/
+
 #info {
 	background: none;
 }
-.page.N{
-	color:rgba(255,255,255,0.8);
+
+.page.N {
+	color: rgba(255,255,255,0.8);
 }
-/*底部*/
-#footer{
+
+#footer {
 	background: none;
 }
-#footer .iconfont{
-	color:white;
+
+#footer .iconfont {
+	color: white;
 }
-/*歌曲进度*/
+
 .progress {
 	background-color: rgba(255,255,255,0.6);
 }
+
 .progress_active {
 	background-color: white;
 }
-/*播放界面*/
-#playInterface{
+
+#playInterface {
 	background: none;
 }
-#mask{
+
+#mask {
 	background: none;
-	color:rgba(255,255,255,0.6);
+	color: rgba(255,255,255,0.6);
 }
-#playInterface .iconfont{
+
+#playInterface .iconfont {
 	color: white;
 }
+
 input[type=range]::-webkit-slider-runnable-track {
-	background: white
+	background: white;
 }
