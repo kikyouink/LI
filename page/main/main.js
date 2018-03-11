@@ -1,19 +1,105 @@
 (function(){
 	$(document).ready(function(){
 		//准备工作
-		theme.init();
 		console.log('Github网速报警系统');
-		//杂项
-		$('.slide').click(function() {
-			$('.slide.active,.page.active').removeClass('active');
-			$(this).addClass('active');	
-			var index=$(this).index();
-			if($(this).getParent(2).hasClass('myMusic')) index+=4;
-			$('.page').eq(index).addClass('active');
-		});
-		$('.icon-skin').click(function(){
-			theme.Next();
-		});
+		//存储
+		(function(){
+			let storage={
+				save:function(key,value){
+					localStorage.setItem(key, value);
+				},
+				get:function(key){
+					return localStorage.getItem(key);
+				},
+				delete:function(key){
+					localStorage.removeItem(key);
+				},
+			}
+			window.storage=storage;
+		}());
+
+		//主题组件
+		(function(){
+			let theme={
+				list:['red','purple','glass','star'],
+				init:function(){
+					var theme=storage.get('theme')||this.list[0];
+					this.apply(theme);
+				},
+				//兼容火狐，火狐不支持disabled
+				apply:function(theme){
+					var src='lib/theme/'+theme+'.css';
+					$('#theme').attr('href',src);
+					storage.save('theme',theme);
+				},
+				change:function(theme){
+					this.apply(theme);
+				},
+				Next:function(){
+					var theme=storage.get('theme')||theme.list[0];
+					var themeNext=this.list.findNext(theme);
+					this.apply(themeNext);
+				},
+			}
+			window.theme=theme;
+			theme.init();
+			$('.icon-skin').click(function(){
+				theme.Next();
+			});
+		}());
+
+		//UI
+		(function(){
+			let ui={
+				full:function(){
+					$('#container').removeAttr('style').toggleClass('full');
+				},
+				showAlert:function(text,callback){
+					var alert=$('body').putDiv('alert normal',text);
+					setTimeout(function(){
+						if(callback) callback();
+						alert.remove();
+					},2000)
+				},
+				showConfrim:function(text,callback){
+					var confrim=$('body').putDiv('confrim',text);
+					var buttonGroup=confrim.putDiv('buttonGroup');
+					buttonGroup.put('button',['yes','no'],['确认','取消']);
+					$('.yes,.no').click(function(){
+						confrim.addClass('active');
+						if($(this).hasClass('yes')) callback();
+						confrim.hide();
+					});
+				},
+				move:function(e){
+					var $box = $('#container');
+					var position = $box.position();
+					$box.posix = {
+						'x': e.pageX - position.left,
+						'y': e.pageY - position.top
+					};
+					$.extend(document, {
+						'move': true,
+						'move_target': $box
+					});
+				},
+			}
+			window.ui=ui;
+			$('.icon-full').click(ui.full);
+			$('#header').dblclick(ui.full);
+			$('.slide').click(function() {
+				$('.slide.active,.page.active').removeClass('active');
+				$(this).addClass('active');	
+				var index=$(this).index();
+				if($(this).getParent(2).hasClass('myMusic')) index+=4;
+				$('.page').eq(index).addClass('active');
+			});
+			$('#header').on('mousedown',function(e){
+				ui.move(e);
+			});
+		}());
+
+		//网络
 		(function(){
 			let net={
 				sign:(obj,callback)=>{
@@ -45,6 +131,7 @@
 					},'text');
 				},
 			}
+			window.net=net;
 			$('.user').click(function(){
 				var bool=net.checkLogin();
 				if(!bool){
@@ -76,98 +163,39 @@
 			});
 
 		}());
-		//ui
-		(function(){
-			let ui={
-				full:function(){
-					$('#container').removeAttr('style').toggleClass('full');
-				},
-				
-			}
-			$('.icon-full').click(ui.full);
-			$('#header').dblclick(ui.full);
-		}());
-		
-		//拖动组件
-		(function(){
-			$(document).mousemove(function(e) {
-				if(!!this.move) {
-					var posix = !document.move_target ? {
-							'x': 0,
-							'y': 0
-						} : document.move_target.posix,
-						callback = document.call_down || function() {
-							//及时屏蔽transition，否则会一直不停触发，别忘了，拖动也是会改变top和left的
-							$('#container').css('transition','none');
-							$(this.move_target).css({
-								'top': e.pageY - posix.y,
-								'left': e.pageX - posix.x,
-							});
-						};
 
-					callback.call(this, e, posix);
-					return false;
-				}
-
-			}).mouseup(function(e) {
-				if(!!this.move) {
-					var callback = document.call_up || function() {};
-					callback.call(this, e);
-					$.extend(this, {
-						'move': false,
-						'move_target': null,
-						'call_down': false,
-						'call_up': false
-					});
-					//恢复之
-					$('#container').css('transition','all 0.5s');
-				}
-			});
-			$('#header').on('mousedown',function(e) {
-				var $box = $('#container');
-				var position = $box.position();
-				$box.posix = {
-					'x': e.pageX - position.left,
-					'y': e.pageY - position.top
-				};
-				$.extend(document, {
-					'move': true,
-					'move_target': $box
-				});
-			});
-		}());
 		//音乐&播放组件
 		(function(){
 			let music={
 				status:null,
+				playMode:'loop',
 				list:[
 					{
 						singer:'Amy Deasismont',
 						name:'Heartbeats',
 						src:'http://music.163.com/song/media/outer/url?id=2175282.mp3',
-					},
-					{
+					},{
 						singer:'林宥嘉',
 						name:'晚安',
 						src:'http://music.163.com/song/media/outer/url?id=108301.mp3',
-					},
-					{
+					},{
 						singer:'张碧晨',
 						name:'凉凉',
 						src:'http://www.tingge123.com/mp3/2017-05-22/1495450394.mp3',
-					},
-					{
+					},{
 						singer:'许嵩',
 						name:'单人旅途',
 						src:'http://music.163.com/song/media/outer/url?id=167860.mp3',
-					},
-					{
+					},{
 						singer:'大鹏',
 						name:'再见理想',
 						src:'http://music.163.com/song/media/outer/url?id=512359278.mp3',
 					},
-
 				],
+				prepare:function(){
+					music.updateInfo(music.list[0]);
+					music.status=music.list[0];
+				},
 				init:function(audio) {
 					var obj={
 						onloadstart:()=>{
@@ -177,11 +205,9 @@
 							music.reset();
 						},
 						onloadedmetadata:()=>{
-							// console.log('元数据加载');
 							music.updateProgress();
 						},
 						oncanplay:()=>{
-							// console.log('可以播放');
 							music.toggle();
 							$('.dot').removeClass('active');
 						},					
@@ -232,20 +258,29 @@
 					});
 				},
 				next:function(){
-					//避免一些奇怪的问题，例如刚开始就点next而没有播放
-					var index;
-					if(this.list.indexOf(this.status)==-1) index=0;
-					else index=this.list.indexOf(this.status);
-					var nextIndex=this.list[(index+1)%5];
-					this.star(nextIndex);
+					switch(this.playMode){
+						case 'loop1':
+							this.star(this.status);
+						;break;
+						case 'random':
+							this.star(this.list.findRandom());
+						;break;
+						default:
+							var next=this.list.findNext(this.status);
+							this.star(next);
+						;break;
+					}
 				},
 				prev:function(){
-					var index=this.list.indexOf(this.status);
-					var prevIndex=this.list[(index-1)<0?4:(index-1)];
-					this.star(prevIndex);
+					var prev=this.list.findPrev(this.status);
+					this.star(prev);
 				},
-				loop:function(){
-					window.audio.loop=true;
+				changePlayMode:function(mode){
+					var m=['loop','loop1','random'];
+					var index=m.indexOf(mode);
+					var next=m[(index+1)%3];
+					this.playMode=next;
+					$('.PM').removeClass('icon-'+mode).addClass('icon-'+next);
 				},
 				toggle:function(){
 					var play=$('.icon-play');
@@ -281,8 +316,8 @@
 				},
 				reset:function(){					
 					$('.progress_active').removeAttr('style');
-					var pause=$('.pause');
-					pause.addClass('play').removeClass('pause');
+					var pause=$('.icon-pause');
+					pause.addClass('icon-play').removeClass('icon-pause');
 					$('.disc').removeClass('active');
 
 				},
@@ -327,8 +362,8 @@
 					$('#main').show();
 				},
 			};
-			//播放
-			music.updateInfo(music.list[0]);
+			window.music=music;
+			music.prepare();
 			//为什么这么写？因为.pause是后来添加的类名，在此之前声明的方法无效
 			$('.playGroup').on('click','.icon-play',function(){
 				if(window.audio){
@@ -348,6 +383,10 @@
 			$('.icon-prev').click(function(){
 				music.prev();
 			});
+			$('.PM').click(function(){
+				var mode=$(this).attr('class').split(' ')[3].replace(/icon-/g,'');
+				music.changePlayMode(mode);
+			});
 			$('.musicPic').click(function(){
 				music.showInterface();
 			});
@@ -360,6 +399,7 @@
 			   music.volChange(value);
             })
 		}());
+
 		//轮播组件
 		(function(){
 			let flash={

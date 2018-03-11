@@ -1,12 +1,112 @@
+/*---------------通用------------------*/
+* {
+	/*margin: 0;*/
+	padding: 0;
+	overflow: hidden;
+}
+::-webkit-scrollbar {
+	display: none;
+}
+html,body {
+	margin: 0;
+	height: 100%;
+	font-family: "微软雅黑";
+	color:#424e67;
+	background-color: #eff4f8;
+}
+div {
+	-ms-user-select: none;
+	user-select: none;
+	cursor: default;
+}   
+button,input{
+	display: block;
+	font: 15px 微软雅黑;
+	outline: none;
+	border-radius: 1em;
+	border:none;
+	/*height: 40px;*/
+}
+input{
+	background-color:#e4e9ec ;
+	text-indent: 15px;
+}
+button{
+	padding: 10px;
+	background-color:#337ab7;
+	color: white;
+}
+button:hover{
+	background-color: #286090;
+}
+button:active{
+	background-color: #337ab7;
+}
+button[disabled]{
+	background-color: #85b4dd;
+}
+/*---------------Alert------------------*/
+@keyframes slide
+{
+	0%{}
+	30%{top:64px}
+	70%{top:64px}
+	100%{top:-110px}
+}
+.alert{
+	position: absolute;
+	z-index: 999;
+	width: 300px;
+	left:50%;
+	margin-left: -150px;
+	font-size: 20px;
+	line-height: 50px;
+	box-shadow: 0 0 5px;
+	text-align: center;
+	background-color: #eff4f8;
+	top:-110px;
+}
+.alert{
+	height: 100px;
+	animation:slide 2s cubic-bezier(0.35,-0.5,0.5,1.35);
+}
 /*---------------flex------------------*/
 #header,.header_menu,.searchBar,.iconMenu,.slide,#footer,.playGroup,.playStatus,.playVolume {
 	display: flex;
 	align-items: center;
 }
 
-.playGroup,.playStatus,.playVolume {
+.playGroup,.playVolume,.playStatus{
 	justify-content: space-around;
 }
+
+.iconMenu,.header_menu,#footer{
+	justify-content: space-between;
+}
+
+/*---------------图标------------------*/
+.lg,.sm{
+	opacity: 0.8;
+	display: block;
+	width: 32px;
+	height: 32px;
+	line-height: 32px;
+}
+
+.lg {
+	font-size: 32px;
+	transition: opacity 0.2s;
+}
+
+.sm {
+	text-align: center;
+	font-size: 25px;
+}
+
+.lg:hover,.sm:hover{
+	opacity: 1;
+}
+
 /*---------------主容器------------------*/
 #container {
 	position: absolute;
@@ -63,23 +163,21 @@
 	margin-left: 50px;
 	padding-right: 20px;
 	font-size: 20px;
-	justify-content: space-between;
 }
-
-
-/*-----------搜索框、人物、图标----------*/
+/*-----------搜索框----------*/
+.search {
+	height: 30px !important;
+	color: gray !important;
+}
+/*-----------图标----------*/
 .iconMenu {
 	width: 280px;
-	justify-content: space-between;
 }
 
 .searchBar,.iconMenu {
 	height: 100%;
 }
-/*-----------搜索框----------*/
-.search {
-	height: 30px !important;
-}
+
 /*-----------人物----------*/
 .user {
 	overflow: hidden;
@@ -97,24 +195,6 @@
 .userInfo {
 	display: none;
 }
-/*-----------fun----------*/
-.lg {
-	font-size: 32px;
-	opacity: 0.8;
-	transition: opacity 0.2s;
-}
-
-.lg:hover {
-	opacity: 1;
-}
-
-.avatar,.lg,.sm {
-	display: block;
-	width: 32px;
-	height: 32px;
-	line-height: 32px;
-}
-
 /*---------------主要界面------------------*/
 #main {
 	z-index: 1;
@@ -131,7 +211,6 @@
 	float: left;
 	width: 200px;
 }
-
 .title {
 	margin-left: 10px;
 }
@@ -149,11 +228,8 @@
 	transform: translateX(7px);
 }
 
-.sm {
+.slide .iconfont{
 	margin: 0 18px;
-	color: #8a8a8a;
-	text-align: center;
-	font-size: 25px;
 }
 
 .playing {
@@ -284,7 +360,6 @@
 	bottom: 0;
 	width: 100%;
 	height: 50px;
-	justify-content: space-between;
 }
 
 .playGroup,.playStatus,.playVolume {
@@ -339,7 +414,39 @@
 /*-----------音量组件-----------*/
 .playVolume {
 	width: 200px;
-	justify-content: center;
+	justify-content: space-around;
+}
+
+input[type=range] {
+    -webkit-appearance: none;
+    border-radius: 10px; /*这个属性设置使填充进度条时的图形为圆角*/
+	height: 20px;
+	background: inherit;
+	width: 80px;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+} 
+
+input[type=range]::-webkit-slider-runnable-track {
+    height: 3px;
+	background: darkgray;
+}
+
+input[type=range]:focus {
+    outline: none;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 15px;
+    width: 15px;
+	margin-top: -6.5px;
+    background: #ffffff; 
+    border-radius: 50%; /*外观设置为圆形*/
+   border: solid 1px darkgray;
+    box-shadow: 0 .125em .125em #3b4547; /*添加底部阴影*/
 }
 /*---------------播放界面------------------*/
 #playInterface {
