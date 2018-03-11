@@ -1,10 +1,10 @@
 /*---------------flex------------------*/
-#header,.header_menu,.searchBar,.user,.iconMenu,.slide,#footer,.playGroup,.playStatus,.playVolume {
+#header,.header_menu,.searchBar,.iconMenu,.slide,#footer,.playGroup,.playStatus,.playVolume {
 	display: flex;
 	align-items: center;
 }
 
-.iconMenu,.playGroup,.playStatus,.playVolume {
+.playGroup,.playStatus,.playVolume {
 	justify-content: space-around;
 }
 /*---------------主容器------------------*/
@@ -58,6 +58,8 @@
 .header_menu {
 	margin-left: 50px;
 	font-size: 20px;
+	justify-content: space-between;
+	padding-right: 20px;
 }
 
 .header_menu .iconfont{
@@ -66,12 +68,11 @@
 
 /*-----------搜索框、人物、图标----------*/
 .iconMenu {
-	float: right;
-	margin-left: 40px;
-	width: 200px;
+	width: 280px;
+	justify-content: space-between;
 }
 
-.searchBar,.user,.iconMenu {
+.searchBar,.iconMenu {
 	height: 100%;
 }
 /*-----------搜索框----------*/
@@ -79,30 +80,34 @@
 	height: 30px !important;
 }
 /*-----------人物----------*/
-.user {
-	margin-left: 350px;
+.user{
+	font-size: 15px;
+	line-height: 32px;
+	width: 120px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.icon-avatar{
+	float: left;
 }
 
 .userInfo {
 	display: none;
 }
-
-.avatar {
-	border-radius: 100%;
-	background: url(../../assest/img/avatar/avatar.png);
-}
 /*-----------fun----------*/
-.bi {
+.lg {
 	opacity: 0.8;
 	transition: opacity 0.2s;
 	font-size: 32px;
 }
 
-.bi:hover {
+.lg:hover {
 	opacity: 1;
 }
 
-.avatar,.bi,.sm {
+.avatar,.lg,.sm {
 	display: block;
 	width: 32px;
 	height: 32px;

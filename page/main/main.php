@@ -1,8 +1,10 @@
 <?php
     header('Access-Control-Allow-Origin:*');  
     header('Access-Control-Allow-Methods:POST');  
-    header('Access-Control-Allow-Headers:x-requested-with,content-type');  
-
+	header('Access-Control-Allow-Headers:x-requested-with,content-type');  
+	
+	session_start();
+	
     $servername = "localhost:3306";
     $username = "root";
     $password = "123456";

@@ -14,9 +14,68 @@
 		$('.icon-skin').click(function(){
 			theme.Next();
 		});
-		$('.user').click(function(){
-			sys.checkLogin();
-		});
+		(function(){
+			let net={
+				sign:(obj,callback)=>{
+					obj.type='sign';
+					this.post(obj,'注册成功',callback);
+				},
+				login:(obj,callback)=>{
+					obj.type='login';
+					this.post(obj,'登录成功',callback);
+				},
+				post:(obj,prompt,callback)=>{
+					var url="http://localhost/page/main/main.php/";
+					$.post(url,obj,function(result){
+						console.log(result);
+						if(result==prompt) callback=function(){
+							console.log('ch!');
+						};
+						ui.showAlert(result,callback);
+					},'text');
+				},
+				checkLogin:()=>{
+					var url="http://localhost/page/main/main.php/";
+					$.post(url,obj,function(result){
+						console.log(result);
+						if(result==prompt) callback=function(){
+							console.log('ch!');
+						};
+						ui.showAlert(result,callback);
+					},'text');
+				},
+			}
+			$('.user').click(function(){
+				var bool=net.checkLogin();
+				if(!bool){
+					//设置禁用防止多次提交
+					var that=$(this);
+					var text=that.text();
+					that.attr('disabled','true').text('提交中...');
+					var username=that.siblings('.username').val();
+					var password=that.siblings('.password').val();
+					var userInfo={
+						username:username,
+						password:password
+					}
+					function callback(){
+						that.removeAttr('disabled').text(text);
+					}
+					//先检查正则相关问题，根据返回值进行相应处理
+					var result=sys.checkReg(userInfo);
+					switch(result){
+						case 0:ui.showAlert('用户名及密码不能为空',callback);break;
+						case 1:ui.showAlert('用户名及密码均需6-15位以内',callback);break;
+						case true:ui.showAlert('用户名需为字母数字组合',callback);break;
+						case false:
+							if(text=='注册') net.sign(userInfo,callback);
+							else net.login(userInfo,callback);
+						break;
+					}
+				}
+			});
+
+		}());
 		//ui
 		(function(){
 			let ui={
