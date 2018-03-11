@@ -1,5 +1,5 @@
 /*---------------flex------------------*/
-#header,.header_menu,.searchBar,.person,.iconMenu,.slide,#footer,.playGroup,.playStatus,.playVolume {
+#header,.header_menu,.searchBar,.user,.iconMenu,.slide,#footer,.playGroup,.playStatus,.playVolume {
 	display: flex;
 	align-items: center;
 }
@@ -59,6 +59,11 @@
 	margin-left: 50px;
 	font-size: 20px;
 }
+
+.header_menu .iconfont{
+	color: white;
+}
+
 /*-----------搜索框、人物、图标----------*/
 .iconMenu {
 	float: right;
@@ -66,7 +71,7 @@
 	width: 200px;
 }
 
-.searchBar,.person,.iconMenu {
+.searchBar,.user,.iconMenu {
 	height: 100%;
 }
 /*-----------搜索框----------*/
@@ -74,11 +79,11 @@
 	height: 30px !important;
 }
 /*-----------人物----------*/
-.person {
+.user {
 	margin-left: 350px;
 }
 
-.personInfo {
+.userInfo {
 	display: none;
 }
 
@@ -90,28 +95,18 @@
 .bi {
 	opacity: 0.8;
 	transition: opacity 0.2s;
+	font-size: 32px;
 }
 
 .bi:hover {
 	opacity: 1;
 }
 
-.skin {
-	background: url(../../assest/img/icon/skin.png);
-}
-
-.full {
-	background: url(../../assest/img/icon/ex.png);
-}
-
-.setting {
-	background: url(../../assest/img/icon/setting.png);
-}
-
-.avatar,.bi,.si {
+.avatar,.bi,.sm {
 	display: block;
 	width: 32px;
 	height: 32px;
+	line-height: 32px;
 }
 
 /*---------------主要界面------------------*/
@@ -138,7 +133,6 @@
 .slide {
 	position: relative;
 	height: 40px;
-	text-indent: 10px;
 	font-size: 15px;
 	line-height: 40px;
 	transition: all 0.3s ease-out;
@@ -149,8 +143,11 @@
 	transform: translateX(7px);
 }
 
-.si {
+.sm {
 	margin: 0 18px;
+	font-size:25px;
+	color:#8a8a8a;
+	text-align: center;
 }
 
 .playing {
@@ -353,7 +350,7 @@
 	margin: 2px 0px 2px 15px;
 }
 
-.back {
+.icon-back {
 	position: absolute;
 	top: 20px;
 	right: 35px;

@@ -11,41 +11,18 @@
 #header{
 	background:none;
 }
+#header .iconfont{
+	color:white;
+}
 /*侧边菜单*/
+#slideMenu .iconfont{
+	color:rgba(255,255,255,0.6);
+}
 .slide{
-	color: rgba(255,255,255,0.6);
+	color:rgba(255,255,255,0.6);
 }
 .slide.active,.slide:hover{
 	background: rgba(0,0,0,0.1);
-}
-/*侧边图标*/
-.found{
-	background: url(../../assest/img/icon/glass/found.png);
-}
-.fm{
-	background: url(../../assest/img/icon/glass/fm.png);
-}
-.mv{
-	background: url(../../assest/img/icon/glass/mv.png);
-}
-.friend{
-	background: url(../../assest/img/icon/glass/friend.png);
-}
-.music{
-	background: url(../../assest/img/icon/glass/music.png);
-}
-.download{
-	background: url(../../assest/img/icon/glass/download.png);
-}
-.cloud{
-	background: url(../../assest/img/icon/glass/cloud.png);
-}
-.star{
-	background: url(../../assest/img/icon/glass/star.png);
-}
-.icon{
-	background-position: center center;
-	background-repeat: no-repeat;
 }
 .songName{
 	color: white;
@@ -70,45 +47,26 @@
 #footer{
 	background: none;
 }
-.prev{
-	background: url(../../assest/img/icon/glass/prev.png);
-}
-.play {
-	background: url(../../assest/img/icon/glass/play.png);
-}
-.pause {
-	background: url(../../assest/img/icon/glass/pause.png);
-}
-.next {
-	background: url(../../assest/img/icon/glass/next.png);
+#footer .iconfont{
+	color:white;
 }
 /*歌曲进度*/
 .progress {
 	background-color: rgba(255,255,255,0.6);
 }
-
 .progress_active {
 	background-color: white;
-}
-/*音量*/
-.voice{
-	background: url(../../assest/img/icon/glass/voice.png);
 }
 /*播放界面*/
 #playInterface{
 	background: #818990;
 }
-
 #mask{
 	background: linear-gradient(135deg,  rgba(186,67,168,0.38) 0%,rgba(233,79,205,0.17) 61%,rgba(234,79,206,0.19) 62%,rgba(83,123,173,0.8) 100%);
 	color:rgba(255,255,255,0.6);
 }
-.back{
-	background: url(../../assest/img/icon/glass/back.png);
-}
-.avatar,.bi,.si{
-	background-position: center center;
-	background-repeat: no-repeat;
+#playInterface .iconfont{
+	color: white;
 }
 input[type=range]::-webkit-slider-runnable-track {
 	background: rgba(255,255,255,0.6);

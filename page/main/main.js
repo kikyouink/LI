@@ -11,8 +11,11 @@
 			if($(this).getParent(2).hasClass('myMusic')) index+=4;
 			$('.page').eq(index).addClass('active');
 		});
-		$('.skin').click(function(){
+		$('.icon-skin').click(function(){
 			theme.Next();
+		});
+		$('.user').click(function(){
+			sys.checkLogin();
 		});
 		//ui
 		(function(){
@@ -22,7 +25,7 @@
 				},
 				
 			}
-			$('.full').click(ui.full);
+			$('.icon-full').click(ui.full);
 			$('#header').dblclick(ui.full);
 		}());
 		
@@ -100,9 +103,9 @@
 						src:'http://music.163.com/song/media/outer/url?id=167860.mp3',
 					},
 					{
-						singer:'米白',
-						name:'樱花樱花想见你',
-						src:'http://music.163.com/song/media/outer/url?id=438903219.mp3',
+						singer:'大鹏',
+						name:'再见理想',
+						src:'http://music.163.com/song/media/outer/url?id=512359278.mp3',
 					},
 
 				],
@@ -186,10 +189,10 @@
 					window.audio.loop=true;
 				},
 				toggle:function(){
-					var play=$('.play');
-					var pause=$('.pause');
-					play.addClass('pause').removeClass('play');
-					pause.addClass('play').removeClass('pause');
+					var play=$('.icon-play');
+					var pause=$('.icon-pause');
+					play.addClass('icon-pause').removeClass('icon-play');
+					pause.addClass('icon-play').removeClass('icon-pause');
 					$('.disc').toggleClass('active');
 				},
 				updateInfo:function(songInfo){
@@ -268,7 +271,7 @@
 			//播放
 			music.updateInfo(music.list[0]);
 			//为什么这么写？因为.pause是后来添加的类名，在此之前声明的方法无效
-			$('.playGroup').on('click','.play',function(){
+			$('.playGroup').on('click','.icon-play',function(){
 				if(window.audio){
 					music.continue();
 				}
@@ -277,19 +280,19 @@
 					music.star(songInfo);
 				}
 			})
-			$('.playGroup').on('click','.pause',function(){
+			$('.playGroup').on('click','.icon-pause',function(){
 				music.pause();
 			})
-			$('.next').click(function(){
+			$('.icon-next').click(function(){
 				music.next();
 			});
-			$('.prev').click(function(){
+			$('.icon-prev').click(function(){
 				music.prev();
 			});
 			$('.musicPic').click(function(){
 				music.showInterface();
 			});
-			$('.back').click(function(){
+			$('.icon-back').click(function(){
 				music.hideInterface();
 			});
 			//调整音量

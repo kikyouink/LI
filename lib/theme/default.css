@@ -10,34 +10,7 @@
 .slide.active,.slide:hover {
 	background: #e4e9ec;
 }
-.found{
-	background: url(../../assest/img/icon/found.png);
-}
-.fm{
-	background: url(../../assest/img/icon/fm.png);
-}
-.mv{
-	background: url(../../assest/img/icon/mv.png);
-}
-.friend{
-	background: url(../../assest/img/icon/friend.png);
-}
-.music{
-	background: url(../../assest/img/icon/music.png);
-}
-.download{
-	background: url(../../assest/img/icon/download.png);
-}
-.cloud{
-	background: url(../../assest/img/icon/cloud.png);
-}
-.star{
-	background: url(../../assest/img/icon/star.png);
-}
-.icon{
-	background-position: center center;
-	background-repeat: no-repeat;
-}
+
 #info {
 	background: white;
 }
@@ -50,35 +23,13 @@
 .blue{
 	background: #3b8cff !important;
 }
-.prev{
-	background: url(../../assest/img/icon/prev.png);
-}
-.play {
-	background: url(../../assest/img/icon/play.png);
-}
-.pause {
-	background: url(../../assest/img/icon/pause.png);
-}
-.next {
-	background: url(../../assest/img/icon/next.png);
-}
 .progress {
 	background: darkgray;
 }
 
-.voice{
-	background: url(../../assest/img/icon/voice.png);
-}
 #playInterface{
 	background-color: #eff4f8;
 }
 #mask{
 	color:#424e67;
-}
-.back{
-	background: url(../../assest/img/icon/back.png);
-}
-.avatar,.bi,.si{
-	background-position: center center;
-	background-repeat: no-repeat;
 }
