@@ -288,7 +288,7 @@
 			$('#LSmask *').click(function(){
 				return false;
 			})
-			$('#LSmask').click(ui.LS.hide());
+			$('#LSmask').click(ui.LS.hide);
 			$('.slide').click(function() {
 				$('.slide.active,.page.active').removeClass('active');
 				$(this).addClass('active');	
