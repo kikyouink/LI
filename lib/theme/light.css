@@ -1,0 +1,81 @@
+button{
+	padding: 10px;
+	background-color:#337ab7;
+	color: white;
+}
+button:hover{
+	background-color: #286090;
+}
+button:active{
+	background-color: #337ab7;
+}
+button[disabled]{
+	background-color: #85b4dd;
+}
+
+#container {
+	color: gray;
+}
+
+#bigMask {
+	background-color: #eff4f8;
+}
+
+#slideMenu{
+	border-right: 1px solid #d8dfea;
+}
+
+.playing{
+	border-top: 1px solid #d8dfea;
+}
+
+.slide {
+	color: gray;
+}
+
+.slide.active,.slide:hover {
+	background: #e4e9ec;
+}
+
+#info {
+	background: white;
+}
+
+.page.N {
+	color: #424e67;
+}
+
+.favorite_pic{
+	border: 7px solid rgba(128,128,128,0.7);
+}
+
+tr:hover{
+	background: rgb(227,227,229);
+}
+
+th{
+	border-bottom: 1px solid gray;
+}
+.buttons a {
+	background-color: gray;
+}
+
+.blue {
+	background: #3b8cff !important;
+}
+
+.progress {
+	background: darkgray;
+}
+
+#playInterface {
+	background-color: #eff4f8;
+}
+
+#footer{
+	border-top: 1px solid #d8dfea;
+}
+
+#mask {
+	color: #424e67;
+}

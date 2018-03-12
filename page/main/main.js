@@ -8,36 +8,63 @@
 				status:null,
 				playMode:'loop',
 				list:[
-					{
+					{	
+						song:'Heartbeats',
 						singer:'Amy Deasismont',
-						name:'Heartbeats',
+						aublm:'Swings & Roundabouts',
 						src:'http://music.163.com/song/media/outer/url?id=2175282.mp3',
 					},{
+						song:'晚安',
 						singer:'林宥嘉',
-						name:'晚安',
+						aublm:'2011年度百首最佳单曲',
 						src:'http://music.163.com/song/media/outer/url?id=108301.mp3',
 					},{
+						song:'凉凉',
 						singer:'张碧晨',
-						name:'凉凉',
+						aublm:'三生三世十里桃花',
 						src:'http://www.tingge123.com/mp3/2017-05-22/1495450394.mp3',
 					},{
+						song:'单人旅途',
 						singer:'许嵩',
-						name:'单人旅途',
+						aublm:'寻雾启示',
 						src:'http://music.163.com/song/media/outer/url?id=167860.mp3',
 					},{
+						song:'再见理想',
 						singer:'大鹏',
-						name:'再见理想',
+						aublm:'缝纫机乐队',
 						src:'http://music.163.com/song/media/outer/url?id=512359278.mp3',
-					},
+					},{
+						song:'忘记时间',
+						singer:'胡歌',
+						aublm:'仙剑奇侠传三',
+						src:'http://music.163.com/song/media/outer/url?id=86360.mp3',
+					},{
+						song:'I Realy Like You',
+						singer:'Carly Rae Jepsen',
+						aublm:'Love Me Like You Do',
+						src:'http://music.163.com/song/media/outer/url?id=30841076.mp3',
+					}
 				],
 				prepare:function(){
 					music.updateInfo(music.list[0]);
 					music.status=music.list[0];
+					var num=this.list.length;
+					$('tbody').put('tr','','',num);
+					$('tr').not("tr:first-child").put('td','','',4);
+					var th=['song','singer','aublm'];
+					for(var i=0;i<num;i++){
+						var tr=$('tr').eq(i+1);
+						for(var j=0;j<4;j++){
+							var td=tr.children().eq(j);
+							if(j==0) td.text('0'+(i+1));
+							else td.text(this.list[i][th[j-1]])
+						}
+					}
 				},
 				init:function(audio) {
 					var obj={
 						onloadstart:()=>{
-							console.info('开始加载:'+this.status.singer+' - '+this.status.name);
+							console.info('开始加载:'+this.status.singer+' - '+this.status.song);
 							$('.dot').addClass('active');
 							music.updateInfo(this.status);
 							music.reset();
@@ -82,16 +109,16 @@
 					this.status=songInfo;
 					var src=songInfo.src;
 					music.new(src).play();
-					music.volSlowUp();
+					music.vol.slowUp();
 				},
 				continue:function(){
 					window.audio.play();
-					music.volSlowUp();
+					music.vol.slowUp();
 					music.toggle();
 				},
 				pause:function(){
 					music.toggle();
-					music.volSlowDown(function(){
+					music.vol.slowDown(function(){
 						window.audio.pause();
 					});
 				},
@@ -131,7 +158,7 @@
 					var picSrc=music.loadSingerSrc(songInfo);
 					//url括号里面还要加引号，好坑
 					$('.musicPic').css('background-image',"url('"+picSrc+"')");
-					$('.songName').text(songInfo.name);
+					$('.songName').text(songInfo.song);
 					$('.singer').text(songInfo.singer);
 				},
 				updateProgress:function(){
@@ -163,33 +190,46 @@
 					var src='assest/img/singer/'+songInfo.singer+'.png';
 					return src;
 				},
-				volChange:function(value){
-					if(!window.audio) return ;
-					window.audio.volume=value;
-				},
-				volSlowUp:function(){
-					window.audio.volume=0;
-					var limit=$('.vc')[0].value;
-					var timer=setInterval(function(){
-						if(window.audio.volume<Math.min(limit,0.95)){
-							window.audio.volume+=0.05;
-							window.uping=false;
+				vol:{
+					change:(value)=>{
+						if(!window.audio) return ;
+						window.audio.volume=value;
+						$('.icon-mute').removeClass('icon-mute').addClass('icon-vol');
+					},
+					slowUp:function(){
+						window.audio.volume=0;
+						var limit=$('.vc')[0].value;
+						var timer=setInterval(function(){
+							if(window.audio.volume<Math.min(limit,0.95)){
+								window.audio.volume+=0.05;
+								window.uping=false;
+							}
+							else{
+								clearInterval(timer);
+							}
+						},60);
+					},
+					slowDown:function(callback){
+						var timer=setInterval(function(){
+							if(window.audio.volume>0.05){
+								window.audio.volume-=0.05;
+							}
+							else{
+								clearInterval(timer);
+								callback();
+							}
+						},60);
+					},
+					toggle:function(){
+						if(window.audio.volume!=0){
+							window.audio.volume=0;
+							$('.icon-vol').removeClass('icon-vol').addClass('icon-mute');
 						}
 						else{
-							clearInterval(timer);
+							window.audio.volume=$('.vc')[0].value;
+							$('.icon-mute').removeClass('icon-mute').addClass('icon-vol');
 						}
-					},60);
-				},
-				volSlowDown:function(callback){
-					var timer=setInterval(function(){
-						if(window.audio.volume>0.05){
-							window.audio.volume-=0.05;
-						}
-						else{
-							clearInterval(timer);
-							callback();
-						}
-					},60);
+					}
 				},
 				showInterface:function(){
 					$('#main').hide();
@@ -233,9 +273,20 @@
 			});
 			//调整音量
 			$('.vc').on('input propertychange',function(){
-               var value=$(this)[0].value;
-			   music.volChange(value);
-            })
+			   var value=$(this)[0].value;
+			   music.vol.change(value);
+			})
+			$('.icon-vol').click(function(){
+				music.vol.toggle();
+			});
+
+			$('tr').not("tr:first-child").click(function(){
+				var index=$(this).index()-1;
+				var songInfo=music.list[index];
+				music.star(songInfo);
+
+			});
+
 		}());
 
 		//系统UI
@@ -407,20 +458,25 @@
 			let theme={
 				list:['red','purple','glass','star'],
 				init:function(){
-					var theme=storage.get('theme')||this.list[0];
+					var theme=storage.get('theme')||'red';
 					this.apply(theme);
 				},
 				//兼容火狐，火狐不支持disabled
 				apply:function(theme){
-					var src='lib/theme/'+theme+'.css';
-					$('#theme').attr('href',src);
+					var mode;
+					if(theme=='red'||theme=='purple') mode='light'
+					else mode='dark';
+					var tsrc='lib/theme/'+theme+'.css';
+					var msrc='lib/theme/'+mode+'.css';
+					$('#theme').attr('href',tsrc);
+					$('#mode').attr('href',msrc);
 					storage.save('theme',theme);
 				},
 				change:function(theme){
 					this.apply(theme);
 				},
 				Next:function(){
-					var theme=storage.get('theme')||theme.list[0];
+					var theme=storage.get('theme')||'red';
 					var themeNext=this.list.findNext(theme);
 					this.apply(themeNext);
 				},

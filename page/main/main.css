@@ -21,27 +21,16 @@ div {
 }   
 button,input{
 	display: block;
-	font: 15px 微软雅黑;
 	outline: none;
 	border:none;
+}
+button{
+	padding: 10px;
 }
 input{
 	background-color:#e4e9ec ;
 	text-indent: 15px;
-}
-button{
-	padding: 10px;
-	background-color:#337ab7;
-	color: white;
-}
-button:hover{
-	background-color: #286090;
-}
-button:active{
-	background-color: #337ab7;
-}
-button[disabled]{
-	background-color: #85b4dd;
+	font: 15px "微软雅黑";
 }
 /*---------------Alert------------------*/
 @keyframes slide
@@ -291,7 +280,7 @@ button[disabled]{
 	height: 230px;
 }
 
-.list {
+.picList {
 	position: relative;
 	overflow: hidden;
 	height: 200px;
@@ -353,7 +342,53 @@ button[disabled]{
 	height: 2px;
 	cursor: pointer;
 }
+/*---------------播放列表------------------*/
+.favorite_pic{
+	width: 200px;
+	height: 200px;
+	background: url(../../assest/img/icon/favorite.png);
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+.favorite_time{
+	width: 60%;
+}
+.favorite_pic,.favorite_time{
+	float: left;
+	margin: 20px;
+}
+.favorite_info{
+	height: 45%;
+}
 
+table{
+	width: 100%;
+	text-align: left;
+}
+tr{
+	
+}
+td,th{
+	padding: 6px;
+	text-indent: 10px;
+}
+td{
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	font-size: 14px;
+}
+.th_id{
+	width: 10%;
+}
+.th_song{
+	width: 35%;
+}
+.th_singer{
+	width: 25%;
+}
+.th_album{
+	width: 30%;
+}
 /*---------------底部------------------*/
 #footer {
 	position: absolute;
@@ -516,9 +551,6 @@ input[type=range]::-webkit-slider-thumb {
 	background-size: contain;
 	background-repeat: no-repeat;
 }
-.tab,form{
-	display: flex;
-}
 /*---------------登录界面------------------*/
 #LSmask{
 	width: 100%;
@@ -539,7 +571,7 @@ input[type=range]::-webkit-slider-thumb {
 	top:100px;
 	text-align: center;
 	color: #424e67;
-	box-shadow: 0 0 1px 5px #424e67;
+	box-shadow:4px 8px 30px 2px rgba(0,0,0,.4);
 	/* transform-style: preserve-3d; */
 	position: absolute;
     backface-visibility: hidden;

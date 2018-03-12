@@ -1,70 +1,13 @@
 #container {
-	background: #576d80;
-	color: white;
+	background: #686669;
 }
 
 #bigMask {
 	background: linear-gradient(135deg,  rgba(186,67,168,0.38) 0%,rgba(233,79,205,0.17) 61%,rgba(234,79,206,0.19) 62%,rgba(83,123,173,0.8) 100%);
 }
 
-#header {
-	background: none;
-}
-
-#slideMenu .iconfont {
-	color: rgba(255,255,255,0.6);
-}
-
-.slide {
-	color: rgba(255,255,255,0.6);
-}
-
-.slide.active,.slide:hover {
-	background: rgba(0,0,0,0.1);
-}
-
-.songName {
-	color: white;
-}
-
-.singer {
-	color: rgba(255,255,255,0.6);
-}
-
-.buttons a {
-	background-color: rgba(255,255,255,0.6);
-}
-
-.blue {
-	background: white !important;
-}
-
-#info {
-	background: none;
-}
-
-.page.N {
-	color: rgba(255,255,255,0.8);
-}
-
-#footer {
-	background: none;
-}
-
-#footer .iconfont {
-	color: white;
-}
-
-.progress {
-	background-color: rgba(255,255,255,0.6);
-}
-
-.progress_active {
-	background-color: white;
-}
-
 #playInterface {
-	background: #576d80;
+	background: #686669;
 }
 
 #mask {
@@ -72,10 +15,3 @@
 	color: rgba(255,255,255,0.6);
 }
 
-#playInterface .iconfont {
-	color: white;
-}
-
-input[type=range]::-webkit-slider-runnable-track {
-	background: rgba(255,255,255,0.6);
-}
