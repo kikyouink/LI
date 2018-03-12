@@ -465,6 +465,7 @@ input[type=range] {
 	height: 20px;
 	background: inherit;
 	width: 80px;
+	padding: 0;
 }
 
 input[type=range]::-webkit-slider-thumb {
@@ -612,6 +613,11 @@ input[type=range]::-webkit-slider-thumb {
 	font-size: 50px;
 	line-height: 150px;
 }
+
+.icon-cloud{
+	font-size: 50px;
+}
+
 .tab{
 	justify-content: space-between;
 	align-items: center;
