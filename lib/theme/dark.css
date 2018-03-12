@@ -1,3 +1,19 @@
+button{
+	padding: 10px;
+	background:none;
+	border:5px solid rgba(255,255,255,0.2);
+	color: white;
+}
+button:hover{
+	background-color: rgba(0,0,0,0.2);
+}
+button:active{
+	/* background-color: none; */
+}
+button[disabled]{
+	background-color: rgba(255,255,255,0.4);
+}
+
 #container {
 	color: rgba(255,255,255,0.8);
 }
@@ -80,4 +96,34 @@ th{
 
 input[type=range]::-webkit-slider-runnable-track {
 	background: rgba(255,255,255,0.6);
+}
+
+.LSlogo{
+	color: rgba(255,255,255,0.8)
+}
+
+.tab_item{
+	color: rgba(255,255,255,0.6)
+}
+
+.tab_item:hover{
+	color: rgba(255,255,255,0.8)
+}
+
+.tab_item.active{
+	color: rgba(255,255,255,1)
+}
+
+.slider{
+	background: rgba(255,255,255,0.8)
+}
+
+.front{
+	background: none;
+	border:5px solid rgba(255,255,255,0.3);
+}
+
+.front input{
+	background-color: rgba(255,255,255,0.2);
+	color: rgba(255,255,255,1);
 }

@@ -1,5 +1,4 @@
 button{
-	padding: 10px;
 	background-color:#337ab7;
 	color: white;
 }
@@ -77,5 +76,9 @@ th{
 }
 
 #mask {
+	color: #424e67;
+}
+
+.fornt,.behind{
 	color: #424e67;
 }

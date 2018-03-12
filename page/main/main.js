@@ -319,9 +319,11 @@
 				LS:{
 					show:function(){
 						$('#LSmask').fadeIn();
+						$('#main').addClass('blur');
 					},
 					hide:function(){
 						$('#LSmask').fadeOut();
+						$('#main').removeClass('blur');
 					},
 					preserve:function(){
 						$('.front').removeClass('active');
@@ -392,7 +394,7 @@
 					$.post(url,obj,function(result){
 						console.log(result);
 						if(result==prompt){
-							ui.preserve();
+							ui.LS.preserve();
 						}
 						else ui.showAlert(result,callback);
 					},'text');
