@@ -2,12 +2,13 @@
 	$(document).ready(function(){
 		//准备工作
 		console.log('Github网速报警系统');
+
 		//音乐组件
 		(function(){
 			let music={
 				status:null,
 				playMode:'loop',
-				list:[
+				favoriteList:[
 					{	
 						song:'Heartbeats',
 						singer:'Amy Deasismont',
@@ -45,9 +46,32 @@
 						src:'http://music.163.com/song/media/outer/url?id=30841076.mp3',
 					}
 				],
+				playList:[
+					{
+						name:'致暗恋：陪伴是最怂的告白',
+						count:67,
+						src:'http://p1.music.126.net/C-j6pDQMLp77xeTxp-DDyg==/109951163174551039.jpg?param=140y140',
+					},{
+						name:'「古风」错身遇个你，穷尽诗家笔',
+						count:12,
+						src:'http://p1.music.126.net/pX2lsnYvvVCmykkA6qpdAA==/18930291695999064.jpg?param=140y140',
+					},{
+						name:'粤语男声 I 我已见过银河 但我只爱一颗星',
+						count:463,
+						src:'http://p1.music.126.net/_ybcEpYdUVxuCct1yQwpyg==/109951163093420045.jpg?param=140y140',
+					},{
+						name:'没有过不去的事，只有过不去的心',
+						count:32,
+						src:'http://p1.music.126.net/lhLM8ZrMuAhTqqMSa22zzg==/109951163179323728.jpg?param=140y140',
+					},{
+						name:'暖春，寄一首阳光明媚的歌给你',
+						count:382,
+						src:'http://p1.music.126.net/8UlHDv3_ynDCsz4TC-Raxw==/109951163160241235.jpg?param=140y140',
+					}
+				],
 				prepare:function(){
-					music.updateInfo(music.list[0]);
-					music.status=music.list[0];
+					music.updateInfo(music.favoriteList[0]);
+					music.status=music.favoriteList[0];
 				},
 				init:function(audio) {
 					var obj={
@@ -116,16 +140,16 @@
 							this.star(this.status);
 						;break;
 						case 'random':
-							this.star(this.list.findRandom());
+							this.star(this.favoriteList.findRandom());
 						;break;
 						default:
-							var next=this.list.findNext(this.status);
+							var next=this.favoriteList.findNext(this.status);
 							this.star(next);
 						;break;
 					}
 				},
 				prev:function(){
-					var prev=this.list.findPrev(this.status);
+					var prev=this.favoriteList.findPrev(this.status);
 					this.star(prev);
 				},
 				changePlayMode:function(mode){
@@ -236,7 +260,7 @@
 					music.continue();
 				}
 				else{
-					var songInfo=music.list[0];
+					var songInfo=music.favoriteList[0];
 					music.star(songInfo);
 				}
 			})
@@ -273,7 +297,7 @@
 			$('table').on('click','tr',function(){
 				console.log('click');
 				var index=$(this).index()-1;
-				var songInfo=music.list[index];
+				var songInfo=music.favoriteList[index];
 				music.star(songInfo);
 
 			});
@@ -328,11 +352,19 @@
 						
 					}
 				},
-				creatFoundList:function(){
-
+				creatPlayList:function(){
+					$('.playList').putDiv('uc','',5);
+					for(var i=0;i<$('.uc').length;i++){
+						var uc=$('.uc').eq(i);
+						var tp=uc.putDiv('uc_tp',music.playList[i].count+'万');
+						var icon=tp.put('i','iconfont icon-count');
+						var bt=uc.putDiv('uc_bt',music.playList[i].name);
+						var img=uc.put('img','uc_img');
+						img.attr('src',music.playList[i].src);
+					}
 				},
 				creatFavoriteList:function(){
-					var num=music.list.length;
+					var num=music.favoriteList.length;
 					$('tbody').put('tr','','',num);
 					$('tr').not("tr:first-child").put('td','','',4);
 					var th=['song','singer','aublm'];
@@ -341,7 +373,7 @@
 						for(var j=0;j<4;j++){
 							var td=tr.children().eq(j);
 							if(j==0) td.text('0'+(i+1));
-							else td.text(music.list[i][th[j-1]])
+							else td.text(music.favoriteList[i][th[j-1]])
 						}
 					}			
 				},
@@ -349,6 +381,7 @@
 			window.ui=ui;
 
 			ui.creatFavoriteList();
+			ui.creatPlayList();
 
 			$('.icon-full').click(ui.full);
 			$('#header').dblclick(ui.full);
@@ -365,7 +398,7 @@
 				$('.slide.active,.page.active').removeClass('active');
 				$(this).addClass('active');	
 				var index=$(this).index();
-				if($(this).getParent(2).hasClass('myMusic')) index+=4;
+				if($(this).getParent(2).index()==1) index+=4;
 				$('.page').eq(index).addClass('active');
 			});
 			$('.tab_item').click(function() {
@@ -420,7 +453,6 @@
 					ui.LS.preserve(function(){
 						ui.LS.hide();
 						$('.user_name').text(obj.username);
-						ui.LS.preserve();
 					});
 				},
 				checkLogin:function(){

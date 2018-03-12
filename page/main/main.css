@@ -59,7 +59,7 @@ input{
 	animation:slide 2s cubic-bezier(0.35,-0.5,0.5,1.35);
 }
 /*---------------flex------------------*/
-#header,.header_menu,.searchBar,.iconMenu,.slide,#footer,.playGroup,.playStatus,.playVolume,.tab,form{
+#header,.header_menu,.searchBar,.iconMenu,.slide,#footer,.playGroup,.playStatus,.playVolume,.tab,form,.playList{
 	display: flex;
 	align-items: center;
 }
@@ -283,7 +283,7 @@ input{
 }
 /*-----------发现音乐-----------*/
 .box {
-	padding-top: 15px;
+	padding-top: 40px;
 	width: 100%;
 	height: 230px;
 }
@@ -350,6 +350,58 @@ input{
 	height: 2px;
 	cursor: pointer;
 }
+
+.recommend{
+	max-width: 1060px;
+	margin: 0 auto;
+}
+
+h3{
+	margin-left: 20px;
+}
+
+.playList{
+	height: auto;
+	justify-content: space-around;
+	padding: 10px;
+}
+
+.uc{
+	width: 140px;
+	height: 140px;
+	position: relative;
+	transition: filter 0.3s;
+	filter: brightness(1);
+}
+
+.uc:hover{
+	filter: brightness(0.8);
+}
+
+.uc img{
+	width: 100%;
+	height: 100%;
+}
+
+.uc_bt{
+	position: absolute;
+	bottom: 0;
+	/* height: 35px; */
+	text-overflow: ellipsis;
+	padding: 2px;
+	/* display: none; */
+	background: rgba(0,0,0,.4);
+	font-size: 13px;
+	line-height: 15px;
+}
+
+.uc_tp{
+	position: absolute;
+	right: 0;
+	top:0;
+	background: rgba(0,0,0,.4);
+}
+
 /*---------------播放列表------------------*/
 .favorite_pic{
 	width: 200px;

@@ -63,6 +63,11 @@ th{
 	background: #3b8cff !important;
 }
 
+.uc{
+	color: white;
+	border: 1px solid #d8dfea;
+}
+
 .progress {
 	background: darkgray;
 }

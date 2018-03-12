@@ -54,6 +54,10 @@ button[disabled]{
 	background: none;
 }
 
+.uc{
+	border:5px solid rgba(255,255,255,0.1);
+}
+
 .page.N{
 	color: rgba(255,255,255,0.8);
 }
