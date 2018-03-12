@@ -194,7 +194,7 @@ input{
 }
 
 
-#main.blur{
+.blur{
 	filter:blur(7px);
 }
 
@@ -575,7 +575,6 @@ input[type=range]::-webkit-slider-thumb {
 .front, .behind {
 	width: 330px;
 	height: 470px;
-	background-color: white;
 	left: calc(50% - 165px);
 	top:100px;
 	text-align: center;

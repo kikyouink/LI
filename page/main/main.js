@@ -48,18 +48,6 @@
 				prepare:function(){
 					music.updateInfo(music.list[0]);
 					music.status=music.list[0];
-					var num=this.list.length;
-					$('tbody').put('tr','','',num);
-					$('tr').not("tr:first-child").put('td','','',4);
-					var th=['song','singer','aublm'];
-					for(var i=0;i<num;i++){
-						var tr=$('tr').eq(i+1);
-						for(var j=0;j<4;j++){
-							var td=tr.children().eq(j);
-							if(j==0) td.text('0'+(i+1));
-							else td.text(this.list[i][th[j-1]])
-						}
-					}
 				},
 				init:function(audio) {
 					var obj={
@@ -261,10 +249,12 @@
 			$('.icon-prev').click(function(){
 				music.prev();
 			});
+			//播放模式
 			$('.PM').click(function(){
 				var mode=$(this).attr('class').split(' ')[3].replace(/icon-/g,'');
 				music.changePlayMode(mode);
 			});
+			//播放界面
 			$('.musicPic').click(function(){
 				music.showInterface();
 			});
@@ -279,7 +269,7 @@
 			$('.icon-vol').click(function(){
 				music.vol.toggle();
 			});
-
+			//点击列表播放
 			$('tr').not("tr:first-child").click(function(){
 				var index=$(this).index()-1;
 				var songInfo=music.list[index];
@@ -319,29 +309,56 @@
 				LS:{
 					show:function(){
 						$('#LSmask').fadeIn();
-						$('#main').addClass('blur');
+						$('#main ,#mask').addClass('blur');
 					},
 					hide:function(){
 						$('#LSmask').fadeOut();
-						$('#main').removeClass('blur');
+						$('#main ,#mask').removeClass('blur');
 					},
-					preserve:function(){
-						$('.front').removeClass('active');
-						$('.behind').addClass('active');
+					preserve:function(callback){
+						$('.front').toggleClass('active');
+						$('.behind').toggleClass('active');
+						if(callback){
+							setTimeout(function(){
+								callback();
+
+							},2000);
+						}
+						
 					}
-				}
+				},
+				creatFoundList:function(){
+
+				},
+				creatFavoriteList:function(){
+					var num=music.list.length;
+					$('tbody').put('tr','','',num);
+					$('tr').not("tr:first-child").put('td','','',4);
+					var th=['song','singer','aublm'];
+					for(var i=0;i<num;i++){
+						var tr=$('tr').eq(i+1);
+						for(var j=0;j<4;j++){
+							var td=tr.children().eq(j);
+							if(j==0) td.text('0'+(i+1));
+							else td.text(music.list[i][th[j-1]])
+						}
+					}			
+				},
 			}
 			window.ui=ui;
-			
+
+			ui.creatFavoriteList();
+
 			$('.icon-full').click(ui.full);
 			$('#header').dblclick(ui.full);
+			$('#LSmask').click(ui.LS.hide);
+
 			$('#header').on('mousedown',function(e){
 				ui.container.move(e);
 			});
 			$('#LSmask *').click(function(){
 				return false;
 			})
-			$('#LSmask').click(ui.LS.hide);
 			$('.slide').click(function() {
 				$('.slide.active,.page.active').removeClass('active');
 				$(this).addClass('active');	
@@ -390,14 +407,19 @@
 					this.post(obj,'登录成功',callback);
 				},
 				post:function(obj,prompt,callback){
-					var url="http://localhost/page/main/main.php/";
-					$.post(url,obj,function(result){
-						console.log(result);
-						if(result==prompt){
-							ui.LS.preserve();
-						}
-						else ui.showAlert(result,callback);
-					},'text');
+					// var url="http://localhost/page/main/main.php/";
+					// $.post(url,obj,function(result){
+					// 	console.log(result);
+					// 	if(result==prompt){
+					// 		ui.LS.preserve();
+					// 	}
+					// 	else ui.showAlert(result,callback);
+					// },'text');
+					ui.LS.preserve(function(){
+						ui.LS.hide();
+						$('.user_name').text(obj.username);
+						ui.LS.preserve();
+					});
 				},
 				checkLogin:function(){
 					return false;
@@ -425,7 +447,7 @@
 					that.removeAttr('disabled').text(text);
 				}
 				//先检查正则相关问题，根据返回值进行相应处理
-				var result=net.checkReg(userInfo);
+				var result=net.checkReg(userInfo,'remix');
 				switch(result){
 					case 0:ui.showAlert('用户名及密码不能为空',callback);break;
 					case 1:ui.showAlert('用户名及密码均需6-15位以内',callback);break;
