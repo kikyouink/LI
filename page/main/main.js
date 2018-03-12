@@ -270,7 +270,8 @@
 				music.vol.toggle();
 			});
 			//点击列表播放
-			$('tr').not("tr:first-child").click(function(){
+			$('table').on('click','tr',function(){
+				console.log('click');
 				var index=$(this).index()-1;
 				var songInfo=music.list[index];
 				music.star(songInfo);
@@ -359,6 +360,7 @@
 			$('#LSmask *').click(function(){
 				return false;
 			})
+
 			$('.slide').click(function() {
 				$('.slide.active,.page.active').removeClass('active');
 				$(this).addClass('active');	
