@@ -67,7 +67,9 @@ th{
 	color: white;
 	border: 1px solid #d8dfea;
 }
-
+.tp,.bt{
+	color: rgba(255,255,255,0.8)
+}
 .progress {
 	background: darkgray;
 }
