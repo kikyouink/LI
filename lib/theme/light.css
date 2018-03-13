@@ -72,7 +72,7 @@ th{
 	background: darkgray;
 }
 
-#playInterface {
+#musicInterface ,#videoInterface{
 	background-color: #eff4f8;
 }
 

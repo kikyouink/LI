@@ -59,16 +59,16 @@ input{
 	animation:slide 2s cubic-bezier(0.35,-0.5,0.5,1.35);
 }
 /*---------------flex------------------*/
-#header,.header_menu,.searchBar,.iconMenu,.slide,#footer,.playGroup,.playStatus,.playVolume,.tab,form,.playList{
+#header,.header_menu,.searchBar,.iconMenu,.slide,#footer,.playGroup,.playStatus,.playVolume,.tab,form,.playList,.mvList{
 	display: flex;
 	align-items: center;
 }
 
-.playGroup,.playVolume,.playStatus{
+.playGroup,.playVolume,.playStatus,.mvList,.playList,form{
 	justify-content: space-around;
 }
 
-.iconMenu,.header_menu,#footer{
+.iconMenu,.header_menu,#footer,.tab{
 	justify-content: space-between;
 }
 
@@ -362,7 +362,6 @@ h3{
 
 .playList{
 	height: auto;
-	justify-content: space-around;
 	padding: 10px;
 }
 
@@ -370,12 +369,14 @@ h3{
 	width: 140px;
 	height: 140px;
 	position: relative;
-	transition: filter 0.3s;
-	filter: brightness(1);
 }
 
-.uc:hover{
+.uc:hover,.mv:hover{
 	filter: brightness(0.8);
+}
+.uc,.mv{
+	transition: filter 0.3s;
+	filter: brightness(1);
 }
 
 .uc img{
@@ -383,23 +384,40 @@ h3{
 	height: 100%;
 }
 
-.uc_bt{
+.bt{
 	position: absolute;
+	width: 100%;
 	bottom: 0;
-	/* height: 35px; */
 	text-overflow: ellipsis;
 	padding: 2px;
-	/* display: none; */
 	background: rgba(0,0,0,.4);
 	font-size: 13px;
 	line-height: 15px;
 }
+.uc .bt{
+	font-size: 13px;
+	line-height: 15px;
+}
+.mv .bt{
+	height: 25px;
+	font-size: 15px;
+	line-height: 25px;
+}
 
-.uc_tp{
+.tp{
 	position: absolute;
 	right: 0;
 	top:0;
 	background: rgba(0,0,0,.4);
+}
+
+.mvList{
+	height: 400px;
+}
+.mv{
+	width: 260px;
+	height: 150px;
+	position: relative;
 }
 
 /*---------------播放列表------------------*/
@@ -509,7 +527,6 @@ td{
 /*-----------音量组件-----------*/
 .playVolume {
 	width: 200px;
-	justify-content: space-around;
 }
 
 input[type=range] {
@@ -545,7 +562,7 @@ input[type=range]::-webkit-slider-thumb {
     box-shadow: 0 .125em .125em #3b4547; /*添加底部阴影*/
 }
 /*---------------播放界面------------------*/
-#playInterface {
+#musicInterface ,#videoInterface{
 	position: absolute;
 	top: 62px;
 	z-index: 10;
@@ -612,6 +629,14 @@ input[type=range]::-webkit-slider-thumb {
 	background-size: contain;
 	background-repeat: no-repeat;
 }
+.videoPlayer{
+	width: 100%;
+	height: 100%;
+}
+video{
+	width: 100%;
+}
+
 /*---------------登录界面------------------*/
 #LSmask{
 	width: 100%;
@@ -671,7 +696,6 @@ input[type=range]::-webkit-slider-thumb {
 }
 
 .tab{
-	justify-content: space-between;
 	align-items: center;
 	height: 45px;
 	width: 200px;
@@ -704,7 +728,6 @@ input[type=range]::-webkit-slider-thumb {
 form{
 	flex-direction: column;
 	box-sizing: border-box;
-	justify-content: space-around;
 	align-items: center;
 	height: 100%;
 }

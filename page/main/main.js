@@ -3,11 +3,34 @@
 		//准备工作
 		console.log('Github网速报警系统');
 
-		//音乐组件
+		//媒体组件
 		(function(){
-			let music={
+			let media={
 				status:null,
+				statusInfo:null,
+				type:'audio',
 				playMode:'loop',
+				mvList:[
+					{	
+						singer:'薛之谦',
+						song:'演员',
+						count:235,
+						src:'http://v4.music.126.net/20180313143356/dd49b9aa854147fedc9e2c41ae444340/web/cloudmusic/MTAwMDAiMCQ4ICUgOCFhZg==/mv/420144/9979dc884a5cf23f5b6cf7c72729f7e4.mp4',
+						picSrc:'http://p1.music.126.net/pBb_xbVvSxb4-AYOerOiaw==/109951163076398998.jpg?param=260y150',
+					},{
+						song:'Let me go',
+						singer:'Avril Lavigne',
+						count:126,
+						src:'http://v4.music.126.net/20180313144111/fd632bf0ae93e139e3b75659051e4e6c/web/cloudmusic/ICQiImAxICAhMDFiISYwJQ==/mv/==/193092/20140702161650/120946279121156_720.mp4',
+						picSrc:'http://p1.music.126.net/6FLiLzK-oNEI5nu6jSGO9Q==/5968149115568307.jpg?param=260y150',
+					},{	
+						song:'你要的全拿走',
+						singer:'胡彦斌',
+						count:87,
+						src:'http://v4.music.126.net/20180313144202/3c317a9e3773bfa360b424a023deb0b0/web/cloudmusic/MDAgIDEyIGImICAkMDQwIA==/mv/5779938/efd1c9ae0b810af325b4604cdf94eb1a.mp4',
+						picSrc:'http://p1.music.126.net/NGh_kn3yNoCDAvsBQqliTA==/109951163108885378.jpg?param=260y150',
+					}
+				],
 				favoriteList:[
 					{	
 						song:'Heartbeats',
@@ -44,119 +67,167 @@
 						singer:'Carly Rae Jepsen',
 						aublm:'Love Me Like You Do',
 						src:'http://music.163.com/song/media/outer/url?id=30841076.mp3',
+					},{	
+						song:'你要的全拿走',
+						singer:'胡彦斌',
+						aublm:'勿好',
+						src:'http://music.163.com/song/media/outer/url?id=529668356.mp3',
 					}
 				],
 				playList:[
 					{
 						name:'致暗恋：陪伴是最怂的告白',
 						count:67,
-						src:'http://p1.music.126.net/C-j6pDQMLp77xeTxp-DDyg==/109951163174551039.jpg?param=140y140',
+						picSrc:'http://p1.music.126.net/C-j6pDQMLp77xeTxp-DDyg==/109951163174551039.jpg?param=140y140',
 					},{
 						name:'「古风」错身遇个你，穷尽诗家笔',
 						count:12,
-						src:'http://p1.music.126.net/pX2lsnYvvVCmykkA6qpdAA==/18930291695999064.jpg?param=140y140',
+						picSrc:'http://p1.music.126.net/pX2lsnYvvVCmykkA6qpdAA==/18930291695999064.jpg?param=140y140',
 					},{
 						name:'粤语男声 I 我已见过银河 但我只爱一颗星',
 						count:463,
-						src:'http://p1.music.126.net/_ybcEpYdUVxuCct1yQwpyg==/109951163093420045.jpg?param=140y140',
+						picSrc:'http://p1.music.126.net/_ybcEpYdUVxuCct1yQwpyg==/109951163093420045.jpg?param=140y140',
 					},{
 						name:'没有过不去的事，只有过不去的心',
 						count:32,
-						src:'http://p1.music.126.net/lhLM8ZrMuAhTqqMSa22zzg==/109951163179323728.jpg?param=140y140',
+						picSrc:'http://p1.music.126.net/lhLM8ZrMuAhTqqMSa22zzg==/109951163179323728.jpg?param=140y140',
 					},{
 						name:'暖春，寄一首阳光明媚的歌给你',
 						count:382,
-						src:'http://p1.music.126.net/8UlHDv3_ynDCsz4TC-Raxw==/109951163160241235.jpg?param=140y140',
+						picSrc:'http://p1.music.126.net/8UlHDv3_ynDCsz4TC-Raxw==/109951163160241235.jpg?param=140y140',
 					}
 				],
-				prepare:function(){
-					music.updateInfo(music.favoriteList[0]);
-					music.status=music.favoriteList[0];
+				showInfo:function(){
+					console.log('media.type: '+media.type);
+					console.log('media.statusInfo: '+media.statusInfo.singer);
 				},
-				init:function(audio) {
+				prepare:function(){
+					if(media.type=='audio'){
+						media.updateInfo(media.favoriteList[0]);
+						media.statusInfo=media.favoriteList[0];
+					}
+					else{
+						media.updateInfo(media.mvList[0]);
+						media.statusInfo=media.mvList[0];
+					}
+				},
+				star:function(mediaInfo){
+					var src=mediaInfo.src;
+					media.new(src).play();
+					if(media.type=='audio'){
+						media.vol.slowUp();
+					}
+					else media.showInterface();
+					media.statusInfo=mediaInfo;
+				},
+				new:function(src){
+					var m;
+					if(media.status){
+						media.status.src=src;	
+						media.status.load();
+					}
+					else if(media.type=='audio'){
+						m=new Audio(src);
+					}
+					else{
+						//new Video()无法使用，既然有new Audio为什么不能有new Video
+						m=document.createElement('video');
+						m.src=src;
+						m.className='media';
+						m.type='video/mp4';
+						$('.videoPlayer')[0].appendChild(m);
+					}
+					media.init(m);
+					media.status=m;		
+					return media.status;
+				},
+				init:function(m) {
 					var obj={
 						onloadstart:()=>{
-							console.info('开始加载:'+this.status.singer+' - '+this.status.song);
+							console.info('开始加载:'+media.statusInfo.singer+' - '+media.statusInfo.song);
 							$('.dot').addClass('active');
-							music.updateInfo(this.status);
-							music.reset();
+							media.updateInfo(media.statusInfo);
+							media.reset();
 						},
 						onloadedmetadata:()=>{
-							music.updateProgress();
+							media.updateProgress();
 						},
 						oncanplay:()=>{
-							music.toggle();
+							media.toggle();
 							$('.dot').removeClass('active');
 						},					
 						onerror:()=>{
 							console.error('加载出错...');
-							setTimeout(this.next,2000);
 						},
 						onstalled:()=>{
 							$('.dot').addClass('active');
 							console.info('缓冲中...');
 						},
 						onended:()=>{
-							this.next();
+							media.next();
 						},
 					}
 					for(var i in obj){
-						audio[i]=obj[i];
+						m[i]=obj[i];
 					}
-				},
-				new:function(src){
-					if(window.audio){
-						window.audio.src=src;	
-						window.audio.load();
-					}
-					else{
-						var audio=new Audio(src);
-						music.init(audio);
-						window.audio=audio;
-					}			
-					return window.audio;
 				},
 				//从头播放
-				star:function(songInfo){
-					this.status=songInfo;
-					var src=songInfo.src;
-					music.new(src).play();
-					music.vol.slowUp();
-				},
 				continue:function(){
-					window.audio.play();
-					music.vol.slowUp();
-					music.toggle();
+					media.status.play();
+					media.vol.slowUp();
+					media.toggle();
 				},
 				pause:function(){
-					music.toggle();
-					music.vol.slowDown(function(){
-						window.audio.pause();
+					media.toggle();
+					media.vol.slowDown(function(){
+						media.status.pause();
 					});
 				},
 				next:function(){
-					switch(this.playMode){
-						case 'loop1':
-							this.star(this.status);
-						;break;
-						case 'random':
-							this.star(this.favoriteList.findRandom());
-						;break;
-						default:
-							var next=this.favoriteList.findNext(this.status);
-							this.star(next);
-						;break;
+					if(media.type=='audio'){
+						switch(media.playMode){
+							case 'loop1':
+							media.star(media.statusInfo);
+							;break;
+							case 'random':
+							media.star(media.favoriteList.findRandom());
+							;break;
+							default:
+								var next=media.favoriteList.findNext(media.statusInfo);
+								media.star(next);
+							;break;
+						}
+					}
+					else{
+						var next=media.mvList.findNext(media.statusInfo);
+						media.star(next);
 					}
 				},
 				prev:function(){
-					var prev=this.favoriteList.findPrev(this.status);
-					this.star(prev);
+					if(media.type=='audio'){
+						switch(media.playMode){
+							case 'loop1':
+							media.star(media.statusInfo);
+							;break;
+							case 'random':
+							media.star(media.favoriteList.findRandom());
+							;break;
+							default:
+								var prev=media.favoriteList.findPrev(media.statusInfo);
+								media.star(prev);
+							;break;
+						}
+					}
+					else{
+						var prev=media.mvList.findPrev(media.statusInfo);
+						media.star(prev);
+					}
 				},
 				changePlayMode:function(mode){
 					var m=['loop','loop1','random'];
 					var index=m.indexOf(mode);
 					var next=m[(index+1)%3];
-					this.playMode=next;
+					media.playMode=next;
 					$('.PM').removeClass('icon-'+mode).addClass('icon-'+next);
 				},
 				toggle:function(){
@@ -166,12 +237,12 @@
 					pause.addClass('icon-play').removeClass('icon-pause');
 					$('.disc').toggleClass('active');
 				},
-				updateInfo:function(songInfo){
-					var picSrc=music.loadSingerSrc(songInfo);
+				updateInfo:function(mediaInfo){
+					var picSrc=media.loadSingerSrc(mediaInfo);
 					//url括号里面还要加引号，好坑
 					$('.musicPic').css('background-image',"url('"+picSrc+"')");
-					$('.songName').text(songInfo.song);
-					$('.singer').text(songInfo.singer);
+					$('.songName').text(mediaInfo.song);
+					$('.singer').text(mediaInfo.singer);
 				},
 				updateProgress:function(){
 					var getTime=function(time){
@@ -179,11 +250,11 @@
 						var sec=parseInt(time%60);
 						return [min,sec].join(':').replace(/\b(\d)\b/g, "0$1");
 					}
-					var all=window.audio.duration;		
+					var all=media.status.duration;		
 					$(".time.r").text(getTime(all));
 					setInterval(function(){
-						var all=window.audio.duration;	
-						var status=window.audio.currentTime;
+						var all=media.status.duration;	
+						var status=media.status.currentTime;
 						var precent=status/all;
 						var width=500*precent;
 						$('.progress_active').css('width',width);
@@ -198,22 +269,22 @@
 					$('.disc').removeClass('active');
 
 				},
-				loadSingerSrc:function(songInfo){
-					var src='assest/img/singer/'+songInfo.singer+'.png';
+				loadSingerSrc:function(mediaInfo){
+					var src='assest/img/singer/'+mediaInfo.singer+'.png';
 					return src;
 				},
 				vol:{
 					change:(value)=>{
-						if(!window.audio) return ;
-						window.audio.volume=value;
+						if(!media.status) return ;
+						media.status.volume=value;
 						$('.icon-mute').removeClass('icon-mute').addClass('icon-vol');
 					},
 					slowUp:function(){
-						window.audio.volume=0;
+						media.status.volume=0;
 						var limit=$('.vc')[0].value;
 						var timer=setInterval(function(){
-							if(window.audio.volume<Math.min(limit,0.95)){
-								window.audio.volume+=0.05;
+							if(media.status.volume<Math.min(limit,0.95)){
+								media.status.volume+=0.05;
 								window.uping=false;
 							}
 							else{
@@ -223,8 +294,8 @@
 					},
 					slowDown:function(callback){
 						var timer=setInterval(function(){
-							if(window.audio.volume>0.05){
-								window.audio.volume-=0.05;
+							if(media.status.volume>0.05){
+								media.status.volume-=0.05;
 							}
 							else{
 								clearInterval(timer);
@@ -233,73 +304,93 @@
 						},60);
 					},
 					toggle:function(){
-						if(window.audio.volume!=0){
-							window.audio.volume=0;
+						if(media.status.volume!=0){
+							media.status.volume=0;
 							$('.icon-vol').removeClass('icon-vol').addClass('icon-mute');
 						}
 						else{
-							window.audio.volume=$('.vc')[0].value;
+							media.status.volume=$('.vc')[0].value;
 							$('.icon-mute').removeClass('icon-mute').addClass('icon-vol');
 						}
 					}
 				},
 				showInterface:function(){
 					$('#main').hide();
-					$('#playInterface').fadeIn();
+					if(media.type=='audio'){
+						$('#musicInterface').fadeIn();
+					}
+					else $('#videoInterface').fadeIn();
 				},
 				hideInterface:function(){
-					$('#playInterface').fadeOut();
+					if(media.type=='audio'){
+						$('#musicInterface').fadeOut();
+					}
+					else $('#videoInterface').fadeOut();
 					$('#main').show();
 				},
 			};
-			window.music=music;
-			music.prepare();
+			window.media=media;
+
+			media.prepare();
 			//为什么这么写？因为.pause是后来添加的类名，在此之前声明的方法无效
 			$('.playGroup').on('click','.icon-play',function(){
-				if(window.audio){
-					music.continue();
+				if(media.status){
+					media.continue();
 				}
 				else{
-					var songInfo=music.favoriteList[0];
-					music.star(songInfo);
+					console.log(ui.statusPage);
+					if(!ui.statusPage.hasClass('page_video')){
+						var mediaInfo=media.favoriteList[0];
+						media.type='audio';
+						media.star(mediaInfo);
+					}
+					else{
+						var mediaInfo=media.mvList[0];
+						media.type='video';
+						media.star(mediaInfo);
+					}
 				}
 			})
 			$('.playGroup').on('click','.icon-pause',function(){
-				music.pause();
+				media.pause();
 			})
 			$('.icon-next').click(function(){
-				music.next();
+				media.next();
 			});
 			$('.icon-prev').click(function(){
-				music.prev();
+				media.prev();
 			});
 			//播放模式
 			$('.PM').click(function(){
 				var mode=$(this).attr('class').split(' ')[3].replace(/icon-/g,'');
-				music.changePlayMode(mode);
+				media.changePlayMode(mode);
 			});
 			//播放界面
 			$('.musicPic').click(function(){
-				music.showInterface();
+				media.showInterface();
 			});
 			$('.icon-back').click(function(){
-				music.hideInterface();
+				media.hideInterface();
 			});
 			//调整音量
 			$('.vc').on('input propertychange',function(){
 			   var value=$(this)[0].value;
-			   music.vol.change(value);
+			   media.vol.change(value);
 			})
 			$('.icon-vol').click(function(){
-				music.vol.toggle();
+				media.vol.toggle();
 			});
-			//点击列表播放
+			//播放favoriteList
 			$('table').on('click','tr',function(){
-				console.log('click');
 				var index=$(this).index()-1;
-				var songInfo=music.favoriteList[index];
-				music.star(songInfo);
-
+				var mediaInfo=media.favoriteList[index];
+				media.star(mediaInfo);
+			});
+			//播放mvList
+			$('.mvList').on('click','.mv',function(){
+				var index=$(this).index();
+				var mediaInfo=media.mvList[index];
+				media.star(mediaInfo);
 			});
 
 		}());
@@ -307,6 +398,7 @@
 		//系统UI
 		(function(){
 			let ui={
+				statusPage:null,
 				full:function(){
 					$('#container').removeAttr('style').toggleClass('full');
 				},
@@ -334,11 +426,11 @@
 				LS:{
 					show:function(){
 						$('#LSmask').fadeIn();
-						$('#main ,#mask').addClass('blur');
+						$('#main').addClass('blur');
 					},
 					hide:function(){
 						$('#LSmask').fadeOut();
-						$('#main ,#mask').removeClass('blur');
+						$('#main').removeClass('blur');
 					},
 					preserve:function(callback){
 						$('.front').toggleClass('active');
@@ -354,17 +446,17 @@
 				},
 				creatPlayList:function(){
 					$('.playList').putDiv('uc','',5);
-					for(var i=0;i<$('.uc').length;i++){
+					for(var i=0;i<media.playList.length;i++){
 						var uc=$('.uc').eq(i);
-						var tp=uc.putDiv('uc_tp',music.playList[i].count+'万');
+						var tp=uc.putDiv('tp',media.playList[i].count+'万');
 						var icon=tp.put('i','iconfont icon-count');
-						var bt=uc.putDiv('uc_bt',music.playList[i].name);
-						var img=uc.put('img','uc_img');
-						img.attr('src',music.playList[i].src);
+						var bt=uc.putDiv('bt',media.playList[i].name);
+						var img=uc.put('img');
+						img.attr('src',media.playList[i].picSrc);
 					}
 				},
 				creatFavoriteList:function(){
-					var num=music.favoriteList.length;
+					var num=media.favoriteList.length;
 					$('tbody').put('tr','','',num);
 					$('tr').not("tr:first-child").put('td','','',4);
 					var th=['song','singer','aublm'];
@@ -373,15 +465,28 @@
 						for(var j=0;j<4;j++){
 							var td=tr.children().eq(j);
 							if(j==0) td.text('0'+(i+1));
-							else td.text(music.favoriteList[i][th[j-1]])
+							else td.text(media.favoriteList[i][th[j-1]])
 						}
 					}			
+				},
+				creatMvList:function(){
+					$('.mvList').putDiv('mv','',3);
+					// console.log(media.mvList);
+					for(var i=0;i<media.mvList.length;i++){
+						var mv=$('.mv').eq(i);
+						var tp=mv.putDiv('tp',media.mvList[i].count+'万');
+						var icon=tp.put('i','iconfont icon-count');
+						var bt=mv.putDiv('bt',media.mvList[i].singer+' - '+media.mvList[i].song);
+						var img=mv.put('img');
+						img.attr('src',media.mvList[i].picSrc);
+					}
 				},
 			}
 			window.ui=ui;
 
 			ui.creatFavoriteList();
 			ui.creatPlayList();
+			ui.creatMvList();
 
 			$('.icon-full').click(ui.full);
 			$('#header').dblclick(ui.full);
@@ -399,7 +504,12 @@
 				$(this).addClass('active');	
 				var index=$(this).index();
 				if($(this).getParent(2).index()==1) index+=4;
-				$('.page').eq(index).addClass('active');
+				var page=$('.page').eq(index);
+				page.addClass('active');
+				if(page.hasClass('page-video')) media.type='video';
+				else media.type=audio;
+				ui.statusPage=page;
+
 			});
 			$('.tab_item').click(function() {
 				$(this).addClass('active');

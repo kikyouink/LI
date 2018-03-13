@@ -94,7 +94,7 @@ th{
 	background-color: white;
 }
 
-#playInterface .iconfont {
+#musicInterface .iconfont ,#videoInterface .iconfont{
 	color: white;
 }
 

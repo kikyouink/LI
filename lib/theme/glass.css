@@ -6,7 +6,7 @@
 	background: linear-gradient(135deg,  rgba(186,67,168,0.38) 0%,rgba(233,79,205,0.17) 61%,rgba(234,79,206,0.19) 62%,rgba(83,123,173,0.8) 100%);
 }
 
-#playInterface {
+#musicInterface ,#videoInterface{
 	background: #686669;
 }
 .front{
