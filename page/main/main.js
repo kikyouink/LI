@@ -123,24 +123,26 @@
 				new:function(src){
 					var m;
 					if(media.status){
+						console.log(media.status)
 						media.status[0].src=src;	
 						media.status.trigger('load');
 					}
-					else if(media.type=='audio'){
+					else{
+						if(media.type=='audio'){
 						m=$('<audio></audio>');
 						m.attr('src',src);
-					}
-					else{
-						//new Video()无法使用，既然有new Audio为什么不能有new Video
-						m=$('.videoPlayer').put('video','media')
-
-						m.attr({
-							'src':src,
-							type:'video/mp4',
-						});
-					}
-					media.init(m);
-					media.status=m;		
+						}
+						else{
+							//new Video()无法使用，既然有new Audio为什么不能有new Video
+							m=$('.videoPlayer').put('video','media')
+							m.attr({
+								'src':src,
+								'type':'video/mp4',
+							});
+						}
+						media.init(m);
+						media.status=m;
+					}		
 					return media.status;
 				},
 				init:function(m) {
