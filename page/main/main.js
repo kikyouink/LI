@@ -510,7 +510,7 @@
 				var page=$('.page').eq(index);
 				page.addClass('active');
 				if(page.hasClass('page-video')) media.type='video';
-				else media.type='audio';
+				else if(page.hasClass('page-favortiteList')) media.type='audio';
 				ui.statusPage=page;
 
 			});
