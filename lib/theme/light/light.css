@@ -1,14 +1,17 @@
-button{
-	background-color:#337ab7;
+button {
+	background-color: #337ab7;
 	color: white;
 }
-button:hover{
+
+button:hover {
 	background-color: #286090;
 }
-button:active{
+
+button:active {
 	background-color: #337ab7;
 }
-button[disabled]{
+
+button[disabled] {
 	background-color: #85b4dd;
 }
 
@@ -20,11 +23,11 @@ button[disabled]{
 	background-color: #eff4f8;
 }
 
-#slideMenu{
+#slideMenu {
 	border-right: 1px solid #d8dfea;
 }
 
-.playing{
+.playing {
 	border-top: 1px solid #d8dfea;
 }
 
@@ -44,17 +47,18 @@ button[disabled]{
 	color: #424e67;
 }
 
-.favorite_pic{
+.favorite_pic {
 	border: 7px solid rgba(128,128,128,0.7);
 }
 
-tr:hover{
+tr:hover {
 	background: rgb(227,227,229);
 }
 
-th{
+th {
 	border-bottom: 1px solid gray;
 }
+
 .buttons a {
 	background-color: gray;
 }
@@ -63,20 +67,20 @@ th{
 	background: #3b8cff !important;
 }
 
-.uc,.mv{
-	color: white;
+.uc,.mv {
 	border: 1px solid #d8dfea;
+	color: white;
 }
 
 .progress {
 	background: darkgray;
 }
 
-#musicInterface ,#videoInterface{
+#musicInterface ,#videoInterface {
 	background-color: #eff4f8;
 }
 
-#footer{
+#footer {
 	border-top: 1px solid #d8dfea;
 }
 
@@ -84,7 +88,7 @@ th{
 	color: #424e67;
 }
 
-.front,.behind{
-	color: #424e67;
+.front,.behind {
 	background: white;
+	color: #424e67;
 }

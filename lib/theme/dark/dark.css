@@ -1,16 +1,19 @@
-button{
+button {
 	padding: 10px;
-	background:none;
-	border:5px solid rgba(255,255,255,0.2);
+	border: 5px solid rgba(255,255,255,0.2);
+	background: none;
 	color: white;
 }
-button:hover{
+
+button:hover {
 	background-color: rgba(0,0,0,0.2);
 }
-button:active{
+
+button:active {
 	/* background-color: none; */
 }
-button[disabled]{
+
+button[disabled] {
 	background-color: rgba(255,255,255,0.4);
 }
 
@@ -54,27 +57,27 @@ button[disabled]{
 	background: none;
 }
 
-.uc,.mv{
-	border:5px solid rgba(255,255,255,0.1);
+.uc,.mv {
+	border: 5px solid rgba(255,255,255,0.1);
 }
 
-.page.N{
+.page.N {
 	color: rgba(255,255,255,0.8);
 }
 
-.favorite_pic{
+.favorite_pic {
 	border: 7px solid rgba(255,255,255,0.2);
 }
 
-table{
-	color: rgba(255,255,255,0.6)
+table {
+	color: rgba(255,255,255,0.6);
 }
 
-tr:hover{
+tr:hover {
 	background: rgba(0,0,0,0.1);
 }
 
-th{
+th {
 	border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 
@@ -94,7 +97,7 @@ th{
 	background-color: white;
 }
 
-#musicInterface .iconfont ,#videoInterface .iconfont{
+#musicInterface .iconfont ,#videoInterface .iconfont {
 	color: white;
 }
 
@@ -102,32 +105,32 @@ input[type=range]::-webkit-slider-runnable-track {
 	background: rgba(255,255,255,0.6);
 }
 
-.LSlogo{
-	color: rgba(255,255,255,0.8)
+.LSlogo {
+	color: rgba(255,255,255,0.8);
 }
 
-.tab_item{
-	color: rgba(255,255,255,0.6)
+.tab_item {
+	color: rgba(255,255,255,0.6);
 }
 
-.tab_item:hover{
-	color: rgba(255,255,255,0.8)
+.tab_item:hover {
+	color: rgba(255,255,255,0.8);
 }
 
-.tab_item.active{
-	color: rgba(255,255,255,1)
+.tab_item.active {
+	color: rgba(255,255,255,1);
 }
 
-.slider{
-	background: rgba(255,255,255,0.8)
+.slider {
+	background: rgba(255,255,255,0.8);
 }
 
-.front{
+.front {
+	border: 5px solid rgba(255,255,255,0.3);
 	background: none;
-	border:5px solid rgba(255,255,255,0.3);
 }
 
-.front input{
+.front input {
 	background-color: rgba(255,255,255,0.2);
 	color: rgba(255,255,255,1);
 }

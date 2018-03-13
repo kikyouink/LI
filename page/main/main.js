@@ -114,10 +114,10 @@
 				star:function(mediaInfo){
 					var src=mediaInfo.src;
 					media.new(src).trigger('play');
-					if(media.type=='audio'){
-						media.vol.slowUp();
+					if(media.type=='video'){
+						media.showInterface();
 					}
-					else media.showInterface();
+					media.vol.slowUp();
 					media.statusInfo=mediaInfo;
 				},
 				new:function(src){
@@ -252,7 +252,8 @@
 				},
 				updateProgress:function(e){
 					var width=e.pageX-$('.progress').offset().left;
-					media.status[0].currentTime=width*media.status[0].duration/500;
+					var all=media.status[0].duration;	
+					media.status[0].currentTime=width*all/$('.progress').width();
 					$('.progress_active').css('width',width);
 				},
 				updateProgressAuto:function(e){
@@ -261,13 +262,14 @@
 						var sec=parseInt(time%60);
 						return [min,sec].join(':').replace(/\b(\d)\b/g, "0$1");
 					}
-					var all=media.status[0].duration;		
+					var all=media.status[0].duration;
+					var length=$('.progress').width();		
 					$(".time.r").text(getTime(all));
 					setInterval(function(){
 						var all=media.status[0].duration;	
 						var status=media.status[0].currentTime;
 						var precent=status/all;
-						var width=500*precent;
+						var width=length*precent;
 						$('.progress_active').css('width',width);
 						$(".time.l").text(getTime(status));
 					},500);
@@ -440,11 +442,11 @@
 				LS:{
 					show:function(){
 						$('#LSmask').fadeIn();
-						$('#main').addClass('blur');
+						$('#main,#mask').addClass('blur');
 					},
 					hide:function(){
 						$('#LSmask').fadeOut();
-						$('#main').removeClass('blur');
+						$('#main,#mask').removeClass('blur');
 					},
 					preserve:function(callback){
 						$('.front').toggleClass('active');
@@ -646,10 +648,10 @@
 					var mode;
 					if(theme=='red'||theme=='purple') mode='light'
 					else mode='dark';
-					var tsrc='lib/theme/'+theme+'.css';
-					var msrc='lib/theme/'+mode+'.css';
-					$('#theme').attr('href',tsrc);
+					var msrc='lib/theme/'+mode+'/'+mode+'.css';
+					var tsrc='lib/theme/'+mode+'/'+theme+'.css';
 					$('#mode').attr('href',msrc);
+					$('#theme').attr('href',tsrc);
 					storage.save('theme',theme);
 				},
 				change:function(theme){
