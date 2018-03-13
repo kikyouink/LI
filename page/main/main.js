@@ -113,7 +113,7 @@
 				},
 				star:function(mediaInfo){
 					var src=mediaInfo.src;
-					media.new(src).play();
+					media.new(src).trigger('play');
 					if(media.type=='audio'){
 						media.vol.slowUp();
 					}
@@ -123,19 +123,21 @@
 				new:function(src){
 					var m;
 					if(media.status){
-						media.status.src=src;	
-						media.status.load();
+						media.status[0].src=src;	
+						media.status.trigger('load');
 					}
 					else if(media.type=='audio'){
-						m=new Audio(src);
+						m=$('<audio></audio>');
+						m.attr('src',src);
 					}
 					else{
 						//new Video()无法使用，既然有new Audio为什么不能有new Video
-						m=document.createElement('video');
-						m.src=src;
-						m.className='media';
-						m.type='video/mp4';
-						$('.videoPlayer')[0].appendChild(m);
+						m=$('.videoPlayer').put('video','media')
+						
+						m.attr({
+							'src':src,
+							type:'video/mp4',
+						});
 					}
 					media.init(m);
 					media.status=m;		
@@ -166,21 +168,21 @@
 						onended:()=>{
 							media.next();
 						},
-					}
+					};
 					for(var i in obj){
-						m[i]=obj[i];
+						m[0][i]=obj[i];
 					}
 				},
 				//从头播放
 				continue:function(){
-					media.status.play();
+					media.status.trigger('play');
 					media.vol.slowUp();
 					media.toggle();
 				},
 				pause:function(){
 					media.toggle();
 					media.vol.slowDown(function(){
-						media.status.pause();
+						media.status.trigger('pause');
 					});
 				},
 				next:function(){
@@ -250,11 +252,11 @@
 						var sec=parseInt(time%60);
 						return [min,sec].join(':').replace(/\b(\d)\b/g, "0$1");
 					}
-					var all=media.status.duration;		
+					var all=media.status[0].duration;		
 					$(".time.r").text(getTime(all));
 					setInterval(function(){
-						var all=media.status.duration;	
-						var status=media.status.currentTime;
+						var all=media.status[0].duration;	
+						var status=media.status[0].currentTime;
 						var precent=status/all;
 						var width=500*precent;
 						$('.progress_active').css('width',width);
@@ -276,15 +278,15 @@
 				vol:{
 					change:(value)=>{
 						if(!media.status) return ;
-						media.status.volume=value;
+						media.status[0].volume=value;
 						$('.icon-mute').removeClass('icon-mute').addClass('icon-vol');
 					},
 					slowUp:function(){
-						media.status.volume=0;
+						media.status[0].volume=0;
 						var limit=$('.vc')[0].value;
 						var timer=setInterval(function(){
-							if(media.status.volume<Math.min(limit,0.95)){
-								media.status.volume+=0.05;
+							if(media.status[0].volume<Math.min(limit,0.95)){
+								media.status[0].volume+=0.05;
 								window.uping=false;
 							}
 							else{
@@ -294,8 +296,8 @@
 					},
 					slowDown:function(callback){
 						var timer=setInterval(function(){
-							if(media.status.volume>0.05){
-								media.status.volume-=0.05;
+							if(media.status[0].volume>0.05){
+								media.status[0].volume-=0.05;
 							}
 							else{
 								clearInterval(timer);
@@ -304,12 +306,12 @@
 						},60);
 					},
 					toggle:function(){
-						if(media.status.volume!=0){
-							media.status.volume=0;
+						if(media.status[0].volume!=0){
+							media.status[0].volume=0;
 							$('.icon-vol').removeClass('icon-vol').addClass('icon-mute');
 						}
 						else{
-							media.status.volume=$('.vc')[0].value;
+							media.status[0].volume=$('.vc')[0].value;
 							$('.icon-mute').removeClass('icon-mute').addClass('icon-vol');
 						}
 					}
@@ -352,7 +354,7 @@
 				}
 			})
 			$('.playGroup').on('click','.icon-pause',function(){
-				media.pause();
+				media.trigger('pause');
 			})
 			$('.icon-next').click(function(){
 				media.next();
@@ -507,7 +509,7 @@
 				var page=$('.page').eq(index);
 				page.addClass('active');
 				if(page.hasClass('page-video')) media.type='video';
-				else media.type=audio;
+				else media.type='audio';
 				ui.statusPage=page;
 
 			});
