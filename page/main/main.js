@@ -123,7 +123,6 @@
 				new:function(src){
 					var m;
 					if(media.status&&media.status[0].tagName.toLocaleLowerCase()==media.type){
-						console.log(media.status[0].tagName.toLocaleLowerCase());
 						media.status[0].src=src;	
 						media.status.trigger('load');
 					}
@@ -156,7 +155,7 @@
 							media.reset();
 						},
 						onloadedmetadata:()=>{
-							media.updateProgress();
+							media.updateProgressAuto();
 						},
 						oncanplay:()=>{
 							media.toggle();
@@ -164,6 +163,7 @@
 						},					
 						onerror:()=>{
 							console.error('加载出错...');
+							this.next();
 						},
 						onstalled:()=>{
 							$('.dot').addClass('active');
@@ -250,7 +250,12 @@
 					$('.songName').text(mediaInfo.song);
 					$('.singer').text(mediaInfo.singer);
 				},
-				updateProgress:function(){
+				updateProgress:function(e){
+					var width=e.pageX-$('.progress').offset().left;
+					media.status[0].currentTime=width*media.status[0].duration/500;
+					$('.progress_active').css('width',width);
+				},
+				updateProgressAuto:function(e){
 					var getTime=function(time){
 						var min=parseInt(time/60);
 						var sec=parseInt(time%60);
@@ -264,10 +269,10 @@
 						var precent=status/all;
 						var width=500*precent;
 						$('.progress_active').css('width',width);
-						
 						$(".time.l").text(getTime(status));
 					},500);
 				},
+
 				reset:function(){					
 					$('.progress_active').removeAttr('style');
 					var pause=$('.icon-pause');
@@ -344,8 +349,7 @@
 					media.continue();
 				}
 				else{
-					console.log(ui.statusPage);
-					if(!ui.statusPage.hasClass('page_video')){
+					if(media.type=='audio'){
 						var mediaInfo=media.favoriteList[0];
 						media.type='audio';
 						media.star(mediaInfo);
@@ -378,6 +382,9 @@
 			$('.icon-back').click(function(){
 				media.hideInterface();
 			});
+			$('.progress').click(function(e){
+				media.updateProgress(e);
+			});
 			//调整音量
 			$('.vc').on('input propertychange',function(){
 			   var value=$(this)[0].value;
@@ -406,7 +413,6 @@
 		//系统UI
 		(function(){
 			let ui={
-				statusPage:null,
 				full:function(){
 					$('#container').removeAttr('style').toggleClass('full');
 				},
