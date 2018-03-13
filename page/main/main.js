@@ -123,7 +123,6 @@
 				new:function(src){
 					var m;
 					if(media.status){
-						console.log(media.status)
 						media.status[0].src=src;	
 						media.status.trigger('load');
 					}
