@@ -122,14 +122,17 @@
 				},
 				new:function(src){
 					var m;
-					if(media.status){
+					if(media.status&&media.status[0].tagName.toLocaleLowerCase()==media.type){
+						console.log(media.status[0].tagName.toLocaleLowerCase());
 						media.status[0].src=src;	
 						media.status.trigger('load');
 					}
 					else{
+						if(media.status) media.status.remove();
 						if(media.type=='audio'){
-						m=$('<audio></audio>');
-						m.attr('src',src);
+							m=$('<audio></audio>');
+							m.attr('src',src);
+							$('#mask').append(m);
 						}
 						else{
 							//new Video()无法使用，既然有new Audio为什么不能有new Video
@@ -141,7 +144,7 @@
 						}
 						media.init(m);
 						media.status=m;
-					}		
+					}
 					return media.status;
 				},
 				init:function(m) {
@@ -385,12 +388,14 @@
 			});
 			//播放favoriteList
 			$('table').on('click','tr',function(){
+				media.type='audio';
 				var index=$(this).index()-1;
 				var mediaInfo=media.favoriteList[index];
 				media.star(mediaInfo);
 			});
 			//播放mvList
 			$('.mvList').on('click','.mv',function(){
+				media.type='video';
 				var index=$(this).index();
 				var mediaInfo=media.mvList[index];
 				media.star(mediaInfo);
@@ -509,8 +514,6 @@
 				if($(this).getParent(2).index()==1) index+=4;
 				var page=$('.page').eq(index);
 				page.addClass('active');
-				if(page.hasClass('page-video')) media.type='video';
-				else if(page.hasClass('page-favortiteList')) media.type='audio';
 				ui.statusPage=page;
 
 			});
