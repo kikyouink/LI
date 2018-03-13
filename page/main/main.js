@@ -133,7 +133,7 @@
 					else{
 						//new Video()无法使用，既然有new Audio为什么不能有new Video
 						m=$('.videoPlayer').put('video','media')
-						
+
 						m.attr({
 							'src':src,
 							type:'video/mp4',
@@ -354,7 +354,7 @@
 				}
 			})
 			$('.playGroup').on('click','.icon-pause',function(){
-				media.trigger('pause');
+				media.pause();
 			})
 			$('.icon-next').click(function(){
 				media.next();
