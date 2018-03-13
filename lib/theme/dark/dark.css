@@ -58,7 +58,7 @@ button[disabled] {
 }
 
 .uc,.mv {
-	border: 5px solid rgba(255,255,255,0.1);
+	border: 5px solid rgba(255,255,255,0.2);
 }
 
 .page.N {
@@ -133,4 +133,22 @@ input[type=range]::-webkit-slider-runnable-track {
 .front input {
 	background-color: rgba(255,255,255,0.2);
 	color: rgba(255,255,255,1);
+}
+
+.segment a{
+	border-color: rgba(255,255,255,0.5);
+}
+
+.segment a:hover,.segment a.active{
+	background: rgba(0,0,0,0.2);
+	color: rgba(255,255,255,0.8);
+}
+
+.comment{
+	border-color: rgba(255,255,255,0.1);
+	border-style: solid;
+}
+
+.c_input{
+	border: 10px solid rgba(0,0,0,0.2);
 }

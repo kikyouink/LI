@@ -114,7 +114,7 @@ input {
 /*---------------主容器------------------*/
 #container {
 	position: absolute;
-	top: 60px;
+	top: 5%;
 	left: calc(50% - 530px);
 	width: 1060px;
 	height: 700px;
@@ -314,7 +314,7 @@ input {
 	top: 0;
 	left: calc(50% - 250px);
 	list-style: none;
-	transition: all 0.3s ease-out;
+	transition: all 0.5s ease-out;
 }
 
 .picimg {
@@ -372,7 +372,7 @@ input {
 }
 
 h3 {
-	margin-left: 20px;
+	margin: 4px 20px;
 }
 
 .playList {
@@ -429,14 +429,46 @@ h3 {
 	background: rgba(0,0,0,.4);
 }
 
+.segment{
+	width: 310px;
+	/* height: 32px; */
+	margin: 20px auto;
+	border-width: 0 2px 0 0;
+	box-sizing: border-box;
+}
+
+.segment a{
+	width: 100px;
+	display: block;
+	float: left;
+	line-height: 30px;
+	text-align: center;
+	border-width: 2px 0px 2px 2px;
+	border-style: solid;
+}
+.segment a:first-child{
+	border-radius:10px 0 0 10px;
+}
+
+.segment a:last-child{
+	border-width: 2px;
+	border-radius: 0 10px 10px 0;
+}
+
 .mvList {
-	height: 200px;
+	height: 100%;
+	max-width: 1060px;
+	margin: 0 auto;
+	flex-wrap: wrap;
+	align-content: flex-start;
+	padding: 10px;
 }
 
 .mv {
 	position: relative;
 	width: 260px;
 	height: 150px;
+	margin: 10px 5px;
 }
 
 /*---------------播放列表------------------*/
@@ -604,6 +636,7 @@ input[type=range]::-webkit-slider-thumb {
 
 #mask {
 	height: 100%;
+	overflow: auto;
 }
 
 .mtitle {
@@ -620,7 +653,7 @@ input[type=range]::-webkit-slider-thumb {
 
 .rt {
 	position: relative;
-	height: 314px;
+	height: 380px;
 }
 
 @keyframes rotating {
@@ -659,6 +692,38 @@ input[type=range]::-webkit-slider-thumb {
 	border-radius: 50%;
 	background-size: contain;
 	background-repeat: no-repeat;
+}
+
+.commentList{
+	margin-top: 40px;
+	width: 700px;
+	margin: 30px auto;
+}
+.comment{
+	height: auto;
+	border-width: 0 0 1px 0;
+	position: relative;
+	width: 100%;
+	min-height: 75px;
+}
+
+.avatar{
+	border-radius: 50%;
+	width: 50px;
+	height: 50px;
+	float: left;
+	margin: 5px;
+	box-shadow: 0 0 5px black;
+}
+
+.content{
+	padding: 10px 5px;
+	width:600px;
+}
+
+.c_input{
+	width: 100%;
+	margin:20px 0;
 }
 
 .videoPlayer {
