@@ -30,7 +30,7 @@
 						song: '你要的全拿走',
 						singer: '胡彦斌',
 						count: 87,
-						src: 'http://v4.music.126.net/20180313144202/3c317a9e3773bfa360b424a023deb0b0/web/cloudmusic/MDAgIDEyIGImICAkMDQwIA==/mv/5779938/efd1c9ae0b810af325b4604cdf94eb1a.mp4',
+						src: 'http://v4.music.126.net/20180313223507/5fdf0cc5ce591f85ed23fecfff99427d/web/cloudmusic/MDAgIDEyIGImICAkMDQwIA==/mv/5779938/efd1c9ae0b810af325b4604cdf94eb1a.mp4',
 						picSrc: 'http://p1.music.126.net/NGh_kn3yNoCDAvsBQqliTA==/109951163108885378.jpg?param=260y150',
 					}, {
 						song: 'Faded',
@@ -48,7 +48,7 @@
 						song: 'We are young',
 						singer: 'Fun./Janelle Monáe',
 						count: 765,
-						src: 'http://v4.music.126.net/20180313182543/7b992f1a1ad950dc0a8ef1d1dfab15a2/web/cloudmusic/IGQgJCUxJSYwIDAgJDAkMA==/mv/==/31126/20140428195206/2269391999773727_720.mp4',
+						src: 'http://v4.music.126.net/20180313223754/326925492dd382d3afeaca30938efe07/web/cloudmusic/IGQgJCUxJSYwIDAgJDAkMA==/mv/==/31126/20140428195206/2269391999773727_720.mp4',
 						picSrc: 'http://p1.music.126.net/7I1umlwhYaFPoeHuSXFbJA==/6068204673695852.jpg?param=260y150',
 					},
 
