@@ -2,9 +2,6 @@
 	$(document).ready(function () {
 		//准备工作
 		console.log('Github网速报警系统');
-		//自适应
-		if ($(window).height() <= 600) $('#container').css('zoom', 0.8);
-		if ($(window).height() <= 670 && $(window).height() > 600) $('#container').css('zoom', 0.9);
 
 		//媒体组件
 		(function () {
@@ -36,7 +33,7 @@
 						song: 'Faded',
 						singer: 'Alan Walker',
 						count: 1615,
-						src: 'http://sh.yinyuetai.com/uploads/videos/common/94A70158C89803AA0ABDF1D333B9619E.mp4?sc=1889b83d65ff2660&br=6160&vid=2742675&aid=30337&area=US&vst=4',
+						src: 'http://sh.yinyuetai.com/uploads/videos/common/F9EC015C4E0DC769FC7480ABFEA8B8C3.mp4?sc=8a25e482d49010a0&br=6166&vid=2873483&aid=39583&area=US&vst=4',
 						picSrc: 'http://p1.music.126.net/Ty1U14s4cfK3FyIJCyPoyQ==/3264450030324198.jpg?param=260y150',
 					}, {
 						song: 'Good Time',
