@@ -6,10 +6,11 @@
 		//媒体组件
 		(function () {
 			let media = {
-				status: null,
-				statusInfo: null,
 				type: 'audio',
 				playMode: 'loop',
+				status: null,
+				statusInfo: null,
+				url:"http://localhost/page/main/main.php/",
 				mvList: [
 					{
 						singer: '薛之谦',
@@ -512,6 +513,11 @@
 					}
 				},
 				creatPlayList: function () {
+					// 本地服务器暂时无法演示
+					// $.post(media.url,'playListRq',function(result){
+					// 	console.log(result);
+					// 	media.playList=result;
+					// },'json');
 					$('.playList').putDiv('uc', '', 5);
 					for (var i = 0; i < media.playList.length; i++) {
 						var uc = $('.uc').eq(i);

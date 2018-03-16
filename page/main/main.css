@@ -122,6 +122,7 @@ input {
 	box-shadow: 10px 10px 50px gray;
 	transition: all 0.5s;
 }
+
 /* 响应式缩放 */
 @media screen and (max-height:650px){
 	#container {
