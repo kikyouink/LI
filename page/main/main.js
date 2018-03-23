@@ -154,14 +154,8 @@
 					console.log('media.statusInfo: ' + media.statusInfo.singer);
 				},
 				prepare: function () {
-					if (media.type == 'audio') {
-						media.updateInfo(media.favoriteList[0]);
-						media.statusInfo = media.favoriteList[0];
-					}
-					else {
-						media.updateInfo(media.mvList[0]);
-						media.statusInfo = media.mvList[0];
-					}
+					media.updateInfo(media.favoriteList[0]);
+					media.statusInfo = media.favoriteList[0];
 				},
 				star: function (mediaInfo) {
 					var src = mediaInfo.src;
@@ -397,6 +391,7 @@
 			window.media = media;
 
 			media.prepare();
+			//按钮组
 			//为什么这么写？因为.pause是后来添加的类名，在此之前声明的方法无效
 			$('.playGroup').on('click', '.icon-play', function () {
 				if (media.status) {
@@ -433,9 +428,11 @@
 			$('.musicPic').click(function () {
 				media.showInterface();
 			});
+			//返回
 			$('.icon-back').click(function () {
 				media.hideInterface();
 			});
+			//点击进度条直接切换时间
 			$('.progress').click(function (e) {
 				media.updateProgress(e);
 			});
@@ -444,17 +441,18 @@
 				var value = $(this)[0].value;
 				media.vol.change(value);
 			})
+			//静音
 			$('.icon-vol').click(function () {
 				media.vol.toggle();
 			});
-			//播放favoriteList
+			//播放歌单
 			$('table').on('click', 'tr', function () {
 				media.type = 'audio';
 				var index = $(this).index() - 1;
 				var mediaInfo = media.favoriteList[index];
 				media.star(mediaInfo);
 			});
-			//播放mvList
+			//播放MV
 			$('.mvList').on('click', '.mv', function () {
 				media.type = 'video';
 				var index = $(this).index();
@@ -602,13 +600,15 @@
 			$('.icon-full').click(ui.full);
 			$('#header').dblclick(ui.full);
 			$('#LSmask').click(ui.LS.hide);
-
+			//主界面拖动
 			$('#header').on('mousedown', function (e) {
 				ui.container.move(e);
 			});
+			//阻止冒泡
 			$('#LSmask *').click(function () {
 				return false;
 			})
+			//登录界面左右滑动
 			$('.slide').click(function () {
 				$('.slide.active,.page.active').removeClass('active');
 				$(this).addClass('active');
@@ -618,10 +618,6 @@
 				page.addClass('active');
 				ui.statusPage = page;
 
-			});
-			$('.segment a').click(function () {
-				$(this).siblings().removeClass('active');
-				$(this).addClass('active');
 			});
 			$('.tab_item').click(function () {
 				$(this).addClass('active');
@@ -635,6 +631,10 @@
 				$('.formGroup').animate({
 					marginLeft: number2
 				});
+			});
+			$('.segment a').click(function () {
+				$(this).siblings().removeClass('active');
+				$(this).addClass('active');
 			});
 
 		}());
@@ -684,12 +684,14 @@
 				},
 			}
 			window.net = net;
+			//点击弹出登录界面
 			$('.user').click(function () {
 				var bool = net.checkLogin();
 				if (!bool) {
 					ui.LS.show();
 				}
 			});
+			//提交数据
 			$('.sumbit').click(function () {
 				//设置禁用->防止多次提交
 				var that = $(this);
@@ -765,6 +767,7 @@
 			}
 			window.theme = theme;
 			theme.init();
+			//切换主题
 			$('.icon-skin').click(function () {
 				theme.Next();
 			});
