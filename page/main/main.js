@@ -3,7 +3,7 @@
 		//准备工作
 		console.log('Github网速报警系统');
 
-		//媒体组件
+		//媒体组
 		(function () {
 			let media = {
 				type: 'audio',
@@ -464,7 +464,7 @@
 
 		}());
 
-		//系统UI
+		//UI
 		(function () {
 			let ui = {
 				full: function () {
@@ -735,7 +735,7 @@
 			window.storage = storage;
 		}());
 
-		//主题组件
+		//主题
 		(function () {
 			let theme = {
 				list: ['red', 'purple', 'glass', 'star'],
