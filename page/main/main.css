@@ -734,6 +734,10 @@ input[type=range]::-webkit-slider-thumb {
 	width:600px;
 }
 
+.content p,.content span{
+	font-size: 14px;
+}
+
 .c_input{
 	width: 100%;
 	margin:20px 0;
