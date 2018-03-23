@@ -512,6 +512,26 @@
 
 					}
 				},
+				flash:{
+					init: function () {
+	
+					},
+					next: function (time) {
+						var index = 0;
+						var li = ["p5", "p4", "p3", "p2", "p1"];
+						setInterval(function () {
+							index++;
+							li.push(li[0]);
+							li.shift();
+							$('.pic').each(function (i, e) {
+								$(e).removeClass().addClass('pic ' + li[i]);
+							})
+							var active = $('.buttons').children().eq(index);
+							active.addClass('blue').siblings().removeClass('blue');
+							if (index > 3) index = -1;
+						}, time);
+					},
+				},
 				creatPlayList: function () {
 					// 本地服务器暂时无法演示
 					// $.post(media.url,'playListRq',function(result){
@@ -570,11 +590,14 @@
 				}
 			}
 			window.ui = ui;
-
+			//创建列表
 			ui.creatFavoriteList();
 			ui.creatPlayList();
 			ui.creatMvList();
 			ui.creatCommentList();
+			//轮播
+			ui.flash.init();
+			ui.flash.next(3000);
 
 			$('.icon-full').click(ui.full);
 			$('#header').dblclick(ui.full);
@@ -745,32 +768,6 @@
 			$('.icon-skin').click(function () {
 				theme.Next();
 			});
-		}());
-
-		//轮播组件
-		(function () {
-			let flash = {
-				init: function () {
-
-				},
-				next: function (time) {
-					var index = 0;
-					var li = ["p5", "p4", "p3", "p2", "p1"];
-					setInterval(function () {
-						index++;
-						li.push(li[0]);
-						li.shift();
-						$('.pic').each(function (i, e) {
-							$(e).removeClass().addClass('pic ' + li[i]);
-						})
-						var active = $('.buttons').children().eq(index);
-						active.addClass('blue').siblings().removeClass('blue');
-						if (index > 3) index = -1;
-					}, time);
-				},
-			};
-			flash.init();
-			flash.next(3000);
 		}());
 
 	});
