@@ -658,12 +658,11 @@
 				},
 				sign: function (obj, callback) {
 					obj.type = 'sign';
-					this.post(obj, '注册成功', callback);
+					net.post(obj, '注册成功', callback);
 				},
 				login: function (obj, callback) {
 					obj.type = 'login';
-					console.log(this);
-					this.post(obj, '登录成功', callback);
+					net.post(obj, '登录成功', callback);
 				},
 				post: function (obj, prompt, callback) {
 					// var url="http://localhost/page/main/main.php/";
@@ -742,27 +741,27 @@
 			let theme = {
 				list: ['red', 'purple', 'glass', 'star'],
 				init: function () {
-					var theme = storage.get('theme') || 'red';
-					this.apply(theme);
+					var skin = storage.get('theme') || 'red';
+					theme.apply(skin);
 				},
 				//兼容火狐，火狐不支持disabled
-				apply: function (theme) {
+				apply: function (skin) {
 					var mode;
-					if (theme == 'red' || theme == 'purple') mode = 'light'
+					if (skin == 'red' || skin == 'purple') mode = 'light'
 					else mode = 'dark';
 					var msrc = 'lib/theme/' + mode + '/' + mode + '.css';
-					var tsrc = 'lib/theme/' + mode + '/' + theme + '.css';
+					var tsrc = 'lib/theme/' + mode + '/' + skin + '.css';
 					$('#mode').attr('href', msrc);
 					$('#theme').attr('href', tsrc);
-					storage.save('theme', theme);
+					storage.save('theme', skin);
 				},
-				change: function (theme) {
-					this.apply(theme);
+				change: function (skin) {
+					theme.apply(skin);
 				},
 				Next: function () {
-					var theme = storage.get('theme') || 'red';
-					var themeNext = this.list.findNext(theme);
-					this.apply(themeNext);
+					var skin = storage.get('theme') || 'red';
+					var themeNext = theme.list.findNext(skin);
+					theme.apply(themeNext);
 				},
 			}
 			window.theme = theme;
